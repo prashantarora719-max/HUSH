@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hush — private voice dictation for Mac</title>
+<meta name="description" content="Hush turns your speech into clean text in any app on your Mac. Fully on-device: no cloud, no account, no subscription. Works offline.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,460;0,9..144,560;1,9..144,340&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#101317; --ink2:#151a20; --ink3:#1b222a;
+  --line:#252d37; --line-soft:#1e252e;
+  --text:#eaedf1; --mut:#96a0ab; --dim:#5f6a76;
+  --amber:#e8b36a; --amber-deep:#c98f45; --amber-ink:#2a2014;
+  --good:#93c9a7; --bad:#c98484;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text);font-family:"DM Sans",sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+::selection{background:var(--amber);color:var(--amber-ink)}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible,.key:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+h1,h2,h3,.serif{font-family:"Fraunces",serif;font-weight:460;letter-spacing:-0.01em}
+.mono{font-family:"JetBrains Mono",monospace}
+
+nav{position:sticky;top:0;z-index:50;background:rgba(16,19,23,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-soft)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:"Fraunces",serif;font-size:22px;font-weight:560;letter-spacing:-.02em}
+.logo em{color:var(--amber);font-style:normal}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:15px;color:var(--mut)}
+.nav-links a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:var(--amber-ink);font-weight:500;font-size:15px;padding:10px 18px;border-radius:10px;transition:transform .15s ease, background .15s ease}
+.btn:hover{background:#f0c184;transform:translateY(-1px)}
+.btn.big{font-size:17px;padding:14px 26px;border-radius:12px}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--dim);background:var(--ink2)}
+@media(max-width:720px){.nav-links a.hide-m{display:none}}
+
+.hero{padding:88px 0 40px;text-align:center;position:relative;overflow:hidden}
+.hero .glow{position:absolute;left:50%;top:-140px;transform:translateX(-50%);width:680px;height:420px;background:radial-gradient(closest-side,rgba(232,179,106,.10),transparent 70%);pointer-events:none}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
+.hero h1{font-size:clamp(38px,6vw,62px);line-height:1.08;margin:18px auto 20px;max-width:760px}
+.hero h1 .soft{font-style:italic;font-weight:340;color:var(--mut)}
+.hero p.lead{color:var(--mut);font-size:19px;max-width:560px;margin:0 auto 34px}
+.hero .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.tiny{font-size:13.5px;color:var(--dim)}
+
+.demo{max-width:640px;margin:56px auto 0;background:var(--ink2);border:1px solid var(--line);border-radius:20px;padding:34px 30px 30px;text-align:center;position:relative}
+.demo .hint{font-size:14px;color:var(--mut);margin-bottom:22px}
+.key{user-select:none;-webkit-user-select:none;cursor:pointer;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;width:150px;height:96px;border-radius:16px;background:linear-gradient(180deg,#232b34,#1a212a);border:1px solid #313b47;border-bottom-width:4px;transition:transform .08s ease,border-color .2s,box-shadow .3s;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.key .cap{font-size:30px;line-height:1}
+.key .lbl{font-size:12px;color:var(--mut);margin-top:6px;font-family:"JetBrains Mono",monospace;letter-spacing:.06em}
+.key.held{transform:translateY(3px);border-bottom-width:1px;border-color:var(--amber-deep);box-shadow:0 0 0 1px var(--amber-deep),0 0 34px rgba(232,179,106,.28)}
+.wave{display:flex;gap:4px;align-items:center;justify-content:center;height:34px;margin:24px 0 6px}
+.wave i{width:3.5px;height:4px;border-radius:3px;background:var(--dim);transition:background .25s}
+.demo.rec .wave i{background:var(--amber);animation:bounce .9s ease-in-out infinite}
+.demo.rec .wave i:nth-child(2n){animation-delay:.12s}.demo.rec .wave i:nth-child(3n){animation-delay:.24s}.demo.rec .wave i:nth-child(5n){animation-delay:.36s}
+@keyframes bounce{0%,100%{height:4px}50%{height:26px}}
+.script{min-height:88px;display:flex;align-items:center;justify-content:center;padding:8px 10px}
+.script p{font-size:17.5px;max-width:480px;color:var(--mut);transition:color .3s}
+.script p.clean{color:var(--text);font-family:"Fraunces",serif;font-size:20px}
+.stage{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);height:16px;display:block;margin-top:4px}
+.stage.on{color:var(--amber)}
+
+section{padding:84px 0}
+.sec-head{text-align:center;max-width:620px;margin:0 auto 52px}
+.sec-head h2{font-size:clamp(28px,4vw,40px);margin:14px 0 14px}
+.sec-head p{color:var(--mut)}
+.hr{height:1px;background:var(--line-soft);max-width:1060px;margin:0 auto}
+
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--ink2);border:1px solid var(--line-soft);border-radius:var(--radius);padding:28px 26px}
+.card h3{font-size:21px;margin:14px 0 10px}
+.card p{color:var(--mut);font-size:15.5px}
+.pic{width:42px;height:42px;border-radius:12px;background:var(--ink3);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:19px}
+@media(max-width:860px){.pillars{grid-template-columns:1fr}}
+
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+.mode{background:var(--ink2);border:1px solid var(--line-soft);border-radius:var(--radius);padding:24px}
+.mode.reco{border-color:var(--amber-deep)}
+.mode .tag{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;display:block}
+.mode h3{font-size:19px;margin-bottom:8px}
+.mode p{font-size:14.5px;color:var(--mut)}
+.mode .ex{margin-top:16px;padding:12px 14px;background:var(--ink);border-radius:10px;font-size:13.5px;color:var(--mut);border:1px solid var(--line-soft)}
+.mode .ex b{color:var(--text);font-weight:500}
+@media(max-width:860px){.modes{grid-template-columns:1fr}}
+
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line-soft);border-radius:var(--radius);background:var(--ink2)}
+table{width:100%;border-collapse:collapse;font-size:15px;min-width:640px}
+th,td{padding:15px 18px;text-align:center;border-bottom:1px solid var(--line-soft)}
+tr:last-child td{border-bottom:none}
+th{font-weight:500;color:var(--mut);font-size:14px}
+td:first-child,th:first-child{text-align:left;color:var(--text)}
+th.hush,td.hush{background:rgba(232,179,106,.05)}
+th.hush{color:var(--amber);font-family:"Fraunces",serif;font-size:17px}
+.yes{color:var(--good)}.no{color:var(--bad)}.meh{color:var(--dim)}
+.foot-note{font-size:13px;color:var(--dim);margin-top:14px;text-align:center}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.step{background:var(--ink2);border:1px solid var(--line-soft);border-radius:var(--radius);padding:26px}
+.step .n{font-family:"Fraunces",serif;font-style:italic;font-size:15px;color:var(--amber)}
+.step h3{font-size:20px;margin:10px 0 8px}
+.step p{font-size:15px;color:var(--mut)}
+.kbd{font-family:"JetBrains Mono",monospace;font-size:13px;background:var(--ink3);border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:2px 8px;color:var(--text)}
+@media(max-width:860px){.steps{grid-template-columns:1fr}}
+
+.pipe{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:44px;font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--mut)}
+.pipe span{background:var(--ink2);border:1px solid var(--line-soft);padding:9px 14px;border-radius:9px}
+.pipe i{color:var(--dim);font-style:normal}
+.pipe .stay{border-color:var(--amber-deep);color:var(--amber)}
+
+.setup{max-width:680px;margin:0 auto}
+.setup li{list-style:none;display:flex;gap:18px;padding:22px 0;border-bottom:1px solid var(--line-soft)}
+.setup li:last-child{border-bottom:none}
+.setup .sn{font-family:"Fraunces",serif;font-style:italic;color:var(--amber);font-size:18px;min-width:26px;padding-top:1px}
+.setup h3{font-size:18px;margin-bottom:6px}
+.setup p{color:var(--mut);font-size:15px}
+
+.faq{max-width:680px;margin:0 auto}
+details{border-bottom:1px solid var(--line-soft);padding:6px 0}
+summary{cursor:pointer;font-size:17px;font-weight:500;padding:16px 0;list-style:none;display:flex;justify-content:space-between;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";color:var(--amber);font-size:20px;font-weight:400;transition:transform .2s}
+details[open] summary:after{transform:rotate(45deg)}
+details p{color:var(--mut);font-size:15.5px;padding:0 0 18px}
+
+.band{text-align:center;background:var(--ink2);border:1px solid var(--line-soft);border-radius:22px;padding:64px 30px;position:relative;overflow:hidden}
+.band .glow{position:absolute;left:50%;bottom:-160px;transform:translateX(-50%);width:560px;height:320px;background:radial-gradient(closest-side,rgba(232,179,106,.12),transparent 70%);pointer-events:none}
+.band h2{font-size:clamp(28px,4vw,40px);margin-bottom:14px}
+.band p{color:var(--mut);margin-bottom:30px}
+
+footer{padding:42px 0 60px;color:var(--dim);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:var(--mut)}footer a:hover{color:var(--text)}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap nav-in">
+  <a class="logo" href="#top">hush<em>.</em></a>
+  <div class="nav-links">
+    <a href="#why" class="hide-m">Why Hush</a>
+    <a href="#compare" class="hide-m">Compare</a>
+    <a href="#how" class="hide-m">How it works</a>
+    <a class="btn" href="hush.zip" download>Download</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <span class="eyebrow">On-device dictation for Mac</span>
+    <h1>Speak your mind.<br><span class="soft">It stays on your Mac.</span></h1>
+    <p class="lead">Hold a key, talk naturally, release. Clean text appears wherever your cursor is — in any app, with zero cloud, zero account, zero subscription.</p>
+    <div class="cta-row">
+      <a class="btn big" href="hush.zip" download>Download for Mac — free</a>
+      <a class="btn big ghost" href="#how">See how it works</a>
+    </div>
+    <p class="tiny">Apple Silicon (M1–M4) · macOS · Works fully offline</p>
+
+    <div class="demo" id="demo">
+      <p class="hint">Try the feel of it — click and hold the key below, then let go.</p>
+      <div class="key" id="key" role="button" tabindex="0" aria-label="Hold to simulate dictation">
+        <span class="cap">&#8997;</span>
+        <span class="lbl">HOLD ME</span>
+      </div>
+      <div class="wave" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <div class="script"><p id="scriptText">Press and hold. Speak as messily as you like.</p></div>
+      <span class="stage" id="stage"></span>
+    </div>
+  </div>
+</header>
+
+<div class="hr"></div>
+
+<section id="why"><div class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">Why Hush</span>
+    <h2>Dictation apps got fast.<br>Then they got nosy.</h2>
+    <p>Most modern dictation tools stream your voice to cloud servers, charge a monthly fee, and quietly rewrite what you said. Hush takes the opposite path.</p>
+  </div>
+  <div class="pillars">
+    <div class="card">
+      <div class="pic">&#128274;</div>
+      <h3>Nothing leaves your Mac</h3>
+      <p>The speech model runs on your own Apple Silicon chip. No audio uploads, no screenshots of your screen, no account. Dictate contracts, client notes, or your diary with a clear conscience.</p>
+    </div>
+    <div class="card">
+      <div class="pic">&#9992;&#65039;</div>
+      <h3>Works offline, anywhere</h3>
+      <p>On a flight, in a basement, on hotel Wi-Fi that barely loads a page — Hush doesn't care. After a one-time setup download, it never needs the internet again.</p>
+    </div>
+    <div class="card">
+      <div class="pic">&#127899;&#65039;</div>
+      <h3>You control the edit</h3>
+      <p>Choose how much cleanup you want: raw transcript, light tidy-up, or a full AI rewrite that also runs locally. Your words stay yours — Hush never silently rewrites you.</p>
+    </div>
+  </div>
+
+  <div class="modes">
+    <div class="mode">
+      <span class="tag">Mode 1</span>
+      <h3>Off</h3>
+      <p>Exactly what you said, word for word. For quotes, verbatim notes, and people who hate being edited.</p>
+      <div class="ex">"um so the renewal is due on the tenth"</div>
+    </div>
+    <div class="mode reco">
+      <span class="tag">Mode 2 · default</span>
+      <h3>Light</h3>
+      <p>Removes ums and uhs, fixes punctuation and capitalisation. Never rephrases you.</p>
+      <div class="ex"><b>"So the renewal is due on the tenth."</b></div>
+    </div>
+    <div class="mode">
+      <span class="tag">Mode 3</span>
+      <h3>Full</h3>
+      <p>A local AI applies your self-corrections and polishes phrasing — still entirely on your Mac.</p>
+      <div class="ex"><b>"The renewal is due on the 10th."</b></div>
+    </div>
+  </div>
+</div></section>
+
+<div class="hr"></div>
+
+<section id="compare"><div class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">Compare</span>
+    <h2>How Hush stacks up</h2>
+    <p>A fair look at the popular options, based on each product's own published details.</p>
+  </div>
+  <div class="tbl-wrap">
+  <table>
+    <tr>
+      <th></th><th class="hush">Hush</th><th>Wispr Flow</th><th>Apple Dictation</th><th>Superwhisper</th>
+    </tr>
+    <tr>
+      <td>Voice stays on your device</td>
+      <td class="hush yes">&#10003; Always</td><td class="no">&#10007; Cloud processing</td><td class="meh">Partly</td><td class="yes">&#10003; Local option</td>
+    </tr>
+    <tr>
+      <td>Works fully offline</td>
+      <td class="hush yes">&#10003;</td><td class="no">&#10007;</td><td class="meh">Limited</td><td class="yes">&#10003;</td>
+    </tr>
+    <tr>
+      <td>AI cleanup of filler words</td>
+      <td class="hush yes">&#10003; 3 levels, you choose</td><td class="yes">&#10003; Always on</td><td class="no">&#10007;</td><td class="yes">&#10003;</td>
+    </tr>
+    <tr>
+      <td>Control over how much it edits you</td>
+      <td class="hush yes">&#10003; Off / Light / Full</td><td class="meh">Limited</td><td class="meh">n/a</td><td class="meh">Via custom modes</td>
+    </tr>
+    <tr>
+      <td>Screen capture for context</td>
+      <td class="hush yes">Never</td><td class="no">Yes, by default</td><td class="yes">No</td><td class="yes">No</td>
+    </tr>
+    <tr>
+      <td>Price</td>
+      <td class="hush yes">Free</td><td class="meh">~$144 / year</td><td class="yes">Free</td><td class="meh">Paid tiers</td>
+    </tr>
+    <tr>
+      <td>Open code you can read</td>
+      <td class="hush yes">&#10003; ~350 lines of Python</td><td class="no">&#10007;</td><td class="no">&#10007;</td><td class="no">&#10007;</td>
+    </tr>
+  </table>
+  </div>
+  <p class="foot-note">Comparison reflects publicly available information as of mid-2026. Wispr Flow and Superwhisper are trademarks of their respective owners.</p>
+</div></section>
+
+<div class="hr"></div>
+
+<section id="how"><div class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">How it works</span>
+    <h2>Three motions. That's the whole app.</h2>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <span class="n">one</span>
+      <h3>Hold</h3>
+      <p>Press and hold <span class="kbd">right &#8997; Option</span> in any app — Mail, WhatsApp, Notion, your code editor. A red dot appears in your menu bar.</p>
+    </div>
+    <div class="step">
+      <span class="n">two</span>
+      <h3>Speak</h3>
+      <p>Talk the way you actually talk. Ums, pauses, "no wait, Friday" corrections, English, Hindi, or both mixed together — all fine.</p>
+    </div>
+    <div class="step">
+      <span class="n">three</span>
+      <h3>Release</h3>
+      <p>Let go of the key. One to two seconds later, clean text lands exactly where your cursor was. Your clipboard is untouched.</p>
+    </div>
+  </div>
+
+  <div class="pipe" aria-label="Processing pipeline">
+    <span>your voice</span><i>&#8594;</i>
+    <span class="stay">speech model on your chip</span><i>&#8594;</i>
+    <span class="stay">cleanup, your level</span><i>&#8594;</i>
+    <span>text at your cursor</span>
+  </div>
+  <p class="foot-note">The amber steps run entirely on your Mac. There is no server step — that's the point.</p>
+</div></section>
+
+<div class="hr"></div>
+
+<section id="setup"><div class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">Getting started</span>
+    <h2>Set up once, about 15 minutes</h2>
+    <p>Most of it is a one-time model download. A full guide ships inside the download.</p>
+  </div>
+  <ul class="setup">
+    <li><span class="sn">1</span><div>
+      <h3>Download and unzip</h3>
+      <p>Grab the zip below and move the <span class="mono">hush</span> folder somewhere permanent, like your home folder.</p>
+    </div></li>
+    <li><span class="sn">2</span><div>
+      <h3>Run setup</h3>
+      <p>Right-click <span class="mono">setup.command</span> and choose Open. It installs everything and downloads the 1.6&nbsp;GB speech model — the part that makes Hush private and offline.</p>
+    </div></li>
+    <li><span class="sn">3</span><div>
+      <h3>Grant three permissions</h3>
+      <p>In System Settings &gt; Privacy &amp; Security, allow Terminal for Microphone, Input Monitoring, and Accessibility — the same permissions every dictation tool needs.</p>
+    </div></li>
+    <li><span class="sn">4</span><div>
+      <h3>Start talking</h3>
+      <p>Double-click <span class="mono">Start Hush.command</span>, wait for the Ready notification, click into any text field, and hold the key.</p>
+    </div></li>
+  </ul>
+</div></section>
+
+<div class="hr"></div>
+
+<section><div class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">Questions</span>
+    <h2>The short answers</h2>
+  </div>
+  <div class="faq">
+    <details>
+      <summary>Does it really work with no internet?</summary>
+      <p>Yes. After the one-time setup download, every dictation runs on your Mac's own chip. Airplane mode is a fine place to write.</p>
+    </details>
+    <details>
+      <summary>Which languages does it support?</summary>
+      <p>English works beautifully, and the underlying model supports 90+ languages with auto-detection. Mixed Hindi–English speech is handled surprisingly well, and improving it further is on the roadmap.</p>
+    </details>
+    <details>
+      <summary>What are the system requirements?</summary>
+      <p>A Mac with Apple Silicon (M1, M2, M3, or M4) and about 4&nbsp;GB of free disk space for the app and speech model. Intel Macs and Windows aren't supported in this version.</p>
+    </details>
+    <details>
+      <summary>Is Windows coming?</summary>
+      <p>It's planned. The design ports cleanly; the speech engine just needs a different backend on Windows. Mac first, done well, then Windows.</p>
+    </details>
+    <details>
+      <summary>What does "Full" cleanup mode need?</summary>
+      <p>The free Ollama app running a small local language model. It's optional — Hush works out of the box in Light mode — and like everything else, it runs entirely on your machine.</p>
+    </details>
+    <details>
+      <summary>How is it free? What's the catch?</summary>
+      <p>There isn't one. Hush has no servers to pay for because your Mac does the work. The code is a few hundred readable lines of Python — you can open it and see exactly what it does, which is a promise no closed cloud app can make.</p>
+    </details>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="band">
+    <div class="glow"></div>
+    <h2 class="serif">Your voice deserves privacy.</h2>
+    <p>Free, offline, and quietly yours. Setup takes about 15 minutes.</p>
+    <a class="btn big" href="hush.zip" download>Download Hush for Mac</a>
+    <p class="tiny" style="margin-top:16px">Version 1 · Apple Silicon · No account required</p>
+  </div>
+</div></section>
+
+<div class="wrap"><footer>
+  <span>hush<em style="color:var(--amber);font-style:normal">.</em> — built in Delhi by Prashant</span>
+  <span><a href="#top">Back to top</a></span>
+</footer></div>
+
+<script>
+(function(){
+  var key = document.getElementById('key');
+  var demo = document.getElementById('demo');
+  var out = document.getElementById('scriptText');
+  var stage = document.getElementById('stage');
+  var raw = 'umm so hey, can we uh move the review to Tuesday\u2014 no wait, Friday? umm same time works';
+  var clean = '\u201cHey, can we move the review to Friday? Same time works.\u201d';
+  var held = false, typer = null, i = 0;
+
+  function startHold(e){
+    if(e.type === 'keydown' && e.key !== ' ' && e.key !== 'Enter') return;
+    e.preventDefault();
+    if(held) return; held = true; i = 0;
+    key.classList.add('held'); demo.classList.add('rec');
+    out.classList.remove('clean'); out.textContent = '';
+    stage.textContent = 'listening \u00b7 on-device'; stage.classList.add('on');
+    typer = setInterval(function(){
+      if(i < raw.length){ out.textContent += raw[i]; i++; }
+    }, 45);
+  }
+  function endHold(){
+    if(!held) return; held = false;
+    key.classList.remove('held'); demo.classList.remove('rec');
+    clearInterval(typer);
+    stage.textContent = 'cleaning \u00b7 still on-device';
+    setTimeout(function(){
+      out.textContent = clean; out.classList.add('clean');
+      stage.textContent = 'pasted at your cursor \u00b7 1.4s';
+      setTimeout(function(){ stage.classList.remove('on'); }, 2600);
+    }, 650);
+  }
+  key.addEventListener('mousedown', startHold);
+  key.addEventListener('touchstart', startHold, {passive:false});
+  key.addEventListener('keydown', startHold);
+  window.addEventListener('mouseup', endHold);
+  key.addEventListener('touchend', endHold);
+  key.addEventListener('keyup', endHold);
+})();
+</script>
+</body>
+</html>
