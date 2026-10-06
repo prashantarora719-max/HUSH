@@ -26,9 +26,9 @@
             <h2>Profile Setup</h2>
             <form id="profile-form">
                 <select id="sex"><option value="male">Male</option><option value="female">Female</option></select>
-                <input type="number" id="age" placeholder="Age" required>
-                <input type="number" id="height_cm" placeholder="Height (cm)" required>
-                <input type="number" id="weight_kg" placeholder="Weight (kg)" required>
+                <input type="number" step="any" id="age" placeholder="Age" required>
+                <input type="number" step="any" id="height_cm" placeholder="Height (cm)" required>
+                <input type="number" step="any" id="weight_kg" placeholder="Weight (kg)" required>
                 <select id="lifestyle">
                     <option value="sedentary">Sedentary</option><option value="light">Light</option>
                     <option value="moderate">Moderate</option><option value="active">Active</option>
@@ -43,12 +43,12 @@
             <div id="summary" class="card"></div>
             <div class="card">
                 <h3>Log Food</h3>
-                <form id="food-form"><input type="text" id="food-name" placeholder="Name" required><input type="number" id="food-kcal" placeholder="Kcal" required><input type="number" id="food-prot" placeholder="Protein (g)"><button type="submit">Add</button></form>
+                <form id="food-form"><input type="text" id="food-name" placeholder="Name" required><input type="number" step="any" id="food-kcal" placeholder="Kcal" required><input type="number" step="any" id="food-prot" placeholder="Protein (g)"><button type="submit">Add</button></form>
                 <ul id="food-list"></ul>
             </div>
             <div class="card">
                 <h3>Log Exercise</h3>
-                <form id="ex-form"><input type="text" id="ex-name" placeholder="Name" required><input type="number" id="ex-kcal" placeholder="Kcal burned" required><button type="submit">Add</button></form>
+                <form id="ex-form"><input type="text" id="ex-name" placeholder="Name" required><input type="number" step="any" id="ex-kcal" placeholder="Kcal burned" required><button type="submit">Add</button></form>
                 <ul id="ex-list"></ul>
             </div>
         </div>

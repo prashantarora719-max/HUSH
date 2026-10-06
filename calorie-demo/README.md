@@ -5,7 +5,7 @@ Claude Code orchestrates two other LLMs through their APIs:
 | Role | Model (provider) | Why |
 |---|---|---|
 | Orchestrator, spec author, integrator, reviewer | Claude (Claude Code) | Owns the contract and verifies the result |
-| Backend (FastAPI + SQLite + tests) | OpenAI Codex-family model (`openai`) | Backend role |
+| Backend (FastAPI + SQLite + tests) | Claude (Claude Code, written directly) | OpenAI account had no credits (`insufficient_quota`), so the backend was not built via the API. `orchestrator/` can still run it with `run backend` once credits exist (overwrites `backend/`). |
 | Frontend (single-file HTML/JS) | Gemini (`gemini`) | Frontend role |
 
 ## Layout
