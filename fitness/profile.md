@@ -23,7 +23,7 @@ Last updated: 2026-10-06
 - No injuries
 - Seborrheic dermatitis + occasional acne (flag to nutrition + recovery; see dermatologist for treatment decisions)
 - Diet: vegetarian incl. eggs, dairy, paneer, whey isolate; Indian home-cooked (mother/house help)
-- Walkpad 60-105 min/day; sleep ~7 h; supplements: whey + whey isolate; vitamin D very low (60,000 IU/wk prescribed), ferritin & lipids good
+- Walkpad 60-105 min/day; sleep ~7 h; stress 5/10; WFH tech-sales account manager (desk job, office ~2x/week), trains ~7:30 pm; Bangalore trip sometime in Nov (dates TBD); waist set to 38.5 in; supplements: whey + whey isolate; vitamin D very low (60,000 IU/wk prescribed), ferritin & lipids good
 - Sleep: 6-8 h (avg unknown), stress: UNKNOWN, daily steps: UNKNOWN, job type: UNKNOWN
 - Cooking/budget/cuisine: UNKNOWN
 

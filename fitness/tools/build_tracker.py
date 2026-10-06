@@ -189,11 +189,11 @@ for n in range(DAYS):
     history.append(c)
     ev = EVENING_DIWALI if diwali else EVENING[c[3]]
     days.append(dict(date=date, n=n + 1, meals=[
-        ("1 Breakfast", BREAKFAST[c[0]][0], bi),
-        ("2 Lunch", LUNCH[c[1]][0], li),
-        ("3 Pre/post-workout shake", SNACK[c[2]][0], SNACK[c[2]][1]),
-        ("4 Evening snack", ev[0], ev[1]),
-        ("5 Dinner", DINNER[c[4]][0], di),
+        ("1 Breakfast (~9:00 am)", BREAKFAST[c[0]][0], bi),
+        ("2 Lunch (~1:30 pm)", LUNCH[c[1]][0], li),
+        ("3 Pre-workout snack (~5:30 pm)", ev[0], ev[1]),
+        ("4 Post-workout shake (~9:00 pm)", SNACK[c[2]][0], SNACK[c[2]][1]),
+        ("5 Dinner (~9:30 pm)", DINNER[c[4]][0], di),
     ], tot=tot))
 
 # ---------------------------------------------------------------- training
@@ -322,7 +322,7 @@ for i, d in enumerate(days, 2):
     sm.cell(row=i, column=13, value=f'=IF(COUNT(L{lo}:L{i})=0,"",AVERAGE(L{lo}:L{i}))').number_format = "0.0"
     for col in (12, 14, 15, 16, 17, 18, 19):
         sm.cell(row=i, column=col).fill = INP
-    if d["date"] == DIWALI: sm.cell(row=i, column=19, value="Diwali: planned mithai in evening snack. Log it, stay on plan otherwise.")
+    if d["date"] == DIWALI: sm.cell(row=i, column=19, value="Diwali: planned mithai in pre-workout/evening snack. Log it, stay on plan otherwise.")
 sm.freeze_panes = "E2"
 dv_yn = DataValidation(type="list", formula1='"Y,N"', allow_blank=True); sm.add_data_validation(dv_yn); dv_yn.add(f"Q2:Q{DAYS + 1}")
 dv_rd = DataValidation(type="list", formula1='"1,2,3,4,5"', allow_blank=True); sm.add_data_validation(dv_rd); dv_rd.add(f"P2:P{DAYS + 1}")
