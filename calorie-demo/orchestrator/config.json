@@ -2,7 +2,7 @@
   "stages": {
     "backend": {
       "provider": "openai",
-      "model": "TBD-run-models-command",
+      "model": "gpt-5.3-codex",
       "allowed_prefixes": ["backend/"]
     },
     "frontend": {
