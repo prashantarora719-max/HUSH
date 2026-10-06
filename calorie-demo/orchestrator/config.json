@@ -1,0 +1,14 @@
+{
+  "stages": {
+    "backend": {
+      "provider": "openai",
+      "model": "TBD-run-models-command",
+      "allowed_prefixes": ["backend/"]
+    },
+    "frontend": {
+      "provider": "gemini",
+      "model": "gemini-3.8-flash",
+      "allowed_prefixes": ["frontend/"]
+    }
+  }
+}

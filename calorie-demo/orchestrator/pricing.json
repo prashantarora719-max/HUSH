@@ -1,0 +1,7 @@
+{
+  "_source": "NOT YET VERIFIED. Prices are USD per 1M tokens and are left null until confirmed against the providers' official pricing pages. Tokens are always logged, so cost can be recomputed later.",
+  "models": {
+    "gemini-3.1-pro-preview": {"input_per_mtok": null, "output_per_mtok": null},
+    "gemini-3.8-flash": {"input_per_mtok": null, "output_per_mtok": null}
+  }
+}
