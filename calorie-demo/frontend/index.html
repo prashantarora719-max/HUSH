@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Tracker</title>
+    <style>
+        :root { --bg: #f4f4f9; --text: #333; --card: #fff; --accent: #4a90e2; --err: #d0021b; }
+        @media (prefers-color-scheme: dark) { :root { --bg: #121212; --text: #e0e0e0; --card: #1e1e1e; --accent: #bb86fc; } }
+        body { font-family: sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .card { background: var(--card); padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        input, select, button { display: block; width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background: var(--accent); color: white; border: none; cursor: pointer; }
+        .flex { display: flex; gap: 10px; }
+        .hidden { display: none; }
+        h2 { margin-top: 0; }
+        .msg { padding: 10px; border-radius: 4px; margin: 10px 0; }
+        .err { background: #fee; color: var(--err); }
+        .pill { padding: 2px 8px; border-radius: 12px; font-size: 0.8em; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="profile-section" class="card hidden">
+            <h2>Profile Setup</h2>
+            <form id="profile-form">
+                <select id="sex"><option value="male">Male</option><option value="female">Female</option></select>
+                <input type="number" id="age" placeholder="Age" required>
+                <input type="number" id="height_cm" placeholder="Height (cm)" required>
+                <input type="number" id="weight_kg" placeholder="Weight (kg)" required>
+                <select id="lifestyle">
+                    <option value="sedentary">Sedentary</option><option value="light">Light</option>
+                    <option value="moderate">Moderate</option><option value="active">Active</option>
+                </select>
+                <select id="goal"><option value="fat_loss">Fat Loss</option><option value="muscle_gain">Muscle Gain</option><option value="recomp">Recomp</option></select>
+                <button type="submit">Save Profile</button>
+            </form>
+        </div>
+
+        <div id="app-section" class="hidden">
+            <input type="date" id="date-picker">
+            <div id="summary" class="card"></div>
+            <div class="card">
+                <h3>Log Food</h3>
+                <form id="food-form"><input type="text" id="food-name" placeholder="Name" required><input type="number" id="food-kcal" placeholder="Kcal" required><input type="number" id="food-prot" placeholder="Protein (g)"><button type="submit">Add</button></form>
+                <ul id="food-list"></ul>
+            </div>
+            <div class="card">
+                <h3>Log Exercise</h3>
+                <form id="ex-form"><input type="text" id="ex-name" placeholder="Name" required><input type="number" id="ex-kcal" placeholder="Kcal burned" required><button type="submit">Add</button></form>
+                <ul id="ex-list"></ul>
+            </div>
+        </div>
+        <div id="error-msg" class="msg err hidden"></div>
+    </div>
+
+    <script>
+        const state = { date: new Date().toISOString().split('T')[0] };
+        const el = (id) => document.getElementById(id);
+        
+        async function api(path, method = 'GET', body = null) {
+            const opts = { method, headers: {'Content-Type': 'application/json'} };
+            if (body) opts.body = JSON.stringify(body);
+            const res = await fetch(path, opts);
+            if (res.status === 204) return null;
+            if (!res.ok) throw new Error(await res.text().catch(() => 'API Error'));
+            return res.json();
+        }
+
+        async function refresh() {
+            try {
+                el('error-msg').classList.add('hidden');
+                const profile = await api('/api/profile').catch(() => null);
+                if (!profile) { el('profile-section').classList.remove('hidden'); return; }
+                
+                el('profile-section').classList.add('hidden');
+                el('app-section').classList.remove('hidden');
+
+                const [summary, food, ex] = await Promise.all([
+                    api(`/api/summary?date=${state.date}`),
+                    api(`/api/food?date=${state.date}`),
+                    api(`/api/exercise?date=${state.date}`)
+                ]);
+
+                let html = `<h2>${state.date}</h2><p>Balance: ${summary.balance_kcal ?? 'N/A'} kcal</p>`;
+                if (summary.status !== 'no_profile' && summary.status !== 'no_data') {
+                    html += `<p>Status: ${summary.status} | On Track: ${summary.on_track ? '✅' : '❌'}</p>`;
+                }
+                el('summary').innerHTML = html;
+
+                el('food-list').innerHTML = food.map(f => `<li>${escape(f.name)}: ${f.kcal}kcal <button onclick="del('food', ${f.id})">x</button></li>`).join('');
+                el('ex-list').innerHTML = ex.map(e => `<li>${escape(e.name)}: ${e.kcal_burned}kcal <button onclick="del('exercise', ${e.id})">x</button></li>`).join('');
+            } catch(e) { el('error-msg').textContent = e.message; el('error-msg').classList.remove('hidden'); }
+        }
+
+        function escape(s) { return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m])); }
+        window.del = async (type, id) => { await api(`/api/${type}/${id}`, 'DELETE'); refresh(); };
+
+        el('profile-form').onsubmit = async (e) => {
+            e.preventDefault();
+            await api('/api/profile', 'PUT', {sex: el('sex').value, age: +el('age').value, height_cm: +el('height_cm').value, weight_kg: +el('weight_kg').value, lifestyle: el('lifestyle').value, goal: el('goal').value});
+            refresh();
+        };
+
+        el('food-form').onsubmit = async (e) => {
+            e.preventDefault();
+            await api('/api/food', 'POST', {date: state.date, name: el('food-name').value, kcal: +el('food-kcal').value, protein_g: +el('food-prot').value || 0});
+            refresh();
+        };
+
+        el('ex-form').onsubmit = async (e) => {
+            e.preventDefault();
+            await api('/api/exercise', 'POST', {date: state.date, name: el('ex-name').value, kcal_burned: +el('ex-kcal').value});
+            refresh();
+        };
+
+        el('date-picker').value = state.date;
+        el('date-picker').onchange = (e) => { state.date = e.target.value; refresh(); };
+        refresh();
+    </script>
+</body>
+</html>
