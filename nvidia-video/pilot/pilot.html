@@ -1,0 +1,310 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Can Nvidia Fall? — cold open pilot</title>
+<style>
+  html, body { margin: 0; background: #000; }
+  canvas { display: block; width: 1920px; height: 1080px; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script>
+// Every frame is a pure function of time t (seconds), so the render is deterministic.
+// Open this file in a browser with ?play to preview in real time.
+const W = 1920, H = 1080, DURATION = 76;
+const cv = document.getElementById('c'), g = cv.getContext('2d');
+const C = { bg: '#07090a', ink: '#f2f5f0', dim: '#7d877c', line: '#1a201b',
+            green: '#84e11a', red: '#ff3d3d', amber: '#ffb020' };
+const DISPLAY = '"Inter Display", Inter, sans-serif', MONO = '"JetBrains Mono", monospace';
+const SHOW_CAPTIONS = !new URLSearchParams(location.search).has('nocaptions');
+
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const outCubic = k => 1 - Math.pow(1 - k, 3);
+const inOut = k => k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+const outBack = k => 1 + 2.7 * Math.pow(k - 1, 3) + 1.7 * Math.pow(k - 1, 2);
+function rng(seed) { return () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296; }
+
+function text(s, x, y, o = {}) {
+  g.save();
+  g.font = `${o.weight || 700} ${o.size || 40}px ${o.font || DISPLAY}`;
+  g.textAlign = o.align || 'left';
+  g.textBaseline = o.base || 'alphabetic';
+  g.globalAlpha *= o.alpha ?? 1;
+  if (o.spacing) g.letterSpacing = o.spacing + 'px';
+  if (o.glow) { g.shadowColor = o.glow; g.shadowBlur = o.blur || 40; }
+  g.fillStyle = o.color || C.ink;
+  g.fillText(s, x, y);
+  g.restore();
+}
+function typed(s, t, a, cps = 28) { return s.slice(0, Math.max(0, Math.floor((t - a) * cps))); }
+// fade in at a, hold, fade out before b
+function window_(t, a, b, fi = .5, fo = .5) { return Math.min(prog(t, a, a + fi), 1 - prog(t, b - fo, b)); }
+
+function background(t) {
+  g.fillStyle = C.bg; g.fillRect(0, 0, W, H);
+  g.save();
+  g.strokeStyle = C.line; g.lineWidth = 1;
+  const off = (t * 6) % 80;
+  g.beginPath();
+  for (let x = -off; x < W; x += 80) { g.moveTo(x, 0); g.lineTo(x, H); }
+  for (let y = 0; y < H; y += 80) { g.moveTo(0, y); g.lineTo(W, y); }
+  g.stroke();
+  const v = g.createRadialGradient(W / 2, H / 2, 300, W / 2, H / 2, 1150);
+  v.addColorStop(0, 'rgba(7,9,10,0)'); v.addColorStop(1, 'rgba(0,0,0,.92)');
+  g.fillStyle = v; g.fillRect(0, 0, W, H);
+  g.restore();
+}
+
+function polyline(pts, k, color, width = 6) {
+  // draw the first fraction k of a polyline, return the pen tip
+  const n = pts.length - 1, f = clamp(k) * n, i = Math.min(n - 1, Math.floor(f)), r = f - i;
+  g.save();
+  g.strokeStyle = color; g.lineWidth = width; g.lineJoin = 'round'; g.lineCap = 'round';
+  g.shadowColor = color; g.shadowBlur = 28;
+  g.beginPath(); g.moveTo(pts[0][0], pts[0][1]);
+  for (let j = 1; j <= i; j++) g.lineTo(pts[j][0], pts[j][1]);
+  const tip = [lerp(pts[i][0], pts[i + 1][0], r), lerp(pts[i][1], pts[i + 1][1], r)];
+  g.lineTo(tip[0], tip[1]); g.stroke(); g.restore();
+  return tip;
+}
+function dot(p, color, r = 10) {
+  g.save(); g.fillStyle = color; g.shadowColor = color; g.shadowBlur = 30;
+  g.beginPath(); g.arc(p[0], p[1], r, 0, 7); g.fill(); g.restore();
+}
+
+// ---------- Scene A: the peak (0-10s) ----------
+const rise = (() => {
+  const r = rng(7), pts = [];
+  for (let i = 0; i <= 60; i++) {
+    const k = i / 60;
+    const y = 880 - Math.pow(k, 3.2) * 560 + (r() - .5) * 46 * (0.3 + k);
+    pts.push([200 + k * 1520, i === 60 ? 320 : y]);
+  }
+  return pts;
+})();
+function sceneA(t) {
+  const a = window_(t, 0, 10.2, .6, .6); if (a <= 0) return;
+  g.save(); g.globalAlpha = a;
+  text(typed('OCTOBER 6, 2026  ·  NASDAQ: NVDA', t, .4), 200, 190, { font: MONO, size: 30, weight: 500, color: C.dim, spacing: 4 });
+  const k = inOut(prog(t, 1, 6.2));
+  g.globalAlpha = a * .5;
+  const tip = polyline(rise, k, C.green, 5);
+  g.globalAlpha = a;
+  if (k > 0) dot(tip, C.green, 9 + 3 * Math.sin(t * 6));
+  const val = lerp(0.6, 5.8, k);
+  text('$' + val.toFixed(1), 200, 560, { size: 300, weight: 900, glow: k >= 1 ? C.green : null, blur: 60 });
+  const w = (g.font = `900 300px ${DISPLAY}`, g.measureText('$' + val.toFixed(1)).width);
+  text('TRILLION', 200 + w + 36, 560, { size: 92, weight: 800, color: C.green, spacing: 6 });
+  text('MARKET VALUE OF ONE COMPANY', 206, 640, { font: MONO, size: 28, weight: 500, color: C.dim, spacing: 5, alpha: prog(t, 6.3, 7) });
+  g.restore();
+}
+
+// ---------- Scene B: bigger than Japan (10-16s) ----------
+function sceneB(t) {
+  const a = window_(t, 10, 16.2, .5, .5); if (a <= 0) return;
+  g.save(); g.globalAlpha = a;
+  text('HOW BIG IS $5.8 TRILLION?', 200, 250, { font: MONO, size: 30, weight: 500, color: C.dim, spacing: 5 });
+  const rows = [['NVIDIA', 'market value', 5.8, C.green, 10.5], ['JAPAN', 'entire annual economy', 4.4, C.ink, 11.6]];
+  rows.forEach(([name, sub, v, col, at], i) => {
+    const y = 400 + i * 250, k = outCubic(prog(t, at, at + 1.3));
+    text(name, 200, y - 24, { size: 64, weight: 900 });
+    text(sub, 200 + (i ? 250 : 290), y - 26, { size: 30, weight: 500, color: C.dim });
+    g.fillStyle = col; g.shadowColor = col; g.shadowBlur = i ? 0 : 36;
+    g.fillRect(200, y, (v / 5.8) * 1250 * k, 74); g.shadowBlur = 0;
+    text('$' + (v * k).toFixed(1) + 'T', 200 + (v / 5.8) * 1250 * k + 28, y + 58, { size: 64, weight: 800, color: col });
+  });
+  text('Japan: approximate nominal GDP, IMF estimate', 200, 900, { font: MONO, size: 22, weight: 400, color: C.dim, alpha: prog(t, 12.5, 13.2) });
+  g.restore();
+}
+
+// ---------- Scene C: the drop (16-26s) ----------
+const fall = [[0, 243], [3, 236], [6, 229], [9, 221], [12, 226], [15, 214], [18, 209], [21, 213], [24, 205],
+              [26, 200], [28, 182], [31, 187], [34, 179], [35, 169]];
+function sceneC(t) {
+  const a = window_(t, 16, 26.2, .25, .5); if (a <= 0) return;
+  g.save(); g.globalAlpha = a;
+  const slam = prog(t, 16, 16.45), hold = 1 - prog(t, 18.2, 18.8);
+  if (hold > 0) {
+    g.save(); g.globalAlpha = a * hold;
+    g.translate(W / 2, H / 2); g.scale(lerp(1.6, 1, outCubic(slam)), lerp(1.6, 1, outCubic(slam)));
+    text('FIVE WEEKS LATER', 0, 30, { size: 170, weight: 900, align: 'center', alpha: slam, spacing: 2 });
+    g.restore();
+  }
+  const cIn = prog(t, 18.6, 19.2);
+  if (cIn > 0) {
+    g.globalAlpha = a * cIn;
+    const k = prog(t, 19.2, 23.4);
+    const shake = k > 0 && k < 1 ? 7 * Math.sin(t * 61) * (0.4 + k) : 0;
+    g.translate(shake, shake * .6);
+    const X = d => 200 + d / 35 * 880, Y = p => 260 + (250 - p) / 90 * 560;
+    g.strokeStyle = C.line; g.lineWidth = 2; g.setLineDash([8, 10]);
+    [240, 200, 170].forEach(p => { g.beginPath(); g.moveTo(200, Y(p)); g.lineTo(1100, Y(p)); g.stroke();
+      text('$' + p, 150, Y(p) + 8, { font: MONO, size: 22, weight: 500, color: C.dim, align: 'right' }); });
+    g.setLineDash([]);
+    const pts = fall.map(([d, p]) => [X(d), Y(p)]);
+    dot(pts[0], C.green, 9);
+    text('OCT 6 · $243', pts[0][0] + 22, pts[0][1] - 22, { font: MONO, size: 26, weight: 600, color: C.green });
+    const tip = polyline(pts, inOut(k), C.red, 7);
+    if (k > 0) dot(tip, C.red, 11);
+    if (k >= 1) text('NOV 10 · $169', tip[0] - 250, tip[1] + 62, { font: MONO, size: 26, weight: 600, color: C.red });
+    const lost = 1.7 * inOut(k);
+    text('−$' + lost.toFixed(1), 1210, 560, { size: 210, weight: 900, color: C.red, glow: C.red, blur: 50 });
+    text('TRILLION', 1216, 660, { size: 84, weight: 800, color: C.red, spacing: 6 });
+    text('IN MARKET VALUE, GONE', 1220, 730, { font: MONO, size: 28, weight: 500, color: C.dim, spacing: 4, alpha: prog(t, 23.4, 24) });
+  }
+  g.restore();
+}
+
+// ---------- Scene D: the business is fine (26-36s) ----------
+function sceneD(t) {
+  const a = window_(t, 26, 36.2, .5, .5); if (a <= 0) return;
+  g.save(); g.globalAlpha = a;
+  text('MEANWHILE, THE ACTUAL BUSINESS', 200, 200, { font: MONO, size: 30, weight: 500, color: C.dim, spacing: 5 });
+  text('Revenue in a single quarter', 200, 290, { size: 76, weight: 800 });
+  const base = 800, bars = [['SUMMER 2025', 46.7, C.dim, 27.6, 460], ['SUMMER 2026', 96.2, C.green, 28.8, 880]];
+  bars.forEach(([lab, v, col, at, x]) => {
+    const k = outCubic(prog(t, at, at + 1.4)), h = v / 96.2 * 380 * k;
+    g.fillStyle = col; g.shadowColor = col; g.shadowBlur = col === C.green ? 40 : 0;
+    g.fillRect(x, base - h, 300, h); g.shadowBlur = 0;
+    text('$' + (v * k).toFixed(1) + 'B', x + 150, base - h - 28, { size: 78, weight: 900, align: 'center', color: col === C.green ? C.green : C.ink });
+    text(lab, x + 150, base + 50, { font: MONO, size: 26, weight: 500, color: C.dim, align: 'center', spacing: 3 });
+  });
+  g.fillStyle = C.dim; g.fillRect(200, base, 1520, 3);
+  const b = prog(t, 30.6, 31.2);
+  if (b > 0) {
+    g.save(); g.translate(1540, 560); g.scale(outBack(b), outBack(b)); g.rotate(-.06);
+    text('+106%', 0, 0, { size: 130, weight: 900, align: 'center', color: C.green, glow: C.green });
+    text('YEAR OVER YEAR', 0, 60, { font: MONO, size: 26, weight: 600, align: 'center', color: C.ink, spacing: 4 });
+    g.restore();
+  }
+  g.restore();
+}
+
+// ---------- Scene E: three pushes (36-48s) ----------
+function sceneE(t) {
+  const a = window_(t, 36, 48.2, .5, .5); if (a <= 0) return;
+  g.save(); g.globalAlpha = a;
+  text('THE STOCK FELL ANYWAY', 200, 220, { size: 96, weight: 900 });
+  const cards = [['01', 'Interest rates', 'climbed', C.amber, 38], ['02', 'Does AI spending', 'actually pay off?', C.amber, 40.4],
+                 ['03', 'An email', 'from the CEO', C.red, 43.2]];
+  cards.forEach(([n, l1, l2, col, at], i) => {
+    const k = prog(t, at, at + .7); if (k <= 0) return;
+    const x = 200 + i * 520, y = lerp(-420, 330, outBack(k));
+    g.save(); g.translate(x + 240, y + 250); g.rotate((1 - outCubic(k)) * (i - 1) * .25); g.translate(-240, -250);
+    g.fillStyle = '#0e1310'; g.strokeStyle = col; g.lineWidth = 4;
+    g.shadowColor = col; g.shadowBlur = i === 2 ? 50 : 18;
+    g.beginPath(); g.roundRect(0, 0, 480, 500, 18); g.fill(); g.stroke(); g.shadowBlur = 0;
+    text(n, 44, 150, { size: 130, weight: 900, color: col });
+    text(l1, 44, 330, { size: 50, weight: 800 });
+    text(l2, 44, 396, { size: 50, weight: 800 });
+    g.restore();
+  });
+  g.restore();
+}
+
+// ---------- Scene F: the quote (48-61s) ----------
+function sceneF(t) {
+  const a = window_(t, 48, 61.2, .6, .5); if (a <= 0) return;
+  g.save(); g.globalAlpha = a;
+  text('“', 180, 420, { size: 320, weight: 900, color: C.green, alpha: .9 });
+  const l1 = 'Our company is thirty days', l2 = 'from going out of business.';
+  text(typed(l1, t, 49.2, 20), 240, 470, { size: 112, weight: 800 });
+  text(typed(l2, t, 49.2 + l1.length / 20 + .25, 20), 240, 610, { size: 112, weight: 800 });
+  text('— JENSEN HUANG, TO HIS EMPLOYEES, FOR THREE DECADES', 246, 700, { font: MONO, size: 26, weight: 500, color: C.dim, spacing: 4, alpha: prog(t, 52.6, 53.3) });
+  const m = window_(t, 54.4, 57.6, .4, .4), f = prog(t, 57.6, 58.1);
+  text('It always sounded like a motto.', 246, 880, { size: 60, weight: 600, color: C.dim, alpha: m });
+  text('Is it now a forecast?', 246, 880, { size: 76, weight: 900, color: C.red, alpha: f, glow: C.red });
+  g.restore();
+}
+
+// ---------- Scene G: five cracks + title (61-76s) ----------
+const cracks = (() => {
+  const r = rng(42), out = [], labels = ['CUSTOMERS BUILDING THEIR OWN CHIPS', 'THE MONEY LOOP', 'THE $800 BILLION BILL', 'CHINA', 'ONE MAN'];
+  [-2.5, -0.62, 0.52, 2.3, 3.5].forEach((ang, i) => {
+    const pts = [[960, 470]]; let x = 960, y = 470, a = ang;
+    for (let s = 0; s < 9; s++) { a += (r() - .5) * .9; const d = 26 + r() * 22; x += Math.cos(a) * d; y += Math.sin(a) * d; a = lerp(a, ang, .6); pts.push([x, y]); }
+    out.push({ pts, label: labels[i], n: i + 1 });
+  });
+  return out;
+})();
+const SLOTS = [[200, 250, 'left'], [1720, 250, 'right'], [1720, 640, 'right'], [200, 640, 'left'], [200, 445, 'left']];
+function sceneG(t) {
+  const a = prog(t, 61, 61.6); if (a <= 0) return;
+  g.save(); g.globalAlpha = a;
+  const out = prog(t, 70.2, 71), chipA = 1 - out;
+  if (chipA > 0) {
+    g.save(); g.globalAlpha = a * chipA;
+    const s = 300, x0 = 960 - s / 2, y0 = 470 - s / 2;
+    g.strokeStyle = C.green; g.lineWidth = 4; g.shadowColor = C.green; g.shadowBlur = 20;
+    for (let i = 0; i < 9; i++) { const p = x0 + 26 + i * 31; g.beginPath();
+      g.moveTo(p, y0 - 34); g.lineTo(p, y0); g.moveTo(p, y0 + s); g.lineTo(p, y0 + s + 34);
+      g.moveTo(x0 - 34, y0 + 26 + i * 31); g.lineTo(x0, y0 + 26 + i * 31);
+      g.moveTo(x0 + s, y0 + 26 + i * 31); g.lineTo(x0 + s + 34, y0 + 26 + i * 31); g.stroke(); }
+    g.fillStyle = '#0c120d'; g.beginPath(); g.roundRect(x0, y0, s, s, 14); g.fill(); g.stroke(); g.shadowBlur = 0;
+    g.strokeStyle = 'rgba(132,225,26,.3)'; g.lineWidth = 2; g.strokeRect(x0 + 56, y0 + 56, s - 112, s - 112);
+    cracks.forEach((c, i) => {
+      const at = 62.4 + i * 1.45, k = outCubic(prog(t, at, at + .8)); if (k <= 0) return;
+      polyline(c.pts, k, C.red, 5);
+      const [sx, sy, al] = SLOTS[i], la = prog(t, at + .3, at + .8);
+      text('0' + c.n, sx, sy, { size: 60, weight: 900, color: C.red, align: al, alpha: la });
+      text(c.label, sx, sy + 46, { font: MONO, size: 25, weight: 600, align: al, alpha: la, spacing: 2 });
+    });
+    g.restore();
+  }
+  const ti = prog(t, 70.8, 71.5);
+  if (ti > 0) {
+    g.save(); g.globalAlpha = a * ti; g.translate(W / 2, H / 2);
+    const s = lerp(1.25, 1, outCubic(ti)) + prog(t, 71.5, 76) * .03; g.scale(s, s);
+    text('CAN NVIDIA', 0, -40, { size: 230, weight: 900, align: 'center' });
+    text('FALL?', 0, 190, { size: 260, weight: 900, align: 'center', color: C.red, glow: C.red, blur: 70 });
+    text('THE CASE AGAINST THE MOST VALUABLE COMPANY IN HISTORY', 0, 300, { font: MONO, size: 28, weight: 500, align: 'center', color: C.dim, spacing: 5, alpha: prog(t, 72, 72.8) });
+    g.restore();
+  }
+  g.restore();
+}
+
+// ---------- Review captions (voiceover guide; removed in the final cut) ----------
+const CAPTIONS = [
+  [0.8, 9.6, 'On October sixth, 2026, one company was worth five point eight trillion dollars.'],
+  [10.4, 15.8, 'More than the entire economy of Japan.'],
+  [16.2, 25.6, 'Five weeks later, one point seven trillion of it was gone.'],
+  [26.4, 35.6, 'Not because the chips stopped selling. Last quarter, Nvidia made ninety-six billion dollars. More than double the year before.'],
+  [36.4, 47.6, 'The stock fell anyway. First, interest rates. Then, doubts about whether AI spending pays off. And then, an email from the man who built it all.'],
+  [48.6, 54.2, 'For thirty years, Jensen Huang has told his employees: “Our company is thirty days from going out of business.”'],
+  [54.5, 60.6, 'It always sounded like a motto. This month, Wall Street is asking whether it is a forecast.'],
+  [61.6, 70.4, 'This is the case against the most valuable company in history. Five cracks.'],
+  [70.9, 75.6, 'And what it would actually take for Nvidia to fall.'],
+];
+function captions(t) {
+  if (!SHOW_CAPTIONS) return;
+  const c = CAPTIONS.find(c => t >= c[0] && t <= c[1]); if (!c) return;
+  g.save(); g.font = `500 30px ${DISPLAY}`;
+  const words = c[2].split(' '), lines = [''];
+  words.forEach(w => { const cand = lines[lines.length - 1] + (lines[lines.length - 1] ? ' ' : '') + w;
+    if (g.measureText(cand).width > 1300) lines.push(w); else lines[lines.length - 1] = cand; });
+  const h = lines.length * 42 + 28, y = H - 40 - h;
+  g.fillStyle = 'rgba(0,0,0,.72)'; g.beginPath(); g.roundRect(W / 2 - 700, y, 1400, h, 10); g.fill();
+  lines.forEach((l, i) => text(l, W / 2, y + 46 + i * 42, { size: 30, weight: 500, align: 'center', color: '#d9ded6' }));
+  text('VO GUIDE', W / 2 - 684, y - 10, { font: MONO, size: 16, weight: 600, color: C.dim, spacing: 2 });
+  g.restore();
+}
+
+function render(t) {
+  g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1;
+  background(t);
+  [sceneA, sceneB, sceneC, sceneD, sceneE, sceneF, sceneG].forEach(s => s(t));
+  captions(t);
+  // closing fade
+  const o = prog(t, 75.2, 76); if (o > 0) { g.fillStyle = `rgba(0,0,0,${o})`; g.fillRect(0, 0, W, H); }
+}
+window.render = render; window.DURATION = DURATION;
+if (new URLSearchParams(location.search).has('play')) {
+  const t0 = performance.now(); (function loop() { render(((performance.now() - t0) / 1000) % DURATION); requestAnimationFrame(loop); })();
+} else render(0);
+</script>
+</body>
+</html>
