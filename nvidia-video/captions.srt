@@ -1,0 +1,543 @@
+1
+00:00:00,600 --> 00:00:07,530
+On October sixth, 2026, one company was worth five point eight trillion dollars.
+
+2
+00:00:07,559 --> 00:00:10,210
+More than the entire economy of Japan.
+
+3
+00:00:10,679 --> 00:00:14,769
+Five weeks later, one point seven trillion of it was gone.
+
+4
+00:00:15,160 --> 00:00:17,010
+Not because the chips stopped selling.
+
+5
+00:00:17,239 --> 00:00:21,289
+Last quarter, Nvidia made ninety-six billion dollars.
+
+6
+00:00:21,239 --> 00:00:23,410
+More than double the year before.
+
+7
+00:00:23,480 --> 00:00:25,089
+The stock fell anyway.
+
+8
+00:00:25,559 --> 00:00:27,329
+First, interest rates.
+
+9
+00:00:27,559 --> 00:00:31,129
+Then, doubts about whether AI spending pays off.
+
+10
+00:00:31,160 --> 00:00:34,530
+And then, an email from the man who built it all.
+
+11
+00:00:35,000 --> 00:00:43,329
+For thirty years, Jensen Huang has told his employees the same thing: "Our company is thirty days from going out of business."
+
+12
+00:00:43,159 --> 00:00:45,490
+It always sounded like a motto.
+
+13
+00:00:45,359 --> 00:00:49,810
+This month, Wall Street is asking whether it is a forecast.
+
+14
+00:00:49,640 --> 00:00:54,049
+This is the case against the most valuable company in history.
+
+15
+00:00:53,880 --> 00:00:55,490
+Five cracks.
+
+16
+00:00:55,320 --> 00:00:58,450
+And what it would actually take for Nvidia to fall.
+
+17
+00:01:00,347 --> 00:01:05,278
+If you have a 401(k) or an index fund, you own Nvidia.
+
+18
+00:01:05,308 --> 00:01:08,837
+It is one of the biggest pieces of the S&P 500.
+
+19
+00:01:08,828 --> 00:01:12,078
+When it moves, your retirement moves with it.
+
+20
+00:01:12,108 --> 00:01:15,718
+And it got that big astonishingly fast.
+
+21
+00:01:15,787 --> 00:01:19,677
+For twenty years Nvidia made graphics cards for gamers.
+
+22
+00:01:19,707 --> 00:01:27,837
+Then ChatGPT arrived, and it turned out that artificial intelligence runs best on exactly the chips Nvidia makes.
+
+23
+00:01:27,867 --> 00:01:35,197
+In three years, its yearly sales went from twenty-seven billion dollars to two hundred and sixteen billion.
+
+24
+00:01:35,227 --> 00:01:39,397
+It keeps about seventy-five cents of every dollar as gross profit.
+
+25
+00:01:39,468 --> 00:01:44,518
+It became the one company selling shovels in the biggest gold rush in history.
+
+26
+00:01:44,587 --> 00:01:49,558
+And when you are the only shovel seller, everyone has a reason to want you gone.
+
+27
+00:01:51,474 --> 00:01:53,564
+Start with who buys the shovels.
+
+28
+00:01:53,875 --> 00:01:58,084
+A huge share of Nvidia's sales comes from a handful of giants.
+
+29
+00:01:58,114 --> 00:01:59,165
+Microsoft.
+
+30
+00:01:59,155 --> 00:02:00,125
+Amazon.
+
+31
+00:02:00,194 --> 00:02:00,924
+Google.
+
+32
+00:02:01,075 --> 00:02:02,045
+Meta.
+
+33
+00:02:02,114 --> 00:02:04,204
+Now put yourself in their seat.
+
+34
+00:02:04,275 --> 00:02:10,245
+You send Nvidia tens of billions of dollars a year, and you know most of it is profit margin.
+
+35
+00:02:10,275 --> 00:02:12,085
+So you do the obvious thing.
+
+36
+00:02:12,115 --> 00:02:13,965
+You build your own chip.
+
+37
+00:02:14,034 --> 00:02:15,965
+Every one of them is.
+
+38
+00:02:15,794 --> 00:02:20,965
+And Google's are now good enough that other AI companies are choosing them over Nvidia.
+
+39
+00:02:21,155 --> 00:02:23,884
+Nvidia's defense is its software.
+
+40
+00:02:23,875 --> 00:02:28,284
+Millions of developers are trained on it, and switching is painful.
+
+41
+00:02:28,074 --> 00:02:31,965
+But Nvidia does not have to lose these customers to get hurt.
+
+42
+00:02:31,794 --> 00:02:34,205
+They only need a choice.
+
+43
+00:02:34,034 --> 00:02:40,205
+Because the moment a customer has a choice, that seventy-five percent margin becomes a negotiation.
+
+44
+00:02:42,105 --> 00:02:45,156
+The second crack is about where the money comes from.
+
+45
+00:02:45,545 --> 00:02:47,316
+Follow one dollar.
+
+46
+00:02:47,385 --> 00:02:49,955
+Nvidia invests in an AI company.
+
+47
+00:02:50,265 --> 00:02:53,316
+That company uses the money to rent data centers.
+
+48
+00:02:53,545 --> 00:02:56,596
+Those data centers are filled with Nvidia chips.
+
+49
+00:02:56,825 --> 00:03:00,515
+The dollar comes home, and this time it counts as sales.
+
+50
+00:03:00,825 --> 00:03:03,235
+Critics call it circular financing.
+
+51
+00:03:03,466 --> 00:03:05,075
+And it is not small.
+
+52
+00:03:05,306 --> 00:03:10,955
+Nvidia has put thirty billion dollars into OpenAI, the maker of ChatGPT.
+
+53
+00:03:10,985 --> 00:03:19,036
+Its own filings show it has guaranteed up to a hundred and five billion dollars in lease payments on data centers built for OpenAI.
+
+54
+00:03:19,066 --> 00:03:23,156
+If OpenAI cannot pay, Nvidia is on the hook.
+
+55
+00:03:23,306 --> 00:03:25,036
+We have seen this before.
+
+56
+00:03:25,066 --> 00:03:30,915
+In the late nineties, the companies building the internet lent money to their own customers to buy their equipment.
+
+57
+00:03:31,145 --> 00:03:32,915
+Sales looked incredible.
+
+58
+00:03:33,225 --> 00:03:38,596
+Then the customers ran out of cash, and the sales turned out to be borrowed from the future.
+
+59
+00:03:39,145 --> 00:03:41,556
+To be fair, this is not the same.
+
+60
+00:03:41,866 --> 00:03:46,836
+Most of Nvidia's sales still come from the richest companies on earth, paying cash.
+
+61
+00:03:47,066 --> 00:03:51,716
+By one bank's estimate, the loop touches about thirteen percent of revenue.
+
+62
+00:03:51,786 --> 00:03:57,195
+But that thirteen percent sits in the part of the AI industry that loses the most money.
+
+63
+00:03:57,225 --> 00:04:02,596
+If it stumbles, Nvidia loses a customer and an investment on the same day.
+
+64
+00:04:04,502 --> 00:04:07,312
+Which leads to the biggest question of all.
+
+65
+00:04:07,382 --> 00:04:10,711
+Who is paying for this, and for how long?
+
+66
+00:04:10,901 --> 00:04:18,351
+Two years ago, the biggest cloud companies spent about two hundred and sixty billion dollars on buildings and equipment.
+
+67
+00:04:18,221 --> 00:04:22,432
+This year, Wall Street expects around eight hundred billion.
+
+68
+00:04:22,262 --> 00:04:25,312
+Next year, more than a trillion.
+
+69
+00:04:25,182 --> 00:04:28,192
+A very large part of that lands at Nvidia.
+
+70
+00:04:28,262 --> 00:04:31,391
+And that spending is not a law of nature.
+
+71
+00:04:31,182 --> 00:04:36,351
+It is a choice, made every three months, by about five CEOs.
+
+72
+00:04:36,141 --> 00:04:39,951
+They will keep making it only if the profits show up.
+
+73
+00:04:39,781 --> 00:04:44,992
+So far, by some estimates, the return on each new dollar is shrinking.
+
+74
+00:04:44,822 --> 00:04:47,872
+And more of it is being paid for with debt.
+
+75
+00:04:47,781 --> 00:04:50,271
+Here is why that is dangerous.
+
+76
+00:04:50,141 --> 00:04:52,672
+Nvidia does not sell a subscription.
+
+77
+00:04:52,661 --> 00:04:54,351
+It sells equipment.
+
+78
+00:04:54,422 --> 00:05:00,432
+If a customer buys the same amount next year as this year, Nvidia's growth is zero.
+
+79
+00:05:00,262 --> 00:05:06,031
+If they buy a little less, because what they already built is enough for now, Nvidia shrinks.
+
+80
+00:05:05,901 --> 00:05:08,992
+Even if AI itself is doing fine.
+
+81
+00:05:08,822 --> 00:05:10,752
+Railroads went through this.
+
+82
+00:05:10,541 --> 00:05:12,591
+So did fiber-optic cable.
+
+83
+00:05:12,422 --> 00:05:14,432
+The technology was real.
+
+84
+00:05:14,262 --> 00:05:16,112
+It changed the world.
+
+85
+00:05:15,942 --> 00:05:22,192
+And the companies selling the equipment crashed anyway, because the buyers stopped to catch their breath.
+
+86
+00:05:22,021 --> 00:05:25,391
+Nvidia's stock price assumes nobody stops.
+
+87
+00:05:27,290 --> 00:05:32,019
+The fourth crack is one Nvidia did not cause and cannot fix.
+
+88
+00:05:32,089 --> 00:05:38,180
+A few years ago, Nvidia had about ninety-five percent of the AI chip market in China.
+
+89
+00:05:38,089 --> 00:05:44,019
+Then Washington decided those chips were too powerful to sell to a rival, and blocked them.
+
+90
+00:05:43,850 --> 00:05:51,379
+Jensen Huang summed up the result in one sentence: "We went from ninety-five percent market share to zero."
+
+91
+00:05:51,209 --> 00:05:53,699
+Losing those sales hurts.
+
+92
+00:05:53,529 --> 00:05:56,259
+What replaced them is worse.
+
+93
+00:05:56,089 --> 00:06:03,459
+Chinese companies still needed chips, so they turned to Huawei, which analysts estimate now holds about half that market.
+
+94
+00:06:03,290 --> 00:06:09,379
+A rival with a protected home market, guaranteed customers, and its government behind it.
+
+95
+00:06:09,290 --> 00:06:12,100
+That is how a future competitor gets built.
+
+96
+00:06:14,002 --> 00:06:16,172
+The last crack is the newest.
+
+97
+00:06:16,482 --> 00:06:18,771
+Nvidia is Jensen Huang.
+
+98
+00:06:18,802 --> 00:06:22,971
+He has run it since day one, for more than thirty years.
+
+99
+00:06:23,041 --> 00:06:27,132
+When investors buy this stock, they are buying one man's judgment.
+
+100
+00:06:27,601 --> 00:06:35,411
+In early November, according to reports from several major news outlets, Huang told employees he had been unfaithful to his wife.
+
+101
+00:06:35,442 --> 00:06:45,091
+The reports say the relationship was with an executive at a company that buys Nvidia's chips, and that U.S. officials believe that person had ties to Chinese intelligence.
+
+102
+00:06:45,201 --> 00:06:48,012
+Those are allegations, and nothing has been proven.
+
+103
+00:06:48,401 --> 00:06:53,451
+What is confirmed is that Nvidia's board has opened an independent investigation.
+
+104
+00:06:53,521 --> 00:06:56,651
+The stock dropped about ten percent in two days.
+
+105
+00:06:57,201 --> 00:07:02,172
+Hundreds of billions of dollars, over a question about one person.
+
+106
+00:07:02,641 --> 00:07:05,932
+That is what it means to be a one-man company.
+
+107
+00:07:07,846 --> 00:07:09,776
+So is this the fall?
+
+108
+00:07:10,247 --> 00:07:16,137
+History has one answer you need to hear, and it is not the one either side wants.
+
+109
+00:07:16,326 --> 00:07:20,817
+In March of 2000, the most valuable company in the world was Cisco.
+
+110
+00:07:21,047 --> 00:07:26,576
+It sold the essential equipment for the technology everyone knew was the future: the internet.
+
+111
+00:07:26,887 --> 00:07:29,216
+And everyone was right about the internet.
+
+112
+00:07:29,526 --> 00:07:36,137
+Cisco's stock fell more than eighty percent anyway, and it stayed below that peak for more than two decades.
+
+113
+00:07:36,166 --> 00:07:38,016
+The company never went bankrupt.
+
+114
+00:07:38,086 --> 00:07:40,656
+It is still big and profitable.
+
+115
+00:07:40,726 --> 00:07:44,377
+But people who bought at the top waited a generation.
+
+116
+00:07:44,487 --> 00:07:47,536
+That is what a fall looks like for a company like this.
+
+117
+00:07:47,526 --> 00:07:48,857
+Not bankruptcy.
+
+118
+00:07:48,887 --> 00:07:52,257
+A great business with a price that was too high.
+
+119
+00:07:52,406 --> 00:07:54,096
+But here is the difference.
+
+120
+00:07:54,086 --> 00:07:59,137
+At its peak, Cisco cost around two hundred times its yearly profit.
+
+121
+00:07:58,966 --> 00:08:03,697
+Nvidia, after this drop, costs closer to twenty-five.
+
+122
+00:08:03,526 --> 00:08:06,257
+Cisco's price was built on hope.
+
+123
+00:08:06,086 --> 00:08:10,016
+Nvidia's is built on profits that exist right now.
+
+124
+00:08:09,846 --> 00:08:12,257
+The question is whether they last.
+
+125
+00:08:14,255 --> 00:08:16,346
+So here is the honest answer.
+
+126
+00:08:16,735 --> 00:08:19,146
+One crack, Nvidia survives.
+
+127
+00:08:19,375 --> 00:08:20,906
+It has survived worse.
+
+128
+00:08:21,136 --> 00:08:28,026
+It nearly died in the nineties, and its stock was cut in half in 2008 and again in 2022.
+
+129
+00:08:27,855 --> 00:08:38,145
+Two cracks at once, the spending pause and customers with a real alternative, and you get Cisco: a strong company and a lost decade for shareholders.
+
+130
+00:08:38,255 --> 00:08:40,905
+A true fall needs all five.
+
+131
+00:08:40,975 --> 00:08:46,346
+What is new is that, for the first time, all five are visible at the same moment.
+
+132
+00:08:46,576 --> 00:08:50,466
+On November seventeenth, Nvidia reports its next results.
+
+133
+00:08:50,495 --> 00:08:52,745
+That is the first real test.
+
+134
+00:08:52,816 --> 00:08:58,385
+For thirty years, Jensen Huang has said his company is thirty days from going out of business.
+
+135
+00:08:58,416 --> 00:09:01,826
+He said it to keep people scared when everything was going right.
+
+136
+00:09:01,936 --> 00:09:04,985
+Nobody at Nvidia needs reminding this month.

@@ -1,0 +1,761 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Can Nvidia Fall?</title>
+<style>html,body{margin:0;background:#000}canvas{display:block;width:1920px;height:1080px}</style>
+</head>
+<body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script src="timeline.js"></script>
+<script src="assets.js"></script>
+<script>
+// Every frame is a pure function of time t (seconds). Scene times come from the
+// narration's word timings in timeline.js, so pictures land on the words.
+// Preview in a browser with ?play (add &t=120 to start at 2:00).
+const W_ = 1920, H_ = 1080, TL = window.TL, DURATION = TL.total;
+const cv = document.getElementById('c'), g = cv.getContext('2d');
+const C = { bg: '#07090a', ink: '#f2f5f0', dim: '#7d877c', line: '#1a201b', green: '#84e11a', red: '#ff3d3d',
+            amber: '#ffb020', sepia: '#d9b98a', panel: '#0e1310' };
+const DISPLAY = '"Inter Display", Inter, sans-serif', MONO = '"JetBrains Mono", monospace';
+const portrait = new Image(); portrait.src = window.PORTRAIT;
+
+// ---------- timing ----------
+const q = (s, i) => TL.sections[s].sentences[i].start;      // start of sentence i in section s
+const S = s => TL.sections[s].start, E = s => TL.sections[s].end;
+const w = (s, word, n = 0) => { const m = TL.sections[s].words.filter(x => x[0] === word); return (m[n] || m[m.length - 1] || [0, S(s)])[1]; };
+
+// ---------- maths ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const outCubic = k => 1 - Math.pow(1 - k, 3);
+const inOut = k => k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+const outBack = k => 1 + 2.7 * Math.pow(k - 1, 3) + 1.7 * Math.pow(k - 1, 2);
+const ap = (t, at, d = .6) => outCubic(prog(t, at, at + d));
+function rng(seed) { return () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296; }
+
+// ---------- drawing ----------
+function text(s, x, y, o = {}) {
+  g.save();
+  g.font = `${o.weight || 700} ${o.size || 40}px ${o.font || DISPLAY}`;
+  g.textAlign = o.align || 'left'; g.textBaseline = o.base || 'alphabetic';
+  g.globalAlpha *= o.alpha ?? 1;
+  if (o.spacing) g.letterSpacing = o.spacing + 'px';
+  if (o.glow) { g.shadowColor = o.glow; g.shadowBlur = o.blur || 40; }
+  g.fillStyle = o.color || C.ink; g.fillText(s, x, y); g.restore();
+}
+function width(s, o = {}) { g.save(); g.font = `${o.weight || 700} ${o.size || 40}px ${o.font || DISPLAY}`; if (o.spacing) g.letterSpacing = o.spacing + 'px'; const m = g.measureText(s).width; g.restore(); return m; }
+// text that rises into place
+function tin(s, x, y, o, t, at, d = .6) { const k = ap(t, at, d); if (k > 0) text(s, x, y + (1 - k) * 28, { ...o, alpha: (o.alpha ?? 1) * k }); }
+const mono = (o = {}) => ({ font: MONO, size: 28, weight: 500, color: C.dim, spacing: 5, ...o });
+function typed(s, t, a, cps = 22) { return s.slice(0, Math.max(0, Math.floor((t - a) * cps))); }
+function rect(x, y, wd, h, color, glow = 0, r = 0) {
+  g.save(); g.fillStyle = color; if (glow) { g.shadowColor = color; g.shadowBlur = glow; }
+  g.beginPath(); g.roundRect(x, y, wd, h, r); g.fill(); g.restore();
+}
+function panel(x, y, wd, h, stroke = C.line, glow = 0) {
+  g.save(); g.fillStyle = C.panel; g.strokeStyle = stroke; g.lineWidth = 3;
+  if (glow) { g.shadowColor = stroke; g.shadowBlur = glow; }
+  g.beginPath(); g.roundRect(x, y, wd, h, 16); g.fill(); g.stroke(); g.restore();
+}
+function polyline(pts, k, color, wd = 6, glow = 28) {
+  if (k <= 0) return pts[0];
+  const n = pts.length - 1, f = clamp(k) * n, i = Math.min(n - 1, Math.floor(f)), r = f - i;
+  g.save(); g.strokeStyle = color; g.lineWidth = wd; g.lineJoin = 'round'; g.lineCap = 'round';
+  g.shadowColor = color; g.shadowBlur = glow;
+  g.beginPath(); g.moveTo(pts[0][0], pts[0][1]);
+  for (let j = 1; j <= i; j++) g.lineTo(pts[j][0], pts[j][1]);
+  const tip = [lerp(pts[i][0], pts[i + 1][0], r), lerp(pts[i][1], pts[i + 1][1], r)];
+  g.lineTo(tip[0], tip[1]); g.stroke(); g.restore(); return tip;
+}
+function dot(p, color, r = 10) { g.save(); g.fillStyle = color; g.shadowColor = color; g.shadowBlur = 30; g.beginPath(); g.arc(p[0], p[1], r, 0, 7); g.fill(); g.restore(); }
+function ring(cx, cy, r, from, frac, color, wd = 46, glow = 30) {
+  if (frac <= 0) return;
+  g.save(); g.strokeStyle = color; g.lineWidth = wd; g.shadowColor = color; g.shadowBlur = glow;
+  g.beginPath(); g.arc(cx, cy, r, -Math.PI / 2 + from * Math.PI * 2, -Math.PI / 2 + (from + frac) * Math.PI * 2); g.stroke(); g.restore();
+}
+function arrow(x1, y1, x2, y2, color, k = 1, wd = 6) {
+  if (k <= 0) return;
+  const x = lerp(x1, x2, k), y = lerp(y1, y2, k), a = Math.atan2(y2 - y1, x2 - x1);
+  g.save(); g.strokeStyle = color; g.fillStyle = color; g.lineWidth = wd; g.lineCap = 'round'; g.shadowColor = color; g.shadowBlur = 16;
+  g.beginPath(); g.moveTo(x1, y1); g.lineTo(x, y); g.stroke();
+  g.translate(x, y); g.rotate(a); g.beginPath(); g.moveTo(8, 0); g.lineTo(-16, -12); g.lineTo(-16, 12); g.closePath(); g.fill(); g.restore();
+}
+function head(label, title, t, at, o = {}) {
+  tin(label, 160, 170, mono(), t, at);
+  if (title) tin(title, 160, 258, { size: o.size || 72, weight: 800, color: o.color }, t, at + .15);
+}
+function source(s, t, at) { tin(s, 160, 1010, mono({ size: 20, spacing: 2 }), t, at, .8); }
+
+// the chip with five cracks: the running device of the film
+const CRACKS = (() => {
+  const r = rng(42);
+  return [-2.5, -0.62, 0.52, 2.3, 3.5].map(ang => {
+    const pts = [[0, 0]]; let x = 0, y = 0, a = ang;
+    for (let s = 0; s < 9; s++) { a += (r() - .5) * .9; const d = 26 + r() * 22; x += Math.cos(a) * d; y += Math.sin(a) * d; a = lerp(a, ang, .6); pts.push([x, y]); }
+    return pts;
+  });
+})();
+function chip(cx, cy, s, lit = [], color = C.green) {
+  const k = s / 300;
+  g.save(); g.translate(cx, cy); g.scale(k, k);
+  g.strokeStyle = color; g.lineWidth = 4; g.shadowColor = color; g.shadowBlur = 20;
+  g.beginPath();
+  for (let i = 0; i < 9; i++) { const p = -124 + i * 31;
+    g.moveTo(p, -184); g.lineTo(p, -150); g.moveTo(p, 150); g.lineTo(p, 184);
+    g.moveTo(-184, p); g.lineTo(-150, p); g.moveTo(150, p); g.lineTo(184, p); }
+  g.stroke();
+  g.fillStyle = '#0c120d'; g.beginPath(); g.roundRect(-150, -150, 300, 300, 14); g.fill(); g.stroke(); g.shadowBlur = 0;
+  g.globalAlpha *= .35; g.lineWidth = 2; g.strokeRect(-94, -94, 188, 188); g.globalAlpha /= .35;
+  CRACKS.forEach((pts, i) => { if (lit[i] > 0) polyline(pts, lit[i], C.red, 5 / Math.max(k, .5)); });
+  g.restore();
+}
+const CHAPTERS = ['THE CUSTOMERS', 'THE MONEY LOOP', 'THE BILL', 'CHINA', 'ONE MAN'];
+
+function background(t) {
+  g.fillStyle = C.bg; g.fillRect(0, 0, W_, H_);
+  g.save(); g.strokeStyle = C.line; g.lineWidth = 1;
+  const off = (t * 6) % 80;
+  g.beginPath();
+  for (let x = -off; x < W_; x += 80) { g.moveTo(x, 0); g.lineTo(x, H_); }
+  for (let y = 0; y < H_; y += 80) { g.moveTo(0, y); g.lineTo(W_, y); }
+  g.stroke();
+  const v = g.createRadialGradient(W_ / 2, H_ / 2, 300, W_ / 2, H_ / 2, 1150);
+  v.addColorStop(0, 'rgba(7,9,10,0)'); v.addColorStop(1, 'rgba(0,0,0,.92)');
+  g.fillStyle = v; g.fillRect(0, 0, W_, H_); g.restore();
+}
+
+// ---------- scenes ----------
+const scenes = [];
+const scene = (start, fn, o = {}) => scenes.push({ start, fn, ...o });
+
+// ===== 0. COLD OPEN =====
+const rise = (() => { const r = rng(7), pts = [];
+  for (let i = 0; i <= 60; i++) { const k = i / 60; pts.push([200 + k * 1520, i === 60 ? 320 : 880 - Math.pow(k, 3.2) * 560 + (r() - .5) * 46 * (.3 + k)]); }
+  return pts; })();
+scene(0, t => {
+  text(typed('OCTOBER 6, 2026  ·  NASDAQ: NVDA', t, .5, 28), 200, 190, mono({ size: 30, spacing: 4 }));
+  const k = inOut(prog(t, 1.2, w(0, 'trillion') + .3));
+  g.globalAlpha *= .5; const tip = polyline(rise, k, C.green, 5); g.globalAlpha /= .5;
+  if (k > 0) dot(tip, C.green, 9 + 3 * Math.sin(t * 6));
+  const s = '$' + lerp(.6, 5.8, k).toFixed(1);
+  text(s, 200, 560, { size: 300, weight: 900, glow: k >= 1 ? C.green : null, blur: 60 });
+  text('TRILLION', 236 + width(s, { size: 300, weight: 900 }), 560, { size: 92, weight: 800, color: C.green, spacing: 6 });
+  tin('MARKET VALUE OF ONE COMPANY', 206, 640, mono(), t, w(0, 'trillion') + .4);
+});
+scene(q(0, 1) - .3, t => {
+  const a = q(0, 1);
+  tin('HOW BIG IS $5.8 TRILLION?', 200, 250, mono({ size: 30 }), t, a - .2);
+  [['NVIDIA', 'market value', 5.8, C.green, a - .1], ['JAPAN', 'entire annual economy', 4.4, C.ink, a + .5]].forEach(([name, sub, v, col, at], i) => {
+    const y = 400 + i * 250, k = outCubic(prog(t, at, at + 1));
+    text(name, 200, y - 24, { size: 64, weight: 900, alpha: prog(t, at - .2, at + .2) });
+    text(sub, 200 + (i ? 250 : 290), y - 26, { size: 30, weight: 500, color: C.dim, alpha: prog(t, at - .2, at + .2) });
+    rect(200, y, v / 5.8 * 1250 * k, 74, col, i ? 0 : 36);
+    if (k > 0) text('$' + (v * k).toFixed(1) + 'T', 228 + v / 5.8 * 1250 * k, y + 58, { size: 64, weight: 800, color: col });
+  });
+  source('JAPAN: APPROXIMATE NOMINAL GDP, IMF ESTIMATE', t, a + 1.2);
+});
+const fall = [[0, 243], [3, 236], [6, 229], [9, 221], [12, 226], [15, 214], [18, 209], [21, 213], [24, 205], [26, 200], [28, 182], [31, 187], [34, 179], [35, 169]];
+scene(q(0, 2) - .25, t => {
+  const a = q(0, 2), b = w(0, 'one', 1) - .15;
+  const slam = prog(t, a, a + .4), hold = 1 - prog(t, b - .1, b + .35);
+  if (hold > 0) { g.save(); g.globalAlpha *= hold * slam; g.translate(W_ / 2, H_ / 2); const s = lerp(1.6, 1, outCubic(slam)); g.scale(s, s);
+    text('FIVE WEEKS LATER', 0, 30, { size: 170, weight: 900, align: 'center', spacing: 2 }); g.restore(); }
+  const cIn = prog(t, b, b + .5); if (cIn <= 0) return;
+  g.save(); g.globalAlpha *= cIn;
+  const k = prog(t, b + .2, b + 2.3), sh = k > 0 && k < 1 ? 7 * Math.sin(t * 61) * (.4 + k) : 0;
+  g.translate(sh, sh * .6);
+  const X = d => 200 + d / 35 * 880, Y = p => 260 + (250 - p) / 90 * 560;
+  g.strokeStyle = C.line; g.lineWidth = 2; g.setLineDash([8, 10]);
+  [240, 200, 170].forEach(p => { g.beginPath(); g.moveTo(200, Y(p)); g.lineTo(1100, Y(p)); g.stroke(); text('$' + p, 150, Y(p) + 8, mono({ size: 22, spacing: 0, align: 'right' })); });
+  g.setLineDash([]);
+  const pts = fall.map(([d, p]) => [X(d), Y(p)]);
+  dot(pts[0], C.green, 9); text('OCT 6 · $243', pts[0][0] + 22, pts[0][1] - 22, mono({ size: 26, weight: 600, color: C.green, spacing: 0 }));
+  const tip = polyline(pts, inOut(k), C.red, 7); if (k > 0) dot(tip, C.red, 11);
+  if (k >= 1) text('NOV 10 · $169', tip[0] - 250, tip[1] + 62, mono({ size: 26, weight: 600, color: C.red, spacing: 0 }));
+  text('−$' + (1.7 * inOut(k)).toFixed(1), 1210, 560, { size: 210, weight: 900, color: C.red, glow: C.red, blur: 50 });
+  text('TRILLION', 1216, 660, { size: 84, weight: 800, color: C.red, spacing: 6 });
+  tin('IN MARKET VALUE, GONE', 1220, 730, mono({ spacing: 4 }), t, b + 2.3);
+  g.restore();
+});
+function revenueBars(t, rows, at, base = 820, hmax = 400) {
+  const max = Math.max(...rows.map(r => r[1]));
+  rows.forEach(([lab, v, col, when, x, unit = 'B']) => {
+    const k = outCubic(prog(t, when, when + 1.1)), h = v / max * hmax * k;
+    rect(x, base - h, 300, h, col, col === C.dim ? 0 : 40);
+    if (k > 0) text('$' + (v * k).toFixed(v < 100 && v % 1 ? 1 : 0) + unit, x + 150, base - h - 28, { size: 78, weight: 900, align: 'center', color: col === C.dim ? C.ink : col });
+    tin(lab, x + 150, base + 50, mono({ size: 26, align: 'center', spacing: 3 }), t, when - .2);
+  });
+  rect(160, base, 1600, 3, C.dim);
+}
+scene(q(0, 3) - .3, t => {
+  head('MEANWHILE, THE ACTUAL BUSINESS', 'Revenue in a single quarter', t, q(0, 3) - .1);
+  revenueBars(t, [['SUMMER 2025', 46.7, C.dim, q(0, 4) - .2, 460], ['SUMMER 2026', 96.2, C.green, w(0, 'ninety-six') - .2, 880]]);
+  const b = prog(t, q(0, 5), q(0, 5) + .5);
+  if (b > 0) { g.save(); g.translate(1540, 560); g.scale(outBack(b), outBack(b)); g.rotate(-.06);
+    text('+106%', 0, 0, { size: 130, weight: 900, align: 'center', color: C.green, glow: C.green });
+    text('YEAR OVER YEAR', 0, 60, mono({ size: 26, weight: 600, align: 'center', color: C.ink, spacing: 4 })); g.restore(); }
+});
+function cards(t, list, y0 = 330) {
+  list.forEach(([n, l1, l2, col, at], i) => {
+    const k = prog(t, at, at + .7); if (k <= 0) return;
+    const x = 200 + i * 520, y = lerp(-420, y0, outBack(k));
+    g.save(); g.translate(x + 240, y + 250); g.rotate((1 - outCubic(k)) * (i - 1) * .25); g.translate(-240, -250);
+    panel(0, 0, 480, 500, col, i === 2 ? 50 : 18);
+    text(n, 44, 150, { size: 130, weight: 900, color: col }); text(l1, 44, 330, { size: 50, weight: 800 }); text(l2, 44, 396, { size: 50, weight: 800 });
+    g.restore();
+  });
+}
+scene(q(0, 6) - .3, t => {
+  tin('THE STOCK FELL ANYWAY', 200, 220, { size: 96, weight: 900 }, t, q(0, 6) - .1);
+  cards(t, [['01', 'Interest rates', 'climbed', C.amber, q(0, 7) - .2], ['02', 'Does AI spending', 'actually pay off?', C.amber, q(0, 8) - .2], ['03', 'An email', 'from the CEO', C.red, q(0, 9) - .1]]);
+});
+function quote(t, l1, l2, startAt, attr, attrAt) {
+  text('“', 180, 420, { size: 320, weight: 900, color: C.green, alpha: .9 * prog(t, startAt - .6, startAt - .1) });
+  text(typed(l1, t, startAt, 20), 240, 470, { size: 112, weight: 800 });
+  text(typed(l2, t, startAt + l1.length / 20 + .15, 20), 240, 610, { size: 112, weight: 800 });
+  tin(attr, 246, 700, mono({ size: 26, spacing: 4 }), t, attrAt);
+}
+scene(q(0, 10) - .3, t => {
+  quote(t, 'Our company is thirty days', 'from going out of business.', w(0, 'our') - .2, '— JENSEN HUANG, TO HIS EMPLOYEES, FOR THREE DECADES', w(0, 'business') + .2);
+  const f = w(0, 'forecast') - .5;
+  text('It always sounded like a motto.', 246, 880, { size: 60, weight: 600, color: C.dim, alpha: Math.min(prog(t, q(0, 11), q(0, 11) + .5), 1 - prog(t, f - .3, f)) });
+  text('Is it now a forecast?', 246, 880, { size: 76, weight: 900, color: C.red, alpha: prog(t, f, f + .4), glow: C.red });
+});
+const SLOTS = [[200, 250, 'left'], [1720, 250, 'right'], [1720, 640, 'right'], [200, 640, 'left'], [200, 445, 'left']];
+const CLABEL = ['CUSTOMERS BUILDING THEIR OWN CHIPS', 'THE MONEY LOOP', 'THE $800 BILLION BILL', 'CHINA', 'ONE MAN'];
+scene(q(0, 13) - .3, t => {
+  const a = q(0, 13) + .5, out = q(0, 15) - .2, chipA = 1 - prog(t, out, out + .7);
+  if (chipA > 0) { g.save(); g.globalAlpha *= chipA;
+    chip(960, 470, 300, CLABEL.map((_, i) => outCubic(prog(t, a + i * .72, a + i * .72 + .7))));
+    CLABEL.forEach((lab, i) => { const [sx, sy, al] = SLOTS[i], la = prog(t, a + i * .72 + .25, a + i * .72 + .7);
+      text('0' + (i + 1), sx, sy, { size: 60, weight: 900, color: C.red, align: al, alpha: la });
+      text(lab, sx, sy + 46, mono({ size: 25, weight: 600, color: C.ink, align: al, alpha: la, spacing: 2 })); });
+    g.restore(); }
+  const ti = prog(t, out + .5, out + 1.2);
+  if (ti > 0) { g.save(); g.globalAlpha *= ti; g.translate(W_ / 2, H_ / 2); const s = lerp(1.25, 1, outCubic(ti)); g.scale(s, s);
+    text('CAN NVIDIA', 0, -40, { size: 230, weight: 900, align: 'center' });
+    text('FALL?', 0, 190, { size: 260, weight: 900, align: 'center', color: C.red, glow: C.red, blur: 70 });
+    text('THE CASE AGAINST THE MOST VALUABLE COMPANY IN HISTORY', 0, 300, mono({ align: 'center', alpha: prog(t, out + 1.3, out + 2) })); g.restore(); }
+}, { still: true });
+
+// ===== 1. WHY THIS IS YOUR PROBLEM =====
+scene(S(1) - .9, t => {
+  const a = q(1, 0);
+  head('WHY THIS IS YOUR PROBLEM', null, t, a - .6);
+  tin('Your 401(k)', 160, 420, { size: 120, weight: 900 }, t, a - .1);
+  tin('owns Nvidia.', 160, 550, { size: 120, weight: 900, color: C.green }, t, w(1, 'own') - .2);
+  tin('ONE OF THE BIGGEST PIECES OF THE S&P 500', 166, 640, mono({ size: 26, spacing: 3 }), t, q(1, 1));
+  tin('When it moves, your retirement moves.', 166, 780, { size: 50, weight: 700, color: C.amber }, t, q(1, 2));
+  // the index as a block of squares, Nvidia's share lit
+  const mv = t > q(1, 2) ? Math.sin((t - q(1, 2)) * 9) * 10 * (1 - prog(t, q(1, 2), q(1, 2) + 2.2)) : 0;
+  for (let i = 0; i < 100; i++) {
+    const cx = 1160 + (i % 10) * 62, cy = 300 + Math.floor(i / 10) * 62, on = i < 8, k = ap(t, a + .2 + i * .012, .4);
+    if (k <= 0) continue;
+    g.save(); g.globalAlpha *= k;
+    const lit = on && t > w(1, 'own') - .3;
+    rect(cx, cy + (lit ? mv : mv * .35), 52, 52, lit ? C.green : '#1b231c', lit ? 22 : 0, 6); g.restore();
+  }
+  tin('NVIDIA', 1160, 270, mono({ size: 24, color: C.green, weight: 700 }), t, w(1, 'own'));
+  tin('THE S&P 500', 1780, 950, mono({ size: 24, align: 'right' }), t, q(1, 1));
+});
+scene(q(1, 3) - .3, t => {
+  head('HOW IT GOT THIS BIG', 'Twenty quiet years. Then three loud ones.', t, q(1, 3) - .1, { size: 64 });
+  const x0 = 200, x1 = 1720, y0 = 860, split = 1180, a = q(1, 4), b = w(1, 'chatgpt');
+  rect(x0, y0 + 40, x1 - x0, 3, C.dim);
+  const flat = []; const r = rng(3);
+  for (let i = 0; i <= 40; i++) flat.push([lerp(x0, split, i / 40), y0 - 20 - i * 1.4 - r() * 14]);
+  const up = [flat[40]]; for (let i = 1; i <= 24; i++) up.push([lerp(split, x1, i / 24), flat[40][1] - Math.pow(i / 24, 1.7) * 470 - r() * 10]);
+  polyline(flat, prog(t, a - .2, b - .4), C.dim, 5, 0);
+  const tip = polyline(up, inOut(prog(t, b, b + 3.4)), C.green, 7);
+  if (t > b) dot(tip, C.green, 10);
+  tin('GRAPHICS CARDS FOR GAMERS', 200, y0 + 96, mono({ size: 26, spacing: 3 }), t, a);
+  const m = ap(t, b - .2);
+  if (m > 0) { g.save(); g.globalAlpha *= m; rect(split - 1, 420, 3, y0 + 40 - 420, C.amber);
+    text('NOV 2022', split + 20, 450, mono({ size: 26, color: C.amber, weight: 700, spacing: 3 }));
+    text('ChatGPT arrives', split + 20, 506, { size: 46, weight: 800 }); g.restore(); }
+  tin('AI RUNS BEST ON NVIDIA CHIPS', split + 20, y0 + 96, mono({ size: 26, spacing: 3, color: C.green }), t, w(1, 'artificial'));
+});
+scene(q(1, 6) - .3, t => {
+  head('YEARLY SALES', 'Three years.', t, q(1, 6) - .1);
+  revenueBars(t, [['FISCAL 2023', 27, C.dim, w(1, 'twenty-seven') - .3, 460], ['FISCAL 2026', 216, C.green, w(1, 'two') - .2, 880]]);
+  const b = prog(t, w(1, 'sixteen') + .2, w(1, 'sixteen') + .7);
+  if (b > 0) { g.save(); g.translate(1540, 540); g.scale(outBack(b), outBack(b));
+    text('8×', 0, 0, { size: 220, weight: 900, align: 'center', color: C.green, glow: C.green }); g.restore(); }
+  // gross profit strip appears for the next sentence
+  const a = q(1, 7) - .2, k = ap(t, a, .9);
+  if (k > 0) { g.save(); g.globalAlpha *= k;
+    rect(0, 880, W_, 200, 'rgba(7,9,10,.92)');
+    rect(160, 930, 1600 * .75 * k, 60, C.green, 30); rect(160 + 1600 * .75, 930, 1600 * .25, 60, '#263026');
+    text('75¢ OF EVERY DOLLAR IS GROSS PROFIT', 160, 910, mono({ size: 26, color: C.ink, weight: 700, spacing: 3 }));
+    text('COSTS', 1760, 910, mono({ size: 26, align: 'right', spacing: 3 })); g.restore(); }
+});
+function shovel(cx, cy, s, color) {
+  g.save(); g.translate(cx, cy); g.rotate(.5); g.scale(s, s); g.strokeStyle = color; g.fillStyle = color; g.lineWidth = 10; g.lineCap = 'round';
+  g.shadowColor = color; g.shadowBlur = 24;
+  g.beginPath(); g.moveTo(0, -120); g.lineTo(0, 40); g.stroke();
+  g.beginPath(); g.moveTo(-22, -120); g.lineTo(22, -120); g.stroke();
+  g.beginPath(); g.moveTo(-38, 40); g.lineTo(38, 40); g.lineTo(38, 90); g.quadraticCurveTo(0, 150, -38, 90); g.closePath(); g.fill(); g.restore();
+}
+scene(q(1, 8) - .3, t => {
+  const a = q(1, 8), b = q(1, 9), cx = 1340, cy = 540, turn = prog(t, b + 1.6, b + 2.6);
+  head('THE BIGGEST GOLD RUSH IN HISTORY', null, t, a - .1);
+  tin('One company', 160, 420, { size: 104, weight: 900 }, t, a);
+  tin('sells the shovels.', 160, 540, { size: 104, weight: 900, color: C.green }, t, w(1, 'shovels') - .3);
+  tin('Everyone has a reason', 160, 740, { size: 60, weight: 700, color: C.red }, t, w(1, 'everyone') - .2);
+  tin('to want you gone.', 160, 816, { size: 60, weight: 700, color: C.red }, t, w(1, 'everyone') + .5);
+  for (let i = 0; i < 10; i++) { const an = i / 10 * Math.PI * 2 + t * .05, k = ap(t, a + .3 + i * .1, .5); if (k <= 0) continue;
+    const px = cx + Math.cos(an) * 330, py = cy + Math.sin(an) * 330, col = turn > 0 ? C.red : C.dim;
+    g.save(); g.globalAlpha *= k; g.strokeStyle = col; g.lineWidth = 2; g.setLineDash([6, 10]); g.lineDashOffset = -t * 40;
+    g.beginPath(); g.moveTo(px, py); g.lineTo(cx + Math.cos(an) * 150, cy + Math.sin(an) * 150); g.stroke(); g.setLineDash([]);
+    dot([px, py], col, 16); g.restore(); }
+  g.save(); g.strokeStyle = C.green; g.lineWidth = 4; g.shadowColor = C.green; g.shadowBlur = 30; g.fillStyle = '#0c120d';
+  g.globalAlpha *= ap(t, a - .1); g.beginPath(); g.arc(cx, cy, 140, 0, 7); g.fill(); g.stroke(); g.restore();
+  if (t > a - .1) { g.save(); g.globalAlpha *= ap(t, a - .1); shovel(cx - 20, cy, .8, C.green); g.restore(); }
+});
+
+// ===== chapter cards =====
+function chapter(n, startAt, subtitle) {
+  return t => {
+    const lit = CHAPTERS.map((_, i) => i < n - 1 ? 1 : i === n - 1 ? outCubic(prog(t, startAt + .5, startAt + 1.5)) : 0);
+    chip(430, 540, 320, lit);
+    tin('CRACK 0' + n + ' OF 05', 760, 440, mono({ size: 32, color: C.red, weight: 700, spacing: 8 }), t, startAt + .2);
+    tin(CHAPTERS[n - 1], 756, 560, { size: 116, weight: 900 }, t, startAt + .45);
+    if (subtitle) tin(subtitle, 762, 636, { size: 42, weight: 500, color: C.dim }, t, startAt + .9);
+  };
+}
+
+// ===== 2. THE CUSTOMERS =====
+scene(S(2) - 1.9, chapter(1, S(2) - 1.9, 'Who buys the shovels?'), { still: true });
+const GIANTS = ['MICROSOFT', 'AMAZON', 'GOOGLE', 'META'];
+function giants(t, when, chips = null, hot = -1, y0 = 300, dy = 170) {
+  GIANTS.forEach((name, i) => {
+    const y = y0 + i * dy, k = ap(t, when[i], .5); if (k <= 0) return;
+    g.save(); g.globalAlpha *= k;
+    panel(200 - (1 - k) * 60, y - 60, 520, 120, hot === i ? C.green : '#2a332b', hot === i ? 30 : 0);
+    text(name, 240 - (1 - k) * 60, y + 16, { size: 46, weight: 800 });
+    if (chips) { const c = ap(t, chips[i].at, .6); if (c > 0) { g.globalAlpha *= c;
+      chip(780 + 60, y, 80 * outBack(c), [], hot === i ? C.green : C.amber);
+      text(chips[i].name, 930, y + 12, mono({ size: 28, color: hot === i ? C.green : C.amber, weight: 700, spacing: 3 })); } }
+    g.restore();
+  });
+}
+scene(q(2, 1) - .3, t => {
+  const when = ['microsoft', 'amazon', 'google', 'meta'].map(x => w(2, x) - .15);
+  head('A HANDFUL OF GIANTS BUY MOST OF THE CHIPS', null, t, q(2, 1));
+  giants(t, when);
+  GIANTS.forEach((_, i) => { const y = 300 + i * 170, k = prog(t, when[i] + .2, when[i] + .9); if (k <= 0) return;
+    g.save(); g.strokeStyle = C.green; g.lineWidth = 5; g.globalAlpha *= .8 * k; g.setLineDash([18, 16]); g.lineDashOffset = -t * 120;
+    g.beginPath(); g.moveTo(730, y); g.bezierCurveTo(980, y, 1000, 555, lerp(730, 1250, k), lerp(y, 555, k)); g.stroke(); g.restore(); });
+  const c = ap(t, q(2, 1) - .1, .8); g.save(); g.globalAlpha *= c; chip(1440, 555, 300); g.restore();
+  tin('NVIDIA', 1440, 800, mono({ size: 30, align: 'center', color: C.green, weight: 700 }), t, q(2, 1));
+  tin('TENS OF BILLIONS A YEAR, EACH', 1440, 850, mono({ size: 24, align: 'center', spacing: 3 }), t, w(2, 'tens'));
+  const m = ap(t, w(2, 'profit') - .3, .7);
+  if (m > 0) { g.save(); g.globalAlpha *= m; rect(0, 900, W_, 180, 'rgba(7,9,10,.94)');
+    rect(160, 950, 1600 * .75 * m, 56, C.green, 30); rect(160 + 1600 * .75, 950, 400, 56, '#263026');
+    text('MOST OF WHAT THEY PAY IS NVIDIA\'S PROFIT MARGIN', 160, 930, mono({ size: 26, color: C.ink, weight: 700, spacing: 3 })); g.restore(); }
+});
+scene(q(2, 8) - .3, t => {
+  const a = q(2, 9), ch = [{ name: 'MAIA', at: a + .1 }, { name: 'TRAINIUM', at: a + .5 }, { name: 'TPU', at: a + .9 }, { name: 'MTIA', at: a + 1.3 }];
+  const hot = t > q(2, 11) ? 2 : -1;
+  head('THE OBVIOUS MOVE', 'Build your own chip.', t, q(2, 8), { color: C.amber });
+  giants(t, [0, 0, 0, 0].map(() => q(2, 8) - .2), ch, hot, 400, 150);
+  tin('Every one of them is.', 1240, 480, { size: 56, weight: 800 }, t, q(2, 10));
+  tin('Google\'s are good enough', 1240, 620, { size: 44, weight: 700, color: C.green }, t, q(2, 11));
+  tin('that other AI companies', 1240, 676, { size: 44, weight: 700, color: C.green }, t, q(2, 11) + .3);
+  tin('choose them over Nvidia.', 1240, 732, { size: 44, weight: 700, color: C.green }, t, q(2, 11) + .6);
+});
+scene(q(2, 12) - .3, t => {
+  const a = q(2, 12), b = q(2, 14), cx = 1380, cy = 540, r = rng(11);
+  head('NVIDIA\'S DEFENSE', 'The software moat.', t, a, { color: C.green });
+  tin('Millions of developers', 160, 480, { size: 60, weight: 800 }, t, q(2, 13));
+  tin('are trained on it.', 160, 552, { size: 60, weight: 800 }, t, q(2, 13) + .3);
+  tin('SWITCHING IS PAINFUL', 166, 620, mono({ size: 26, spacing: 3 }), t, w(2, 'switching'));
+  g.save(); g.globalAlpha *= ap(t, a - .1); chip(cx, cy, 200); g.restore();
+  for (let i = 0; i < 44; i++) { const ringN = i < 18 ? 0 : 1, n = ringN ? 26 : 18, j = ringN ? i - 18 : i;
+    const an = j / n * Math.PI * 2 + (ringN ? -1 : 1) * t * .06, rad = ringN ? 360 : 260, k = ap(t, a + .2 + i * .03, .5), wd = 30 + r() * 46;
+    if (k <= 0) continue; g.save(); g.globalAlpha *= k * (.5 + .5 * r()); g.translate(cx + Math.cos(an) * rad, cy + Math.sin(an) * rad); g.rotate(an + Math.PI / 2);
+    rect(-wd / 2, -7, wd, 14, C.green, 12, 4); g.restore(); }
+  // then: they only need a choice
+  const k = ap(t, b - .1, .8);
+  if (k > 0) { g.save(); g.globalAlpha *= k; rect(0, 760, 1040, 320, 'rgba(7,9,10,.9)');
+    text('But they only need', 160, 850, { size: 60, weight: 800, color: C.amber });
+    text('a choice.', 160, 924, { size: 60, weight: 800, color: C.amber, alpha: prog(t, q(2, 15), q(2, 15) + .4) }); g.restore(); }
+});
+scene(q(2, 16) - .3, t => {
+  const a = q(2, 16), b = w(2, 'negotiation') - .2, k = prog(t, b, b + 1.6), sh = t > w(2, 'seventy-five') && k < 1 ? Math.sin(t * 50) * 4 : 0;
+  head('THE MOMENT A CUSTOMER HAS A CHOICE', null, t, a);
+  const m = lerp(75, 58, inOut(k));
+  text(Math.round(m) + '%', 160 + sh, 600, { size: 360, weight: 900, color: k > 0 ? C.amber : C.green, glow: k > 0 ? C.amber : C.green, alpha: ap(t, a + .2) });
+  tin('GROSS MARGIN', 176, 680, mono({ size: 30 }), t, a + .4);
+  rect(160, 760, 1600, 70, '#263026'); rect(160 + sh, 760, 1600 * m / 100, 70, k > 0 ? C.amber : C.green, 30);
+  tin('becomes a negotiation.', 1000, 560, { size: 72, weight: 900, color: C.red }, t, b);
+  tin('ILLUSTRATIVE', 1760, 880, mono({ size: 20, align: 'right', spacing: 2 }), t, b);
+});
+
+// ===== 3. THE MONEY LOOP =====
+scene(S(3) - 1.9, chapter(2, S(3) - 1.9, 'Where the money comes from'), { still: true });
+function loop(t, names, hops, o = {}) {
+  const cx = 960, cy = 590, R = 300, col = o.color || C.green, pos = [[cx, cy - R], [cx + R + 180, cy], [cx, cy + R], [cx - R - 180, cy]];
+  const dead = o.deadAt != null ? prog(t, o.deadAt, o.deadAt + .8) : 0;
+  // track
+  g.save(); g.strokeStyle = col; g.globalAlpha *= .35 * (1 - dead * .7); g.lineWidth = 4; g.setLineDash([14, 14]); g.lineDashOffset = -t * 50 * (1 - dead);
+  g.beginPath(); g.ellipse(cx, cy, R + 180, R, 0, 0, 7); g.stroke(); g.restore();
+  names.forEach((nm, i) => { const k = ap(t, hops[i] - .3, .5); if (k <= 0) return; const [x, y] = pos[i], isDead = o.deadNode === i && dead > 0;
+    g.save(); g.globalAlpha *= k * (isDead ? 1 - dead * .75 : 1);
+    panel(x - 190, y - 52, 380, 104, isDead ? C.red : col, isDead ? 0 : 22);
+    text(nm, x, y + 13, { size: 34, weight: 800, align: 'center', color: isDead ? C.red : C.ink }); g.restore(); });
+  // the coin: travels node to node on the hop times, then keeps circling
+  let ang = null;
+  for (let i = 0; i < 4; i++) { const a = hops[i], b = hops[i + 1] ?? a + 3; if (t >= a && t < b) ang = (i + inOut(prog(t, a, Math.min(b, a + 2.2)))) / 4; }
+  const last = (hops[4] ?? hops[3] + 3); if (t >= last) ang = 1 + (t - last) / 3.2;
+  if (o.deadAt != null && t > o.deadAt) ang = null;
+  if (ang != null) { const th = -Math.PI / 2 + ang * Math.PI * 2; dot([cx + Math.cos(th) * (R + 180), cy + Math.sin(th) * R], C.amber, 20);
+    text('$', cx + Math.cos(th) * (R + 180), cy + Math.sin(th) * R + 10, { size: 28, weight: 900, color: '#1a1200', align: 'center' }); }
+  return { cx, cy, laps: ang != null && t >= last ? Math.floor(ang) : 0 };
+}
+scene(q(3, 1) - .3, t => {
+  head('FOLLOW ONE DOLLAR', null, t, q(3, 1));
+  const hops = [q(3, 2), q(3, 3), q(3, 4), q(3, 5), q(3, 5) + 2.2];
+  const l = loop(t, ['NVIDIA INVESTS', 'AI COMPANY', 'DATA CENTERS', 'NVIDIA CHIPS'], hops);
+  const s = ap(t, w(3, 'sales') - .4);
+  if (s > 0) { text('COUNTED AS', l.cx, l.cy - 20, mono({ size: 26, align: 'center', alpha: s }));
+    text('SALES', l.cx, l.cy + 60, { size: 84, weight: 900, align: 'center', color: C.green, alpha: s, glow: C.green }); }
+  tin('CRITICS CALL IT CIRCULAR FINANCING', 1760, 170, mono({ size: 28, align: 'right', color: C.amber, weight: 700 }), t, q(3, 6));
+});
+scene(q(3, 7) - .3, t => {
+  head('AND IT IS NOT SMALL', null, t, q(3, 7));
+  const a = w(3, 'thirty') - .3, b = w(3, 'hundred') - .3, c = q(3, 10);
+  tin('$30B', 160, 440, { size: 220, weight: 900, color: C.green, glow: C.green }, t, a);
+  tin('INVESTED IN OPENAI', 172, 510, mono(), t, a + .3);
+  tin('$105B', 160, 780, { size: 220, weight: 900, color: C.amber, glow: C.amber }, t, b);
+  tin('OF OPENAI\'S DATA-CENTER LEASE PAYMENTS, GUARANTEED BY NVIDIA', 172, 850, mono({ size: 24, spacing: 3 }), t, b + .3);
+  const k = ap(t, c, .7);
+  if (k > 0) { g.save(); g.globalAlpha *= k; panel(1120, 380, 640, 360, C.red, 40);
+    text('If OpenAI', 1170, 480, { size: 64, weight: 800 }); text('cannot pay,', 1170, 556, { size: 64, weight: 800 });
+    text('Nvidia is', 1170, 640, { size: 64, weight: 900, color: C.red, alpha: prog(t, w(3, 'pay') + .3, w(3, 'pay') + .7) });
+    text('on the hook.', 1170, 700, { size: 64, weight: 900, color: C.red, alpha: prog(t, w(3, 'pay') + .3, w(3, 'pay') + .7) }); g.restore(); }
+  source('SOURCE: NVIDIA QUARTERLY FILING, JULY 2026; PRESS REPORTS', t, b + .8);
+});
+scene(q(3, 11) - .3, t => {
+  head('WE HAVE SEEN THIS BEFORE', 'The late 1990s', t, q(3, 11), { color: C.sepia });
+  const a = q(3, 12), hops = [a, a + 1.4, a + 2.8, a + 4.2, a + 5.6];
+  loop(t, ['EQUIPMENT MAKER', 'LOANS', 'CUSTOMER', 'ORDERS'], hops, { color: C.sepia, deadAt: q(3, 14), deadNode: 2 });
+  tin('SALES LOOKED', 960, 580, mono({ size: 26, align: 'center', color: C.sepia, alpha: 1 - prog(t, q(3, 14), q(3, 14) + .4) }), t, q(3, 13));
+  tin('INCREDIBLE', 960, 624, mono({ size: 26, align: 'center', color: C.sepia, alpha: 1 - prog(t, q(3, 14), q(3, 14) + .4) }), t, q(3, 13));
+  const k = ap(t, q(3, 14) + .5);
+  if (k > 0) { text('OUT OF', 960, 580, { size: 64, weight: 900, color: C.red, align: 'center', alpha: k, glow: C.red });
+    text('CASH', 960, 648, { size: 64, weight: 900, color: C.red, align: 'center', alpha: k, glow: C.red });
+    tin('SALES BORROWED FROM THE FUTURE', 1760, 170, mono({ size: 28, align: 'right', color: C.red, weight: 700 }), t, w(3, 'borrowed') - .3); }
+});
+scene(q(3, 15) - .3, t => {
+  const a = q(3, 16), b = w(3, 'thirteen') - .3, c = q(3, 18), d = q(3, 19), x0 = 160, wd = 1600, y = 470;
+  head('TO BE FAIR, THIS IS NOT THE SAME', 'Where Nvidia\'s revenue comes from', t, q(3, 15), { size: 60 });
+  const k = outCubic(prog(t, a, a + 1.2)), k2 = outCubic(prog(t, b, b + .8)), crack = prog(t, c + .6, c + 1.6);
+  rect(x0, y, wd * .87 * k, 150, C.green, 30);
+  rect(x0 + wd * .87 + 8, y + (crack > 0 ? Math.sin(t * 40) * 3 * (1 - crack) : 0), wd * .13 * k2, 150, crack > 0 ? C.red : C.amber, 30);
+  if (k > .5) { text('87%', x0 + 30, y + 110, { size: 110, weight: 900, color: '#0a1400' });
+    text('THE RICHEST COMPANIES ON EARTH, PAYING CASH', x0, y + 210, mono({ size: 26, spacing: 3, color: C.ink })); }
+  if (k2 > .5) { text('13%', x0 + wd * .87 + 20, y - 24, { size: 76, weight: 900, color: crack > 0 ? C.red : C.amber });
+    text('THE LOOP', x0 + wd, y + 210, mono({ size: 26, spacing: 3, align: 'right', color: crack > 0 ? C.red : C.amber })); }
+  tin('…in the part of the AI industry that loses the most money.', 160, 800, { size: 46, weight: 700, color: C.amber }, t, c);
+  tin('If it stumbles: one customer and one investment, gone on the same day.', 160, 880, { size: 46, weight: 800, color: C.red }, t, d);
+  source('SHARE OF REVENUE: ONE BANK\'S ESTIMATE', t, b + .6);
+});
+
+// ===== 4. THE BILL =====
+scene(S(4) - 1.9, chapter(3, S(4) - 1.9, 'Who is paying, and for how long?'), { still: true });
+scene(q(4, 2) - .3, t => {
+  head('WHAT THE BIGGEST CLOUD COMPANIES SPEND', 'Buildings and equipment, per year', t, q(4, 2), { size: 60 });
+  const rows = [['2024', 260, C.dim, w(4, 'two') + .4, 220], ['2026', 800, C.amber, w(4, 'eight') - .4, 640], ['2027', 1100, C.red, w(4, 'trillion') - .8, 1060]];
+  const base = 860;
+  rows.forEach(([lab, v, col, when, x]) => { const k = outCubic(prog(t, when, when + 1.1)), h = v / 1100 * 470 * k;
+    rect(x, base - h, 320, h, col, col === C.dim ? 0 : 36);
+    if (k > 0) text(v >= 1000 ? '$1T+' : '$' + Math.round(v * k) + 'B', x + 160, base - h - 26, { size: 80, weight: 900, align: 'center', color: col === C.dim ? C.ink : col });
+    tin(lab, x + 160, base + 52, mono({ size: 28, align: 'center' }), t, when - .2); });
+  rect(160, base, 1600, 3, C.dim);
+  const k = ap(t, q(4, 5), .8);
+  if (k > 0) { arrow(1420, 520, 1420 + 120 * k, 520, C.green, 1); text('NVIDIA', 1660, 534, { size: 54, weight: 900, color: C.green, align: 'center', alpha: k, glow: C.green });
+    text('A very large part', 1460, 430, { size: 36, weight: 700, alpha: k }); text('lands here', 1460, 474, { size: 36, weight: 700, alpha: k }); }
+  source('ESTIMATES AND FORECASTS: MORGAN STANLEY', t, w(4, 'eight'));
+});
+scene(q(4, 6) - .3, t => {
+  const a = q(4, 6), b = q(4, 7), c = q(4, 8);
+  head('NOT A LAW OF NATURE', 'A choice.', t, a, { color: C.amber });
+  for (let i = 0; i < 5; i++) { const cx = 320 + i * 320, cy = 580, k = ap(t, w(4, 'five') - .6 + i * .12, .5); if (k <= 0) continue;
+    g.save(); g.globalAlpha *= k; g.strokeStyle = C.dim; g.lineWidth = 6; g.beginPath(); g.arc(cx, cy, 110, Math.PI * .8, Math.PI * 2.2); g.stroke();
+    const need = -Math.PI * .5 + Math.sin(t * 1.3 + i * 1.7) * .9 - prog(t, c + 1.5, c + 3) * .6;
+    g.strokeStyle = C.amber; g.lineWidth = 8; g.lineCap = 'round'; g.shadowColor = C.amber; g.shadowBlur = 20;
+    g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + Math.cos(need) * 88, cy + Math.sin(need) * 88); g.stroke(); g.restore();
+    text('CEO ' + (i + 1), cx, cy + 170, mono({ size: 24, align: 'center', alpha: k }));
+    text('SPEND', cx, cy + 56, mono({ size: 18, align: 'center', alpha: k, spacing: 3 })); }
+  tin('MADE EVERY THREE MONTHS, BY ABOUT FIVE PEOPLE', 160, 340, mono({ size: 28, color: C.ink }), t, b);
+  tin('They keep making it only if the profits show up.', 160, 900, { size: 54, weight: 800 }, t, c);
+});
+scene(q(4, 9) - .3, t => {
+  const a = q(4, 9), b = q(4, 10);
+  head('SO FAR', null, t, a);
+  panel(160, 240, 780, 620); panel(980, 240, 780, 620);
+  tin('RETURN ON EACH NEW DOLLAR', 200, 310, mono({ size: 24, spacing: 3 }), t, a);
+  const pts = []; const r = rng(5); for (let i = 0; i <= 20; i++) pts.push([220 + i * 33, 420 + i * 16 + (r() - .5) * 20]);
+  const tip = polyline(pts, prog(t, w(4, 'return') - .2, w(4, 'shrinking') + .6), C.red, 7); if (t > w(4, 'return')) dot(tip, C.red, 10);
+  tin('Shrinking', 200, 810, { size: 60, weight: 900, color: C.red }, t, w(4, 'shrinking') - .1);
+  tin('SHARE PAID FOR WITH DEBT', 1020, 310, mono({ size: 24, spacing: 3 }), t, b);
+  [0, 1, 2, 3].forEach(i => { const k = outCubic(prog(t, b + .2 + i * .22, b + 1 + i * .22)), h = (90 + i * 85) * k; rect(1060 + i * 165, 740 - h, 120, h, C.amber, 24); });
+  tin('Rising', 1020, 810, { size: 60, weight: 900, color: C.amber }, t, w(4, 'debt') - .3);
+  source('DIRECTION ONLY: ANALYST ESTIMATES VARY', t, b + .5);
+});
+scene(q(4, 11) - .3, t => {
+  const a = q(4, 12), b = q(4, 14), c = q(4, 15), d = q(4, 16);
+  head('WHY THAT IS DANGEROUS', 'Nvidia sells equipment, not a subscription.', t, q(4, 11), { size: 60 });
+  const row = (y, lab, v1, v2, res, col, at) => { const k = ap(t, at, .7); if (k <= 0) return; g.save(); g.globalAlpha *= k;
+    text(lab, 160, y + 14, mono({ size: 24, spacing: 3 }));
+    rect(520, y - 34, 380 * k, 68, C.dim); text('LAST YEAR  100', 540, y + 12, mono({ size: 24, color: '#0a0d0a', weight: 700, spacing: 1 }));
+    rect(940, y - 34, 380 * v2 / 100 * k, 68, col, 24); text('THIS YEAR  ' + v2, 960, y + 12, mono({ size: 24, color: '#0a0d0a', weight: 700, spacing: 1 }));
+    text(res, 1760, y + 22, { size: 62, weight: 900, color: col, align: 'right', alpha: prog(t, at + .9, at + 1.3) }); g.restore(); };
+  row(480, 'SAME ORDER', 100, 100, '0% GROWTH', C.amber, b);
+  row(660, 'A LITTLE LESS', 100, 80, 'IT SHRINKS', C.red, c);
+  tin('Even if AI itself is doing fine.', 160, 880, { size: 56, weight: 800 }, t, d);
+  tin('ILLUSTRATIVE', 1760, 1010, mono({ size: 20, align: 'right', spacing: 2 }), t, b);
+});
+scene(q(4, 17) - .3, t => {
+  const a = q(4, 17), b = q(4, 18), c = q(4, 19), d = q(4, 21), e = q(4, 22), base = 820;
+  head('EVERY BUILD-OUT HAS ENDED THE SAME WAY', null, t, a);
+  rect(160, base, 1600, 3, C.dim);
+  const hump = (x0, wd, h) => { const p = []; for (let i = 0; i <= 40; i++) { const k = i / 40; p.push([x0 + k * wd, base - (k < .62 ? Math.pow(k / .62, 2.2) : Math.pow(1 - (k - .62) / .38, 1.6) * .82 + .18) * h]); } return p; };
+  const h1 = hump(200, 400, 380), h2 = hump(700, 400, 440);
+  polyline(h1, prog(t, a, a + 1.4), C.sepia, 6); tin('RAILROADS', 400, base + 54, mono({ size: 26, align: 'center', color: C.sepia }), t, a);
+  polyline(h2, prog(t, b, b + 1.4), C.sepia, 6); tin('FIBER-OPTIC CABLE', 900, base + 54, mono({ size: 26, align: 'center', color: C.sepia }), t, b);
+  const ai = []; for (let i = 0; i <= 30; i++) { const k = i / 30; ai.push([1220 + k * 300, base - Math.pow(k, 2.2) * 500]); }
+  const tip = polyline(ai, prog(t, c, c + 2.4), C.green, 8); if (t > c) dot(tip, C.green, 11);
+  tin('AI', 1370, base + 54, mono({ size: 26, align: 'center', color: C.green, weight: 700 }), t, c);
+  tin('The technology was real. The sellers crashed anyway.', 160, 290, { size: 50, weight: 800 }, t, d - .3);
+  const k = prog(t, e, e + 1.4);
+  if (k > 0) { g.save(); g.strokeStyle = C.green; g.lineWidth = 5; g.setLineDash([14, 14]); g.globalAlpha *= .9;
+    g.beginPath(); g.moveTo(1520, base - 500); g.lineTo(1520 + 220 * k, base - 500 - 180 * k); g.stroke(); g.restore();
+    tin('WHAT THE STOCK PRICE ASSUMES:', 160, 370, mono({ size: 26, spacing: 3 }), t, e + .3);
+    tin('NOBODY STOPS', 160, 420, mono({ size: 34, color: C.green, weight: 700 }), t, w(4, 'nobody') - .2); }
+});
+
+// ===== 5. CHINA =====
+scene(S(5) - 1.9, chapter(4, S(5) - 1.9, 'The crack Nvidia cannot fix'), { still: true });
+scene(q(5, 1) - .3, t => {
+  const a = q(5, 1), b = q(5, 2), cx = 1340, cy = 560, drain = inOut(prog(t, w(5, 'blocked') - .3, w(5, 'blocked') + 1.6)), share = .95 * (1 - drain);
+  head('NVIDIA\'S SHARE OF AI CHIPS IN CHINA', null, t, a);
+  ring(cx, cy, 250, 0, 1, '#1b231c', 46, 0);
+  ring(cx, cy, 250, 0, share * outCubic(prog(t, a, a + 1.2)), C.green);
+  text(Math.round(share * 100 * outCubic(prog(t, a, a + 1.2))) + '%', cx, cy + 50, { size: 150, weight: 900, align: 'center', color: drain > .5 ? C.red : C.ink });
+  tin('A few years ago', 160, 470, { size: 60, weight: 800 }, t, a);
+  tin('Then Washington', 160, 640, { size: 60, weight: 800, color: C.amber }, t, b);
+  tin('blocked the sales.', 160, 712, { size: 60, weight: 800, color: C.amber }, t, b + .3);
+  const k = prog(t, w(5, 'blocked') - .5, w(5, 'blocked') - .1);
+  if (k > 0) { rect(1020, cy - 380 + 760 * (1 - outCubic(k)) * -1, 14, 760, C.red, 30);
+    text('EXPORT CONTROLS', 1002, cy + 340, mono({ size: 22, color: C.red, weight: 700, align: 'right', alpha: k, spacing: 3 })); }
+});
+scene(q(5, 3) - .3, t => {
+  quote(t, 'We went from 95 percent', 'market share to zero.', w(5, 'we') - .2, '— JENSEN HUANG, NVIDIA CEO', w(5, 'zero') + .3);
+});
+scene(q(5, 4) - .3, t => {
+  const a = q(5, 5), cx = 520, cy = 600, fill = outCubic(prog(t, w(5, 'huawei') - .2, w(5, 'huawei') + 1.6));
+  head('WHAT REPLACED THEM IS WORSE', null, t, a - .2);
+  ring(cx, cy, 230, 0, 1, '#1b231c', 46, 0); ring(cx, cy, 230, 0, .5 * fill, C.red);
+  text('≈' + Math.round(50 * fill) + '%', cx, cy + 40, { size: 120, weight: 900, align: 'center', color: C.red, alpha: prog(t, w(5, 'huawei') - .2, w(5, 'huawei') + .2) });
+  tin('HUAWEI', cx, cy + 96, mono({ size: 28, align: 'center', color: C.red, weight: 700 }), t, w(5, 'huawei'));
+  [['A protected home market', 'protected'], ['Guaranteed customers', 'guaranteed'], ['Its government behind it', 'government']].forEach(([s, wd], i) => {
+    const at = w(5, wd) - .3, k = ap(t, at); if (k <= 0) return;
+    g.save(); g.globalAlpha *= k; rect(960, 380 + i * 120 - 44, 10, 64, C.red, 16); text(s, 1000 + (1 - k) * 40, 380 + i * 120, { size: 56, weight: 800 }); g.restore(); });
+  tin('That is how a future competitor gets built.', 960, 800, { size: 44, weight: 700, color: C.amber }, t, q(5, 8));
+  source('HUAWEI SHARE: ANALYST ESTIMATE', t, w(5, 'huawei') + 1);
+});
+
+// ===== 6. ONE MAN =====
+scene(S(6) - 1.9, chapter(5, S(6) - 1.9, 'The newest crack'), { still: true });
+function drawPortrait(t, a, x, wd, alpha = 1) {
+  const k = ap(t, a, 1.2); if (k <= 0 || !portrait.complete) return;
+  const z = 1 + (t - a) * .006, h = wd * portrait.height / portrait.width;
+  g.save(); g.globalAlpha *= k * alpha; g.beginPath(); g.rect(x, 0, wd, H_); g.clip();
+  g.drawImage(portrait, x - (z - 1) * wd / 2, H_ - h * z + 40, wd * z, h * z);
+  const gr = g.createLinearGradient(x, 0, x + wd * .45, 0); gr.addColorStop(0, C.bg); gr.addColorStop(1, 'rgba(7,9,10,0)');
+  g.fillStyle = gr; g.fillRect(x, 0, wd, H_);
+  const gb = g.createLinearGradient(0, H_ - 260, 0, H_); gb.addColorStop(0, 'rgba(7,9,10,0)'); gb.addColorStop(1, C.bg);
+  g.fillStyle = gb; g.fillRect(x, H_ - 260, wd, 260); g.restore();
+}
+scene(q(6, 1) - .3, t => {
+  const a = q(6, 1);
+  drawPortrait(t, a - .2, 860, 1060);
+  tin('Nvidia is', 160, 400, { size: 110, weight: 900 }, t, a);
+  tin('Jensen Huang.', 160, 520, { size: 110, weight: 900, color: C.green }, t, w(6, 'jensen') - .2);
+  tin('CEO SINCE DAY ONE · MORE THAN 30 YEARS', 166, 610, mono({ size: 26, spacing: 3 }), t, q(6, 2));
+  tin('Investors are buying', 160, 780, { size: 56, weight: 700 }, t, q(6, 3));
+  tin('one man\'s judgment.', 160, 850, { size: 56, weight: 800, color: C.amber }, t, w(6, 'one', 1) - .2);
+  tin('ILLUSTRATION', 1760, 1010, mono({ size: 20, align: 'right', spacing: 2 }), t, a + 1);
+}, { still: true });
+scene(q(6, 4) - .3, t => {
+  const a = q(6, 4), stamp = q(6, 6), conf = q(6, 7);
+  head('EARLY NOVEMBER 2026', null, t, a);
+  panel(160, 230, 980, 560, C.amber); panel(1180, 230, 580, 560, C.green);
+  tin('REPORTED', 210, 310, mono({ size: 30, color: C.amber, weight: 700 }), t, a);
+  tin('ACCORDING TO SEVERAL MAJOR NEWS OUTLETS', 210, 352, mono({ size: 20, spacing: 2 }), t, w(6, 'according') - .2);
+  [['Huang told employees he had been', 'unfaithful to his wife.', w(6, 'huang', 1) - .2],
+   ['The relationship was with an executive', 'at a company that buys Nvidia\'s chips.', w(6, 'relationship') - .3],
+   ['U.S. officials believe that person had', 'ties to Chinese intelligence.', w(6, 'officials') - .5]].forEach(([l1, l2, at], i) => {
+    tin(l1, 210, 440 + i * 120, { size: 36, weight: 600 }, t, at); tin(l2, 210, 484 + i * 120, { size: 36, weight: 600 }, t, at + .1); });
+  tin('CONFIRMED', 1230, 310, mono({ size: 30, color: C.green, weight: 700 }), t, conf - .2);
+  tin('Nvidia\'s board has', 1230, 440, { size: 40, weight: 700 }, t, conf);
+  tin('opened an independent', 1230, 490, { size: 40, weight: 700 }, t, conf + .1);
+  tin('investigation.', 1230, 540, { size: 40, weight: 700 }, t, conf + .2);
+  const k = prog(t, stamp, stamp + .45);
+  if (k > 0) { g.save(); g.translate(650, 900); g.scale(lerp(1.5, 1, outCubic(k)), lerp(1.5, 1, outCubic(k))); g.globalAlpha *= k;
+    text('ALLEGATIONS. NOTHING HAS BEEN PROVEN.', 0, 0, { size: 46, weight: 900, color: C.amber, align: 'center' }); g.restore(); }
+}, { still: true });
+scene(q(6, 8) - .3, t => {
+  const a = q(6, 8), b = q(6, 9), c = q(6, 10);
+  head('THE MARKET\'S REACTION', null, t, a);
+  [['NOV 9', 4, a + .1], ['NOV 10', 5.5, a + .7]].forEach(([d, v, at], i) => { const k = outCubic(prog(t, at, at + .8)), x = 240 + i * 260, h = v * 60 * k;
+    rect(x, 330, 150, h, C.red, 30); rect(x + 72, 300, 6, 30, C.red);
+    if (k > 0) text('−' + (v * k).toFixed(v % 1 ? 1 : 0) + '%', x + 75, 330 + h + 70, { size: 60, weight: 900, color: C.red, align: 'center' });
+    tin(d, x + 75, 280, mono({ size: 24, align: 'center' }), t, at); });
+  tin('≈ −10%', 900, 520, { size: 220, weight: 900, color: C.red, glow: C.red }, t, w(6, 'ten') - .3);
+  tin('IN TWO DAYS', 916, 590, mono(), t, w(6, 'two') - .2);
+  tin('Hundreds of billions of dollars, over a question about one person.', 160, 830, { size: 46, weight: 700 }, t, b);
+  tin('That is a one-man company.', 160, 920, { size: 60, weight: 900, color: C.amber }, t, c + .4);
+});
+
+// ===== 7. THE GHOST OF CISCO =====
+scene(S(7) - 1.9, t => {
+  const a = S(7) - 1.9;
+  chip(520, 540, 380, [1, 1, 1, 1, 1]);
+  tin('So is this', 900, 470, { size: 120, weight: 900 }, t, q(7, 0) - .3);
+  tin('the fall?', 900, 610, { size: 150, weight: 900, color: C.red, glow: C.red }, t, w(7, 'fall') - .5);
+  tin('HISTORY HAS ONE ANSWER', 906, 700, mono(), t, q(7, 1));
+}, { still: true });
+scene(q(7, 2) - .3, t => {
+  const a = q(7, 2), crash = q(7, 5), base = 790, peakY = 380;
+  head('MARCH 2000', 'The most valuable company in the world: Cisco', t, a, { size: 56, color: C.sepia });
+  rect(160, base, 1600, 3, C.dim);
+  const r = rng(9), up = [], down = [], flat = [];
+  for (let i = 0; i <= 30; i++) { const k = i / 30; up.push([200 + k * 520, base - 40 - Math.pow(k, 2.6) * (base - 40 - peakY) + (r() - .5) * 16 * k]); }
+  up[30][1] = peakY;
+  for (let i = 0; i <= 12; i++) { const k = i / 12; down.push([720 + k * 150, peakY + Math.pow(k, .8) * 330 + (r() - .5) * 20]); }
+  for (let i = 0; i <= 40; i++) { const k = i / 40; flat.push([870 + k * 850, down[12][1] - k * 110 + Math.sin(k * 14) * 22 + (r() - .5) * 16]); }
+  polyline(up, prog(t, a + .3, w(7, 'cisco') + .3), C.sepia, 7);
+  if (t > w(7, 'cisco')) { dot(up[30], C.sepia, 11); tin('PEAK ≈ $560B', 720, peakY - 30, mono({ size: 26, color: C.sepia, weight: 700, spacing: 2, align: 'center' }), t, w(7, 'cisco')); }
+  tin('IT SOLD THE EQUIPMENT FOR THE INTERNET', 200, base + 56, mono({ size: 24, spacing: 3 }), t, q(7, 3));
+  tin('…and everyone was right about the internet.', 200, base + 110, { size: 34, weight: 700, color: C.sepia }, t, q(7, 4));
+  const d = prog(t, crash + .4, crash + 1.8); polyline(down, d, C.red, 8);
+  if (d > 0) { const sh = d < 1 ? Math.sin(t * 60) * 5 : 0; text('−80%', 960 + sh, 560, { size: 130, weight: 900, color: C.red, glow: C.red, alpha: prog(t, w(7, 'eighty') - .2, w(7, 'eighty') + .2) }); }
+  const f = prog(t, w(7, 'stayed') - .2, w(7, 'decades') + .8); polyline(flat, f, C.red, 6);
+  if (f > 0) { g.save(); g.strokeStyle = C.sepia; g.lineWidth = 2; g.setLineDash([10, 12]); g.globalAlpha *= .7; g.beginPath(); g.moveTo(720, peakY); g.lineTo(720 + 1000 * f, peakY); g.stroke(); g.restore();
+    tin('BELOW THE PEAK FOR MORE THAN TWO DECADES', 1720, peakY - 18, mono({ size: 22, align: 'right', spacing: 2 }), t, w(7, 'two') - .3); }
+  tin('Never went bankrupt.', 1720, base + 62, { size: 36, weight: 700, align: 'right' }, t, q(7, 6));
+  tin('Still big and profitable.', 1720, base + 112, { size: 36, weight: 700, align: 'right' }, t, q(7, 7));
+  tin('Buyers at the top waited a generation.', 1720, base + 170, { size: 40, weight: 800, color: C.amber, align: 'right' }, t, q(7, 8));
+});
+scene(q(7, 9) - .3, t => {
+  const a = q(7, 9), b = q(7, 10), c = q(7, 11), k = inOut(prog(t, c, c + 2));
+  head('WHAT A FALL LOOKS LIKE', null, t, a);
+  tin('Not bankruptcy.', 160, 330, { size: 96, weight: 900 }, t, b - .1);
+  const bars = [['THE BUSINESS', 1, C.green, 420], ['THE PRICE', 1 - .7 * k, C.red, 1040]];
+  bars.forEach(([lab, v, col, x], i) => { const kk = ap(t, c - .2 + i * .2, .8), h = 380 * v * kk; rect(x, 900 - h, 420, h, col, 30);
+    tin(lab, x + 210, 960, mono({ size: 28, align: 'center', color: col, weight: 700 }), t, c - .2 + i * .2); });
+  rect(160, 900, 1600, 3, C.dim);
+  tin('A great business with a price that was too high.', 160, 440, { size: 50, weight: 700, color: C.amber }, t, c);
+});
+scene(q(7, 12) - .3, t => {
+  const a = q(7, 12), b = w(7, 'cisco', 2) - .2, c = w(7, 'nvidia') - .2, base = 880;
+  head('BUT HERE IS THE DIFFERENCE', 'Price, as a multiple of yearly profit', t, a, { size: 60 });
+  const k1 = outCubic(prog(t, b, b + 1.3)), k2 = outCubic(prog(t, c + .6, c + 1.6));
+  rect(380, base - 440 * k1, 340, 440 * k1, C.sepia, 24); rect(1100, base - 55 * k2, 340, 55 * k2, C.green, 30);
+  rect(160, base, 1600, 3, C.dim);
+  if (k1 > 0) text('≈' + Math.round(200 * k1) + '×', 550, base - 440 * k1 - 24, { size: 90, weight: 900, align: 'center', color: C.sepia });
+  if (k2 > 0) text('≈' + Math.round(25 * k2) + '×', 1270, base - 55 * k2 - 24, { size: 90, weight: 900, align: 'center', color: C.green });
+  tin('CISCO, 2000', 550, base + 54, mono({ size: 28, align: 'center' }), t, b);
+  tin('NVIDIA, TODAY', 1270, base + 54, mono({ size: 28, align: 'center' }), t, c);
+  tin('BUILT ON HOPE', 550, base + 100, mono({ size: 24, align: 'center', color: C.sepia, weight: 700 }), t, q(7, 15));
+  tin('BUILT ON PROFITS THAT EXIST NOW', 1270, base + 100, mono({ size: 24, align: 'center', color: C.green, weight: 700 }), t, q(7, 16));
+  const k = ap(t, q(7, 17) - .1, .7);
+  if (k > 0) { g.save(); g.globalAlpha *= k; rect(1100, 280, 660, 330, 'rgba(7,9,10,.85)');
+    text('The question is', 1500, 420, { size: 64, weight: 800, align: 'center' }); text('whether they last.', 1500, 500, { size: 64, weight: 900, align: 'center', color: C.amber }); g.restore(); }
+  source('NVIDIA MULTIPLE: APPROXIMATE, NOVEMBER 2026', t, c + 1.5);
+});
+
+// ===== 8. WHAT A REAL FALL WOULD TAKE =====
+scene(S(8) - 1.9, t => {
+  const a = q(8, 0);
+  head('THE HONEST ANSWER', null, t, a - .8);
+  const rows = [[1, 'One crack', 'Nvidia survives.', C.green, q(8, 1), [1, 0, 0, 0, 0]], [2, 'Two at once', 'A lost decade. The Cisco outcome.', C.amber, q(8, 4), [1, 0, 1, 0, 0]],
+                [5, 'All five', 'A true fall.', C.red, q(8, 5), [1, 1, 1, 1, 1]]];
+  rows.forEach(([n, l1, l2, col, at, lit], i) => { const y = 340 + i * 230, k = ap(t, at - .2, .7); if (k <= 0) return;
+    g.save(); g.globalAlpha *= k; panel(160, y - 95, 1600, 190, i === 2 && t > q(8, 6) ? C.red : '#2a332b', i === 2 && t > q(8, 6) ? 40 : 0);
+    chip(280, y, 120, lit.map(v => v * outCubic(prog(t, at, at + .9))));
+    text(l1, 420, y + 24, { size: 70, weight: 900, color: col }); text(l2, 900, y + 4, { size: 48, weight: 700 }); g.restore(); });
+  tin('NEARLY DIED IN THE 1990s. HALVED IN 2008 AND 2022.', 902, 404, mono({ size: 24, spacing: 2 }), t, q(8, 3));
+  tin('SPENDING PAUSE + CUSTOMERS WITH AN ALTERNATIVE', 902, 634, mono({ size: 24, spacing: 2 }), t, w(8, 'spending') - .2);
+  tin('FOR THE FIRST TIME, ALL FIVE ARE VISIBLE AT ONCE', 902, 864, mono({ size: 24, spacing: 2, color: C.red, weight: 700 }), t, q(8, 6));
+}, { still: true });
+scene(q(8, 7) - .3, t => {
+  const a = q(8, 7), k = ap(t, a, .7);
+  g.save(); g.globalAlpha *= k; g.translate(520, 540); g.scale(lerp(.9, 1, k), lerp(.9, 1, k));
+  panel(-240, -280, 480, 560, C.ink); rect(-240, -280, 480, 120, C.red, 0, 16); rect(-240, -200, 480, 40, C.red);
+  text('NOVEMBER', 0, -196, { size: 56, weight: 900, align: 'center' }); text('17', 0, 190, { size: 360, weight: 900, align: 'center' }); g.restore();
+  tin('Nvidia reports', 900, 440, { size: 96, weight: 900 }, t, w(8, 'nvidia', 1) - .2);
+  tin('its next results.', 900, 550, { size: 96, weight: 900 }, t, w(8, 'nvidia', 1) + .2);
+  tin('The first real test.', 900, 700, { size: 72, weight: 800, color: C.amber }, t, q(8, 8));
+});
+scene(q(8, 9) - .3, t => {
+  const a = q(8, 9), fin = q(8, 11), out = prog(t, fin - .5, fin);
+  drawPortrait(t, a, 1000, 920, .5 * (1 - out));
+  g.save(); g.globalAlpha *= 1 - out;
+  quote(t, 'Our company is thirty days', 'from going out of business.', w(8, 'company') - .6, '— JENSEN HUANG', w(8, 'business') + .2);
+  tin('He said it to keep people scared when everything was going right.', 246, 880, { size: 44, weight: 600, color: C.dim }, t, q(8, 10));
+  g.restore();
+  tin('Nobody at Nvidia needs', 960, 500, { size: 100, weight: 900, align: 'center' }, t, fin);
+  tin('reminding this month.', 960, 620, { size: 100, weight: 900, align: 'center', color: C.red }, t, w(8, 'reminding') - .2);
+}, { still: true });
+scene(E(8) + 1.3, t => {
+  const a = E(8) + 1.3;
+  g.save(); g.translate(W_ / 2, H_ / 2); const s = 1 + (t - a) * .006; g.scale(s, s);
+  tin('CAN NVIDIA', 0, -40, { size: 230, weight: 900, align: 'center' }, t, a + .2, .9);
+  tin('FALL?', 0, 190, { size: 260, weight: 900, align: 'center', color: C.red, glow: C.red, blur: 70 }, t, a + .5, .9);
+  g.restore();
+  tin('FOR EDUCATION AND ENTERTAINMENT. NOT FINANCIAL ADVICE.', 960, 1000, mono({ size: 22, align: 'center', spacing: 3 }), t, a + 1.4);
+}, { still: true });
+
+scenes.sort((a, b) => a.start - b.start);
+scenes.forEach((s, i) => s.end = i + 1 < scenes.length ? scenes[i + 1].start : DURATION);
+
+// chapter progress marks (top right) during the five cracks
+function progressMarks(t) {
+  if (t < S(2) + .5 || t > E(6) + .5) return;
+  const cur = [2, 3, 4, 5, 6].findIndex(s => t >= S(s) - 1.9 && t < (s < 6 ? S(s + 1) - 1.9 : E(6) + 2));
+  const a = Math.min(prog(t, S(2) + .5, S(2) + 1.3), 1 - prog(t, E(6) - .3, E(6) + .5));
+  g.save(); g.globalAlpha = a;
+  for (let i = 0; i < 5; i++) { const x = 1760 - (4 - i) * 46; rect(x - 16, 84, 32, 6, i < cur ? C.red : i === cur ? C.red : '#2a332b', i === cur ? 14 : 0, 3);
+    if (i === cur) text('0' + (i + 1), x, 70, mono({ size: 18, align: 'center', color: C.red, weight: 700, spacing: 0 })); }
+  g.restore();
+}
+
+const F = .38;   // half-width of the crossfade between scenes
+function render(t) {
+  g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.setLineDash([]);
+  background(t);
+  for (const s of scenes) {
+    if (t < s.start - F || t > s.end + F) continue;
+    const a = Math.min(prog(t, s.start - F, s.start + F), 1 - prog(t, s.end - F, s.end + F));
+    if (a <= 0) continue;
+    g.save(); g.globalAlpha = a;
+    if (!s.still) { const z = 1 + .022 * prog(t, s.start, s.end); g.translate(W_ / 2, H_ / 2); g.scale(z, z); g.translate(-W_ / 2, -H_ / 2); }
+    s.fn(t); g.restore();
+  }
+  progressMarks(t);
+  const fi = 1 - prog(t, 0, .5), fo = prog(t, DURATION - 1.2, DURATION - .1), o = Math.max(fi, fo);
+  if (o > 0) { g.fillStyle = `rgba(0,0,0,${o})`; g.fillRect(0, 0, W_, H_); }
+}
+window.render = render; window.DURATION = DURATION; window.SCENES = scenes.map(s => [s.start, s.end]);
+const P = new URLSearchParams(location.search);
+if (P.has('play')) { const t0 = performance.now() - (+P.get('t') || 0) * 1000; (function loop() { render(((performance.now() - t0) / 1000) % DURATION); requestAnimationFrame(loop); })(); }
+else render(+P.get('t') || 0);
+</script>
+</body>
+</html>
