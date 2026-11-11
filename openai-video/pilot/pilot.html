@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Paper Trillions: OpenAI cold open (style pilot)</title>
+<style>html,body{margin:0;background:#000}canvas{display:block;width:1920px;height:1080px}</style>
+</head>
+<body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script>
+// One long sheet of ledger paper. The camera glides down it from entry to entry,
+// so there are no cuts. Every frame is a pure function of time t (seconds).
+// Preview with ?play ; hide the voiceover guide with ?nocaptions
+const W = 1920, H = 1080, DURATION = 38;
+const cv = document.getElementById('c'), g = cv.getContext('2d');
+const C = { paper: '#efe7d6', ink: '#17130e', dim: '#6b5f4c', red: '#c4271b', gold: '#f0b429', rule: 'rgba(60,90,130,.16)' };
+const SANS = '"Inter Display", Inter, sans-serif', MONO = '"JetBrains Mono", monospace', SERIF = '"DejaVu Serif", "Liberation Serif", serif';
+const P = new URLSearchParams(location.search), CAPTIONS = !P.has('nocaptions');
+
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const outCubic = k => 1 - Math.pow(1 - k, 3);
+const outExpo = k => k >= 1 ? 1 : 1 - Math.pow(2, -10 * k);
+const inOutQuint = k => k < .5 ? 16 * k ** 5 : 1 - Math.pow(-2 * k + 2, 5) / 2;
+const outBack = k => 1 + 2.2 * Math.pow(k - 1, 3) + 1.2 * Math.pow(k - 1, 2);
+const ap = (t, at, d = .7) => outCubic(prog(t, at, at + d));
+function rng(seed) { return () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296; }
+
+// camera: stops down the page, with long eased glides between them
+const STOPS = [[0, 0], [6.8, 0], [8.2, 1150], [15.2, 1150], [16.6, 2300], [22.6, 2300], [24.0, 3450], [29.6, 3450], [31.0, 4600], [DURATION, 4600]];
+function camY(t) {
+  for (let i = 0; i < STOPS.length - 1; i++) { const [t0, y0] = STOPS[i], [t1, y1] = STOPS[i + 1];
+    if (t <= t1) return lerp(y0, y1, y0 === y1 ? 0 : inOutQuint(prog(t, t0, t1))); }
+  return STOPS[STOPS.length - 1][1];
+}
+
+const grain = (() => { const c = document.createElement('canvas'); c.width = c.height = 256; const x = c.getContext('2d'), d = x.createImageData(256, 256), r = rng(5);
+  for (let i = 0; i < d.data.length; i += 4) { const v = 90 + r() * 120; d.data[i] = v; d.data[i + 1] = v * .92; d.data[i + 2] = v * .78; d.data[i + 3] = 16; }
+  x.putImageData(d, 0, 0); return c; })();
+
+function paper(cy) {
+  g.fillStyle = C.paper; g.fillRect(0, 0, W, H);
+  g.fillStyle = g.createPattern(grain, 'repeat'); g.save(); g.translate(0, -(cy % 256)); g.fillRect(0, 0, W, H + 256); g.restore();
+  g.strokeStyle = C.rule; g.lineWidth = 2; g.beginPath();
+  for (let y = -((cy - 150) % 72) - 72; y < H + 72; y += 72) { g.moveTo(0, y); g.lineTo(W, y); }
+  g.stroke();
+  g.fillStyle = 'rgba(200,50,40,.45)'; g.fillRect(150, 0, 3, H);
+  const v = g.createRadialGradient(W / 2, H * .42, 200, W / 2, H / 2, 1250);
+  v.addColorStop(0, 'rgba(255,255,255,.28)'); v.addColorStop(1, 'rgba(110,80,30,.26)'); g.fillStyle = v; g.fillRect(0, 0, W, H);
+}
+
+function text(s, x, y, o = {}) {
+  g.save(); g.font = `${o.style || ''} ${o.weight || 700} ${o.size || 40}px ${o.font || SANS}`;
+  g.textAlign = o.align || 'left'; g.globalAlpha *= o.alpha ?? 1; if (o.spacing) g.letterSpacing = o.spacing + 'px';
+  g.fillStyle = o.color || C.ink; g.fillText(s, x, y); g.restore();
+}
+function width(s, o = {}) { g.save(); g.font = `${o.style || ''} ${o.weight || 700} ${o.size || 40}px ${o.font || SANS}`; if (o.spacing) g.letterSpacing = o.spacing + 'px'; const m = g.measureText(s).width; g.restore(); return m; }
+// text that settles into place: rises a little, fades in
+function tin(s, x, y, o, t, at, d = .8) { const k = ap(t, at, d); if (k > 0) text(s, x, y + (1 - k) * 22, { ...o, alpha: (o.alpha ?? 1) * k }); }
+// text "written" left to right, as if by a pen
+function written(s, x, y, o, t, at, dur = .9) {
+  const k = prog(t, at, at + dur); if (k <= 0) return; const wd = width(s, o), sz = o.size || 40;
+  g.save(); g.translate(x, y); g.rotate(o.rot || 0); g.beginPath(); g.rect(-10, -sz * 1.1, (wd + 20) * outCubic(k), sz * 1.6); g.clip(); text(s, 0, 0, o); g.restore();
+}
+const mono = (o = {}) => ({ font: MONO, size: 28, weight: 500, color: C.dim, spacing: 5, ...o });
+const serif = (o = {}) => ({ font: SERIF, size: 64, weight: 700, ...o });
+const note = (o = {}) => ({ font: SERIF, style: 'italic', size: 60, weight: 400, color: C.red, ...o });
+// a pen stroke along points, drawn progressively
+function stroke(pts, k, color = C.red, wd = 8) {
+  if (k <= 0) return; const n = pts.length - 1, f = clamp(k) * n, i = Math.min(n - 1, Math.floor(f)), r = f - i;
+  g.save(); g.strokeStyle = color; g.lineWidth = wd; g.lineCap = 'round'; g.lineJoin = 'round'; g.beginPath(); g.moveTo(pts[0][0], pts[0][1]);
+  for (let j = 1; j <= i; j++) g.lineTo(pts[j][0], pts[j][1]);
+  g.lineTo(lerp(pts[i][0], pts[i + 1][0], r), lerp(pts[i][1], pts[i + 1][1], r)); g.stroke(); g.restore();
+}
+const squiggle = (x, y, wd, amp = 10, n = 40) => Array.from({ length: n + 1 }, (_, i) => [x + wd * i / n, y + Math.sin(i / n * Math.PI * 3) * amp * (1 - i / n * .5)]);
+const loop = (cx, cy, rx, ry, n = 48) => Array.from({ length: n + 1 }, (_, i) => { const a = -2.2 + i / n * Math.PI * 2.15; return [cx + Math.cos(a) * rx * (1 + i / n * .06), cy + Math.sin(a) * ry]; });
+
+// ---------- the entries (world coordinates: y grows down the sheet) ----------
+function entry1(t) {                                   // $1.25 trillion, on paper
+  text('PAPER TRILLIONS  ·  ENTRY NO. 2'.slice(0, Math.max(0, Math.floor((t - .3) * 30))), 200, 150, mono());
+  tin('This company is worth', 196, 290, serif(), t, .9);
+  const k = outExpo(prog(t, 1.5, 3.6)), s = '$' + (1.25 * k).toFixed(2);
+  if (k > 0) { text(s, 186, 640, { size: 380, weight: 900, spacing: -10, alpha: prog(t, 1.5, 1.9) });
+    tin('trillion', 216 + width(s, { size: 380, weight: 900, spacing: -10 }), 640, { size: 150, weight: 900 }, t, 2.6); }
+  written('on paper.', 1180, 830, note({ size: 96, rot: -.05 }), t, 4.5, .8);
+  stroke(squiggle(1180, 862, 440).map(([x, y]) => [x, y - (x - 1180) * .05]), prog(t, 5.3, 6));
+}
+function entry2(t) {                                   // in vs lost
+  const y = 1150;
+  tin('LAST QUARTER', 200, y + 150, mono(), t, 8.0);
+  const row = (yy, label, v, col, at) => { const k = outExpo(prog(t, at, at + 1.5)); if (k <= 0) return;
+    text(label, 220, yy - 26, mono({ size: 30, color: col === C.red ? C.red : C.dim, alpha: prog(t, at, at + .4) }));
+    g.fillStyle = col; g.fillRect(201, yy, v / 12.3 * 1050 * k, 120);
+    text('$' + (v * k).toFixed(1) + 'B', 232 + v / 12.3 * 1050 * k, yy + 96, { size: 120, weight: 900, color: col }); };
+  row(y + 300, 'CAME IN', 6.7, C.ink, 8.5);
+  row(y + 540, 'LOST', 12.3, C.red, 10.6);
+  g.fillStyle = C.ink; g.globalAlpha = ap(t, 8.3); g.fillRect(196, y + 250, 5, 460); g.globalAlpha = 1;
+  written('For every $1 it earns, it loses almost $2.', 200, y + 880, note({ size: 76 }), t, 12.4, 1.3);
+  const wd = width('For every $1 it earns, it loses almost ', note({ size: 76 }));
+  stroke(loop(200 + wd + 58, y + 856, 92, 62), prog(t, 13.8, 14.5), C.red, 7);
+}
+function entry3(t) {                                   // the promise
+  const y = 2300;
+  tin('It has promised to spend', 196, y + 190, serif(), t, 16.6);
+  const full = '$856,000,000,000', n = Math.floor(prog(t, 17.3, 19.0) * full.length);
+  text(full.slice(0, n), 190, y + 400, { size: 168, weight: 900, spacing: -5 });
+  tin('ON COMPUTING POWER, THROUGH 2030', 200, y + 500, mono({ size: 30 }), t, 19.0);
+  const r = rng(3);
+  for (let i = 0; i < 64; i++) { const k = outBack(prog(t, 18.2 + i * .022, 18.6 + i * .022)); if (k <= 0) continue;
+    const x = 200 + (i % 32) * 47, yy = y + 580 + Math.floor(i / 32) * 150;
+    g.save(); g.translate(x + 18, yy + 60); g.scale(1, k); g.fillStyle = C.ink; g.fillRect(-18, -60, 36, 120);
+    g.fillStyle = C.paper; for (let j = 0; j < 5; j++) g.fillRect(-12, -50 + j * 22, 24, 6); g.fillStyle = r() > .5 ? C.gold : C.paper; g.fillRect(-12, 38, 8, 8); g.restore(); }
+  const s = prog(t, 20.7, 21.05);                       // the stamp
+  if (s > 0) { const sc = lerp(2.2, 1, outCubic(s)); g.save(); g.translate(1390, y + 760); g.rotate(-.13); g.scale(sc, sc); g.globalAlpha = s * .92;
+    g.fillStyle = 'rgba(239,231,214,.9)'; g.fillRect(-370, -92, 740, 184); g.strokeStyle = C.red; g.lineWidth = 10; g.strokeRect(-370, -92, 740, 184); g.lineWidth = 3; g.strokeRect(-354, -76, 708, 152);
+    text('NOT YET PAID FOR', 0, 30, { size: 64, weight: 900, color: C.red, align: 'center', spacing: 3 }); g.restore(); }
+}
+function person(x, y, s, fill, strokeCol) {
+  g.save(); g.translate(x, y); g.scale(s, s); g.fillStyle = fill; g.strokeStyle = strokeCol; g.lineWidth = 7;
+  g.beginPath(); g.arc(0, -78, 30, 0, 7); g.fill(); g.stroke();
+  g.beginPath(); g.moveTo(-46, 70); g.quadraticCurveTo(-46, -32, 0, -32); g.quadraticCurveTo(46, -32, 46, 70); g.closePath(); g.fill(); g.stroke(); g.restore();
+}
+function entry4(t) {                                   // one in twenty pays
+  const y = 3450, pay = 9, turn = prog(t, 26.6, 27.2);
+  tin('Of every 20 people who use it', 196, y + 190, serif(), t, 24.0);
+  for (let i = 0; i < 20; i++) { const k = outBack(prog(t, 24.5 + i * .055, 24.95 + i * .055)); if (k <= 0) continue;
+    const x = 290 + (i % 10) * 150, yy = y + 420 + Math.floor(i / 10) * 250, isPay = i === pay;
+    person(x, yy + (1 - k) * 30, k * (isPay ? 1 + .18 * outBack(turn) : 1), isPay && turn > 0 ? C.gold : 'rgba(23,19,14,.06)', C.ink); }
+  written('1 pays.', 1340, y + 250, note({ size: 84, color: C.ink, rot: -.03 }), t, 27.0, .5);
+  if (turn > 0) stroke([[1610, y + 240], [1660, y + 262], [1648, y + 296], [1630, y + 282], [1648, y + 296], [1668, y + 280]], prog(t, 27.3, 27.9), C.ink, 6);
+  written('19 pay nothing.', 200, y + 930, note({ size: 92 }), t, 28.0, .9);
+  stroke(squiggle(200, y + 958, 640, 8), prog(t, 28.8, 29.4));
+}
+function mark(cx, cy, s) {
+  g.save(); g.translate(cx, cy); g.scale(s, s); g.strokeStyle = C.ink; g.lineWidth = 18; g.lineJoin = 'round'; g.lineCap = 'round';
+  g.beginPath(); g.moveTo(0, -84); g.lineTo(-132, -112); g.lineTo(-132, 88); g.lineTo(0, 116); g.closePath(); g.moveTo(0, -84); g.lineTo(132, -112); g.lineTo(132, 88); g.lineTo(0, 116); g.stroke();
+  g.beginPath(); g.moveTo(-98, -50); g.lineTo(-34, -37); g.moveTo(-98, -2); g.lineTo(-34, 11); g.moveTo(98, -50); g.lineTo(34, -37); g.stroke();
+  g.strokeStyle = C.red; g.beginPath(); g.moveTo(98, -2); g.lineTo(34, 11); g.stroke(); g.restore();
+}
+function entry5(t) {                                   // title
+  const y = 4600;
+  tin('THIS IS', 204, y + 250, mono({ size: 34 }), t, 31.0);
+  const k = ap(t, 31.4, 1.1); if (k > 0) text('OpenAI', 186, y + 560 + (1 - k) * 30, { size: 380, weight: 900, spacing: -12, alpha: k });
+  written('and this is where the money goes.', 200, y + 730, note({ size: 88 }), t, 33.2, 1.3);
+  stroke(squiggle(200, y + 762, 1250, 9), prog(t, 34.5, 35.4));
+  const m = ap(t, 35.2, .9); g.save(); g.globalAlpha = m; mark(1650, y + 900, .5); g.restore();
+  tin('PAPER TRILLIONS', 1570, y + 915, mono({ size: 26, align: 'right', color: C.ink, weight: 700 }), t, 35.4);
+}
+
+const VO = [
+  [.9, 4.2, 'This company is worth one and a quarter trillion dollars.'], [4.5, 6.6, 'On paper.'],
+  [8.2, 10.4, 'Last quarter, it brought in six point seven billion dollars.'], [10.6, 12.2, 'And lost twelve point three.'],
+  [12.4, 15.0, 'For every dollar it earns, it loses almost two.'],
+  [16.6, 22.4, 'It has promised to spend more than eight hundred billion dollars on computing power it cannot yet pay for.'],
+  [24.0, 29.4, 'And of every twenty people who use it, nineteen pay nothing.'],
+  [31.0, 33.0, 'This is OpenAI.'], [33.2, 36.6, 'And this is where the money goes.'],
+];
+function captions(t) {
+  if (!CAPTIONS) return; const c = VO.find(c => t >= c[0] && t <= c[1]); if (!c) return;
+  const a = Math.min(prog(t, c[0], c[0] + .25), 1 - prog(t, c[1] - .25, c[1]));
+  g.save(); g.globalAlpha = a; g.font = `500 28px ${SANS}`; const wd = g.measureText(c[2]).width + 60;
+  g.fillStyle = 'rgba(23,19,14,.86)'; g.beginPath(); g.roundRect(W / 2 - wd / 2, H - 92, wd, 54, 8); g.fill();
+  text(c[2], W / 2, H - 56, { size: 28, weight: 500, align: 'center', color: '#efe7d6' });
+  text('VOICEOVER GUIDE', W / 2 - wd / 2, H - 104, mono({ size: 15, spacing: 2 })); g.restore();
+}
+
+function render(t) {
+  g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1;
+  const cy = camY(t) + Math.sin(t * .5) * 5, z = 1.012 + Math.sin(t * .31) * .008;   // slow breathing so nothing is ever fully still
+  paper(cy);
+  g.save(); g.translate(W / 2, H / 2); g.scale(z, z); g.translate(-W / 2, -H / 2 - cy);
+  [entry1, entry2, entry3, entry4, entry5].forEach(e => e(t));
+  g.restore();
+  captions(t);
+  const o = Math.max(1 - prog(t, 0, .6), prog(t, DURATION - .9, DURATION - .1)); if (o > 0) { g.fillStyle = `rgba(0,0,0,${o})`; g.fillRect(0, 0, W, H); }
+}
+window.render = render; window.DURATION = DURATION;
+if (P.has('play')) { const t0 = performance.now(); (function loop() { render(((performance.now() - t0) / 1000) % DURATION); requestAnimationFrame(loop); })(); } else render(+P.get('t') || 0);
+</script>
+</body>
+</html>
