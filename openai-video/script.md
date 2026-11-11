@@ -7,7 +7,7 @@
 
 **Thumbnail idea:** "LOSES $2 FOR EVERY $1" on paper, with a red circle around the $2.
 **Audience:** United States, 30 to 50, curious about money and tech, not working in AI
-**Length:** about 1,400 spoken words, roughly 9:15 to 9:45
+**Length:** about 920 spoken words, roughly 7 minutes at the last video's pace. That is under YouTube's 8-minute line for mid-roll ads, so it needs about 300 more words before recording.
 **Status:** DRAFT. Figures are from one round of research on November 11, 2026 and are not yet checked against the original reports. See the fact sheet at the end.
 
 OpenAI is a private company, so almost every number here is "as reported", not audited. The script says so out loud more than once; keep those lines.
