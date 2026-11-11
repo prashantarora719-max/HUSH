@@ -16,14 +16,14 @@ Chapters
 1:49 Crack 1: The customers
 2:40 Crack 2: The money loop
 4:03 Crack 3: The bill
-5:25 Crack 4: China
-6:12 Crack 5: One man
-7:06 The ghost of Cisco
-8:12 What a real fall would take
+5:26 Crack 4: China
+6:15 Crack 5: One man
+7:09 The ghost of Cisco
+8:16 What a real fall would take
 
 This video is for education and entertainment. It is not financial advice.
-Thumbnail and illustrations are AI-generated artwork. Narration is an AI voice.
-Figures are as of November 11, 2026. Sources: Nvidia quarterly filings and press releases, Morgan Stanley estimates, and reporting by major news outlets.
+Thumbnail and illustrations are AI-generated artwork. Narration is an AI voice. Music is AI-generated.
+Figures are as of November 11, 2026. Sources: Nvidia quarterly filings and press releases, Goldman Sachs and other analyst estimates, and reporting by major news outlets.
 ```
 
 ## Upload checklist

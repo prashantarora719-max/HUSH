@@ -64,9 +64,9 @@ Critics call it circular financing. And it is not small. Nvidia has put thirty b
 
 We have seen this before. In the late nineties, the companies building the internet lent money to their own customers to buy their equipment. Sales looked incredible. Then the customers ran out of cash, and the sales turned out to be borrowed from the future.
 
-To be fair, this is not the same. Most of Nvidia's sales still come from the richest companies on earth, paying cash. By one bank's estimate, the loop touches about thirteen percent of revenue.
+To be fair, this is not the same. Most of Nvidia's sales still come from the richest companies on earth, paying cash. By one Goldman Sachs estimate, deals like these make up less than fifteen percent of revenue.
 
-But that thirteen percent sits in the part of the AI industry that loses the most money. If it stumbles, Nvidia loses a customer and an investment on the same day.
+But that slice sits in the part of the AI industry that loses the most money. If it stumbles, Nvidia loses a customer and an investment on the same day.
 
 ## 4. Crack three: the bill (4:30)
 
@@ -94,7 +94,7 @@ A few years ago, Nvidia had about ninety-five percent of the AI chip market in C
 
 Jensen Huang summed up the result in one sentence: "We went from ninety-five percent market share to zero."
 
-Losing those sales hurts. What replaced them is worse. Chinese companies still needed chips, so they turned to Huawei, which analysts estimate now holds about half that market. A rival with a protected home market, guaranteed customers, and its government behind it. That is how a future competitor gets built.
+Losing those sales hurts. What replaced them is worse. Chinese companies still needed chips, so they turned to Huawei, which some analysts expect to hold about half that market by the end of this year. A rival with a protected home market, guaranteed customers, and its government behind it. That is how a future competitor gets built.
 
 ## 6. Crack five: one man (6:50)
 
@@ -122,7 +122,7 @@ Cisco's stock fell more than eighty percent anyway, and it stayed below that pea
 
 That is what a fall looks like for a company like this. Not bankruptcy. A great business with a price that was too high.
 
-But here is the difference. At its peak, Cisco cost around two hundred times its yearly profit. Nvidia, after this drop, costs closer to twenty-five. Cisco's price was built on hope. Nvidia's is built on profits that exist right now.
+But here is the difference. At its peak, Cisco cost around two hundred times its yearly profit. Nvidia, after this drop, costs about twenty-two. Cisco's price was built on hope. Nvidia's is built on profits that exist right now.
 
 The question is whether they last.
 
@@ -152,4 +152,4 @@ Nobody at Nvidia needs reminding this month.
 - **Description line to include:** "This video is for education and entertainment. It is not financial advice." The script explains risks and never tells viewers to buy or sell; keep it that way in the title too.
 - **Also in the description:** "Thumbnail and illustrations are AI-generated artwork."
 - **Section 6:** read at least two of the original news reports before publishing. I worked from search summaries because the news sites were blocked from my session.
-- **Figures to re-check on publish day:** the $1.7 trillion loss, the two-day stock drop (my sum of roughly 4% and 5.5%), Japan's GDP, and the "twenty-five times profit" figure, which is my own rough estimate.
+- **Figures to re-check on publish day:** the $1.7 trillion loss, the two-day stock drop (my sum of roughly 4% and 5.5%), and the "about twenty-two times profit" figure (trailing P/E, mid-November 2026).

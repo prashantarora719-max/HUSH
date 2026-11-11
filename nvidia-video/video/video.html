@@ -147,7 +147,7 @@ scene(0, t => {
 scene(q(0, 1) - .3, t => {
   const a = q(0, 1);
   tin('HOW BIG IS $5.8 TRILLION?', 200, 250, mono({ size: 30 }), t, a - .2);
-  [['NVIDIA', 'market value', 5.8, C.green, a - .1], ['JAPAN', 'entire annual economy', 4.4, C.ink, a + .5]].forEach(([name, sub, v, col, at], i) => {
+  [['NVIDIA', 'market value', 5.8, C.green, a - .1], ['JAPAN', 'entire annual economy', 4.3, C.ink, a + .5]].forEach(([name, sub, v, col, at], i) => {
     const y = 400 + i * 250, k = outCubic(prog(t, at, at + 1));
     text(name, 200, y - 24, { size: 64, weight: 900, alpha: prog(t, at - .2, at + .2) });
     text(sub, 200 + (i ? 250 : 290), y - 26, { size: 30, weight: 500, color: C.dim, alpha: prog(t, at - .2, at + .2) });
@@ -450,18 +450,18 @@ scene(q(3, 11) - .3, t => {
     tin('SALES BORROWED FROM THE FUTURE', 1760, 170, mono({ size: 28, align: 'right', color: C.red, weight: 700 }), t, w(3, 'borrowed') - .3); }
 });
 scene(q(3, 15) - .3, t => {
-  const a = q(3, 16), b = w(3, 'thirteen') - .3, c = q(3, 18), d = q(3, 19), x0 = 160, wd = 1600, y = 470;
+  const a = q(3, 16), b = w(3, 'fifteen') - .6, c = q(3, 18), d = q(3, 19), x0 = 160, wd = 1600, y = 470;
   head('TO BE FAIR, THIS IS NOT THE SAME', 'Where Nvidia\'s revenue comes from', t, q(3, 15), { size: 60 });
   const k = outCubic(prog(t, a, a + 1.2)), k2 = outCubic(prog(t, b, b + .8)), crack = prog(t, c + .6, c + 1.6);
-  rect(x0, y, wd * .87 * k, 150, C.green, 30);
-  rect(x0 + wd * .87 + 8, y + (crack > 0 ? Math.sin(t * 40) * 3 * (1 - crack) : 0), wd * .13 * k2, 150, crack > 0 ? C.red : C.amber, 30);
-  if (k > .5) { text('87%', x0 + 30, y + 110, { size: 110, weight: 900, color: '#0a1400' });
+  rect(x0, y, wd * .85 * k, 150, C.green, 30);
+  rect(x0 + wd * .85 + 8, y + (crack > 0 ? Math.sin(t * 40) * 3 * (1 - crack) : 0), wd * .15 * k2 - 8, 150, crack > 0 ? C.red : C.amber, 30);
+  if (k > .5) { text('OVER 85%', x0 + 30, y + 108, { size: 104, weight: 900, color: '#0a1400' });
     text('THE RICHEST COMPANIES ON EARTH, PAYING CASH', x0, y + 210, mono({ size: 26, spacing: 3, color: C.ink })); }
-  if (k2 > .5) { text('13%', x0 + wd * .87 + 20, y - 24, { size: 76, weight: 900, color: crack > 0 ? C.red : C.amber });
-    text('THE LOOP', x0 + wd, y + 210, mono({ size: 26, spacing: 3, align: 'right', color: crack > 0 ? C.red : C.amber })); }
+  if (k2 > .5) { text('UNDER 15%', x0 + wd, y - 24, { size: 64, weight: 900, align: 'right', color: crack > 0 ? C.red : C.amber });
+    text('DEALS LIKE THESE', x0 + wd, y + 210, mono({ size: 26, spacing: 3, align: 'right', color: crack > 0 ? C.red : C.amber })); }
   tin('…in the part of the AI industry that loses the most money.', 160, 800, { size: 46, weight: 700, color: C.amber }, t, c);
   tin('If it stumbles: one customer and one investment, gone on the same day.', 160, 880, { size: 46, weight: 800, color: C.red }, t, d);
-  source('SHARE OF REVENUE: ONE BANK\'S ESTIMATE', t, b + .6);
+  source('SHARE OF REVENUE: A GOLDMAN SACHS ESTIMATE', t, b + .6);
 });
 
 // ===== 4. THE BILL =====
@@ -478,7 +478,7 @@ scene(q(4, 2) - .3, t => {
   const k = ap(t, q(4, 5), .8);
   if (k > 0) { arrow(1420, 520, 1420 + 120 * k, 520, C.green, 1); text('NVIDIA', 1660, 534, { size: 54, weight: 900, color: C.green, align: 'center', alpha: k, glow: C.green });
     text('A very large part', 1460, 430, { size: 36, weight: 700, alpha: k }); text('lands here', 1460, 474, { size: 36, weight: 700, alpha: k }); }
-  source('ESTIMATES AND FORECASTS: MORGAN STANLEY', t, w(4, 'eight'));
+  source('ANALYST ESTIMATES AND FORECASTS', t, w(4, 'eight'));
 });
 scene(q(4, 6) - .3, t => {
   const a = q(4, 6), b = q(4, 7), c = q(4, 8);
@@ -562,11 +562,12 @@ scene(q(5, 4) - .3, t => {
   ring(cx, cy, 230, 0, 1, '#1b231c', 46, 0); ring(cx, cy, 230, 0, .5 * fill, C.red);
   text('≈' + Math.round(50 * fill) + '%', cx, cy + 40, { size: 120, weight: 900, align: 'center', color: C.red, alpha: prog(t, w(5, 'huawei') - .2, w(5, 'huawei') + .2) });
   tin('HUAWEI', cx, cy + 96, mono({ size: 28, align: 'center', color: C.red, weight: 700 }), t, w(5, 'huawei'));
+  tin('EXPECTED BY THE END OF 2026', cx, cy + 320, mono({ size: 24, align: 'center', spacing: 3 }), t, w(5, 'expect') - .2);
   [['A protected home market', 'protected'], ['Guaranteed customers', 'guaranteed'], ['Its government behind it', 'government']].forEach(([s, wd], i) => {
     const at = w(5, wd) - .3, k = ap(t, at); if (k <= 0) return;
     g.save(); g.globalAlpha *= k; rect(960, 380 + i * 120 - 44, 10, 64, C.red, 16); text(s, 1000 + (1 - k) * 40, 380 + i * 120, { size: 56, weight: 800 }); g.restore(); });
   tin('That is how a future competitor gets built.', 960, 800, { size: 44, weight: 700, color: C.amber }, t, q(5, 8));
-  source('HUAWEI SHARE: ANALYST ESTIMATE', t, w(5, 'huawei') + 1);
+  source('HUAWEI SHARE: SOME ANALYSTS\' PROJECTION; ESTIMATES VARY WIDELY', t, w(5, 'huawei') + 1);
 });
 
 // ===== 6. ONE MAN =====
@@ -613,7 +614,7 @@ scene(q(6, 8) - .3, t => {
   const a = q(6, 8), b = q(6, 9), c = q(6, 10);
   head('THE MARKET\'S REACTION', null, t, a);
   [['NOV 9', 4, a + .1], ['NOV 10', 5.5, a + .7]].forEach(([d, v, at], i) => { const k = outCubic(prog(t, at, at + .8)), x = 240 + i * 260, h = v * 60 * k;
-    rect(x, 330, 150, h, C.red, 30); rect(x + 72, 300, 6, 30, C.red);
+    rect(x, 330, 150, h, C.red, 30); if (k > 0) rect(x + 72, 300, 6, 30, C.red);
     if (k > 0) text('−' + (v * k).toFixed(v % 1 ? 1 : 0) + '%', x + 75, 330 + h + 70, { size: 60, weight: 900, color: C.red, align: 'center' });
     tin(d, x + 75, 280, mono({ size: 24, align: 'center' }), t, at); });
   tin('≈ −10%', 900, 520, { size: 220, weight: 900, color: C.red, glow: C.red }, t, w(6, 'ten') - .3);
@@ -666,10 +667,10 @@ scene(q(7, 12) - .3, t => {
   const a = q(7, 12), b = w(7, 'cisco', 2) - .2, c = w(7, 'nvidia') - .2, base = 880;
   head('BUT HERE IS THE DIFFERENCE', 'Price, as a multiple of yearly profit', t, a, { size: 60 });
   const k1 = outCubic(prog(t, b, b + 1.3)), k2 = outCubic(prog(t, c + .6, c + 1.6));
-  rect(380, base - 440 * k1, 340, 440 * k1, C.sepia, 24); rect(1100, base - 55 * k2, 340, 55 * k2, C.green, 30);
+  rect(380, base - 440 * k1, 340, 440 * k1, C.sepia, 24); rect(1100, base - 48 * k2, 340, 48 * k2, C.green, 30);
   rect(160, base, 1600, 3, C.dim);
   if (k1 > 0) text('≈' + Math.round(200 * k1) + '×', 550, base - 440 * k1 - 24, { size: 90, weight: 900, align: 'center', color: C.sepia });
-  if (k2 > 0) text('≈' + Math.round(25 * k2) + '×', 1270, base - 55 * k2 - 24, { size: 90, weight: 900, align: 'center', color: C.green });
+  if (k2 > 0) text('≈' + Math.round(22 * k2) + '×', 1270, base - 48 * k2 - 24, { size: 90, weight: 900, align: 'center', color: C.green });
   tin('CISCO, 2000', 550, base + 54, mono({ size: 28, align: 'center' }), t, b);
   tin('NVIDIA, TODAY', 1270, base + 54, mono({ size: 28, align: 'center' }), t, c);
   tin('BUILT ON HOPE', 550, base + 100, mono({ size: 24, align: 'center', color: C.sepia, weight: 700 }), t, q(7, 15));

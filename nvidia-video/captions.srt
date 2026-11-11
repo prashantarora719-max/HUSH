@@ -175,7 +175,7 @@ Because the moment a customer has a choice, that seventy-five percent margin bec
 The second crack is about where the money comes from.
 
 45
-00:02:45,545 --> 00:02:47,316
+00:02:45,545 --> 00:02:46,996
 Follow one dollar.
 
 46
@@ -183,361 +183,361 @@ Follow one dollar.
 Nvidia invests in an AI company.
 
 47
-00:02:50,265 --> 00:02:53,316
+00:02:50,346 --> 00:02:53,395
 That company uses the money to rent data centers.
 
 48
-00:02:53,545 --> 00:02:56,596
+00:02:53,705 --> 00:02:56,996
 Those data centers are filled with Nvidia chips.
 
 49
-00:02:56,825 --> 00:03:00,515
+00:02:57,066 --> 00:03:00,675
 The dollar comes home, and this time it counts as sales.
 
 50
-00:03:00,825 --> 00:03:03,235
+00:03:00,985 --> 00:03:03,395
 Critics call it circular financing.
 
 51
-00:03:03,466 --> 00:03:05,075
+00:03:03,626 --> 00:03:05,475
 And it is not small.
 
 52
-00:03:05,306 --> 00:03:10,955
+00:03:05,545 --> 00:03:11,316
 Nvidia has put thirty billion dollars into OpenAI, the maker of ChatGPT.
 
 53
-00:03:10,985 --> 00:03:19,036
+00:03:11,385 --> 00:03:19,475
 Its own filings show it has guaranteed up to a hundred and five billion dollars in lease payments on data centers built for OpenAI.
 
 54
-00:03:19,066 --> 00:03:23,156
+00:03:19,545 --> 00:03:23,436
 If OpenAI cannot pay, Nvidia is on the hook.
 
 55
-00:03:23,306 --> 00:03:25,036
+00:03:23,626 --> 00:03:25,156
 We have seen this before.
 
 56
-00:03:25,066 --> 00:03:30,915
+00:03:25,466 --> 00:03:31,635
 In the late nineties, the companies building the internet lent money to their own customers to buy their equipment.
 
 57
-00:03:31,145 --> 00:03:32,915
+00:03:31,705 --> 00:03:33,716
 Sales looked incredible.
 
 58
-00:03:33,225 --> 00:03:38,596
+00:03:33,786 --> 00:03:39,355
 Then the customers ran out of cash, and the sales turned out to be borrowed from the future.
 
 59
-00:03:39,145 --> 00:03:41,556
+00:03:39,545 --> 00:03:42,036
 To be fair, this is not the same.
 
 60
-00:03:41,866 --> 00:03:46,836
+00:03:42,105 --> 00:03:46,996
 Most of Nvidia's sales still come from the richest companies on earth, paying cash.
 
 61
-00:03:47,066 --> 00:03:51,716
-By one bank's estimate, the loop touches about thirteen percent of revenue.
+00:03:47,306 --> 00:03:53,075
+By one Goldman Sachs estimate, deals like these make up less than fifteen percent of revenue.
 
 62
-00:03:51,786 --> 00:03:57,195
-But that thirteen percent sits in the part of the AI industry that loses the most money.
+00:03:53,145 --> 00:03:57,635
+But that slice sits in the part of the AI industry that loses the most money.
 
 63
-00:03:57,225 --> 00:04:02,596
+00:03:57,945 --> 00:04:03,395
 If it stumbles, Nvidia loses a customer and an investment on the same day.
 
 64
-00:04:04,502 --> 00:04:07,312
+00:04:05,312 --> 00:04:08,122
 Which leads to the biggest question of all.
 
 65
-00:04:07,382 --> 00:04:10,711
+00:04:08,192 --> 00:04:11,521
 Who is paying for this, and for how long?
 
 66
-00:04:10,901 --> 00:04:18,351
+00:04:11,711 --> 00:04:19,161
 Two years ago, the biggest cloud companies spent about two hundred and sixty billion dollars on buildings and equipment.
 
 67
-00:04:18,221 --> 00:04:22,432
+00:04:19,031 --> 00:04:23,242
 This year, Wall Street expects around eight hundred billion.
 
 68
-00:04:22,262 --> 00:04:25,312
+00:04:23,072 --> 00:04:26,122
 Next year, more than a trillion.
 
 69
-00:04:25,182 --> 00:04:28,192
+00:04:25,992 --> 00:04:29,002
 A very large part of that lands at Nvidia.
 
 70
-00:04:28,262 --> 00:04:31,391
+00:04:29,072 --> 00:04:32,201
 And that spending is not a law of nature.
 
 71
-00:04:31,182 --> 00:04:36,351
+00:04:31,992 --> 00:04:37,161
 It is a choice, made every three months, by about five CEOs.
 
 72
-00:04:36,141 --> 00:04:39,951
+00:04:36,951 --> 00:04:40,762
 They will keep making it only if the profits show up.
 
 73
-00:04:39,781 --> 00:04:44,992
+00:04:40,591 --> 00:04:45,802
 So far, by some estimates, the return on each new dollar is shrinking.
 
 74
-00:04:44,822 --> 00:04:47,872
+00:04:45,632 --> 00:04:48,682
 And more of it is being paid for with debt.
 
 75
-00:04:47,781 --> 00:04:50,271
+00:04:48,591 --> 00:04:51,081
 Here is why that is dangerous.
 
 76
-00:04:50,141 --> 00:04:52,672
+00:04:50,951 --> 00:04:53,482
 Nvidia does not sell a subscription.
 
 77
-00:04:52,661 --> 00:04:54,351
+00:04:53,471 --> 00:04:55,161
 It sells equipment.
 
 78
-00:04:54,422 --> 00:05:00,432
+00:04:55,232 --> 00:05:01,242
 If a customer buys the same amount next year as this year, Nvidia's growth is zero.
 
 79
-00:05:00,262 --> 00:05:06,031
+00:05:01,072 --> 00:05:06,841
 If they buy a little less, because what they already built is enough for now, Nvidia shrinks.
 
 80
-00:05:05,901 --> 00:05:08,992
+00:05:06,711 --> 00:05:09,802
 Even if AI itself is doing fine.
 
 81
-00:05:08,822 --> 00:05:10,752
+00:05:09,632 --> 00:05:11,562
 Railroads went through this.
 
 82
-00:05:10,541 --> 00:05:12,591
+00:05:11,351 --> 00:05:13,401
 So did fiber-optic cable.
 
 83
-00:05:12,422 --> 00:05:14,432
+00:05:13,232 --> 00:05:15,242
 The technology was real.
 
 84
-00:05:14,262 --> 00:05:16,112
+00:05:15,072 --> 00:05:16,922
 It changed the world.
 
 85
-00:05:15,942 --> 00:05:22,192
+00:05:16,752 --> 00:05:23,002
 And the companies selling the equipment crashed anyway, because the buyers stopped to catch their breath.
 
 86
-00:05:22,021 --> 00:05:25,391
+00:05:22,831 --> 00:05:26,201
 Nvidia's stock price assumes nobody stops.
 
 87
-00:05:27,290 --> 00:05:32,019
+00:05:28,100 --> 00:05:32,670
 The fourth crack is one Nvidia did not cause and cannot fix.
 
 88
-00:05:32,089 --> 00:05:38,180
+00:05:33,060 --> 00:05:38,670
 A few years ago, Nvidia had about ninety-five percent of the AI chip market in China.
 
 89
-00:05:38,089 --> 00:05:44,019
+00:05:39,060 --> 00:05:44,750
 Then Washington decided those chips were too powerful to sell to a rival, and blocked them.
 
 90
-00:05:43,850 --> 00:05:51,379
+00:05:45,060 --> 00:05:52,189
 Jensen Huang summed up the result in one sentence: "We went from ninety-five percent market share to zero."
 
 91
-00:05:51,209 --> 00:05:53,699
+00:05:52,819 --> 00:05:55,189
 Losing those sales hurts.
 
 92
-00:05:53,529 --> 00:05:56,259
+00:05:55,220 --> 00:05:57,750
 What replaced them is worse.
 
 93
-00:05:56,089 --> 00:06:03,459
-Chinese companies still needed chips, so they turned to Huawei, which analysts estimate now holds about half that market.
+00:05:57,860 --> 00:06:06,509
+Chinese companies still needed chips, so they turned to Huawei, which some analysts expect to hold about half that market by the end of this year.
 
 94
-00:06:03,290 --> 00:06:09,379
+00:06:06,339 --> 00:06:12,509
 A rival with a protected home market, guaranteed customers, and its government behind it.
 
 95
-00:06:09,290 --> 00:06:12,100
+00:06:12,339 --> 00:06:15,230
 That is how a future competitor gets built.
 
 96
-00:06:14,002 --> 00:06:16,172
+00:06:17,137 --> 00:06:19,307
 The last crack is the newest.
 
 97
-00:06:16,482 --> 00:06:18,771
+00:06:19,617 --> 00:06:21,906
 Nvidia is Jensen Huang.
 
 98
-00:06:18,802 --> 00:06:22,971
+00:06:21,937 --> 00:06:26,107
 He has run it since day one, for more than thirty years.
 
 99
-00:06:23,041 --> 00:06:27,132
+00:06:26,177 --> 00:06:30,266
 When investors buy this stock, they are buying one man's judgment.
 
 100
-00:06:27,601 --> 00:06:35,411
+00:06:30,737 --> 00:06:38,547
 In early November, according to reports from several major news outlets, Huang told employees he had been unfaithful to his wife.
 
 101
-00:06:35,442 --> 00:06:45,091
+00:06:38,576 --> 00:06:48,226
 The reports say the relationship was with an executive at a company that buys Nvidia's chips, and that U.S. officials believe that person had ties to Chinese intelligence.
 
 102
-00:06:45,201 --> 00:06:48,012
+00:06:48,336 --> 00:06:51,146
 Those are allegations, and nothing has been proven.
 
 103
-00:06:48,401 --> 00:06:53,451
+00:06:51,536 --> 00:06:56,586
 What is confirmed is that Nvidia's board has opened an independent investigation.
 
 104
-00:06:53,521 --> 00:06:56,651
+00:06:56,656 --> 00:06:59,786
 The stock dropped about ten percent in two days.
 
 105
-00:06:57,201 --> 00:07:02,172
+00:07:00,336 --> 00:07:05,307
 Hundreds of billions of dollars, over a question about one person.
 
 106
-00:07:02,641 --> 00:07:05,932
+00:07:05,776 --> 00:07:09,067
 That is what it means to be a one-man company.
 
 107
-00:07:07,846 --> 00:07:09,776
+00:07:10,980 --> 00:07:12,911
 So is this the fall?
 
 108
-00:07:10,247 --> 00:07:16,137
+00:07:12,740 --> 00:07:18,990
 History has one answer you need to hear, and it is not the one either side wants.
 
 109
-00:07:16,326 --> 00:07:20,817
+00:07:19,380 --> 00:07:24,031
 In March of 2000, the most valuable company in the world was Cisco.
 
 110
-00:07:21,047 --> 00:07:26,576
+00:07:24,341 --> 00:07:30,110
 It sold the essential equipment for the technology everyone knew was the future: the internet.
 
 111
-00:07:26,887 --> 00:07:29,216
+00:07:30,341 --> 00:07:32,831
 And everyone was right about the internet.
 
 112
-00:07:29,526 --> 00:07:36,137
+00:07:33,141 --> 00:07:39,550
 Cisco's stock fell more than eighty percent anyway, and it stayed below that peak for more than two decades.
 
 113
-00:07:36,166 --> 00:07:38,016
+00:07:39,860 --> 00:07:41,911
 The company never went bankrupt.
 
 114
-00:07:38,086 --> 00:07:40,656
+00:07:41,860 --> 00:07:44,310
 It is still big and profitable.
 
 115
-00:07:40,726 --> 00:07:44,377
+00:07:44,341 --> 00:07:47,790
 But people who bought at the top waited a generation.
 
 116
-00:07:44,487 --> 00:07:47,536
+00:07:48,180 --> 00:07:51,271
 That is what a fall looks like for a company like this.
 
 117
-00:07:47,526 --> 00:07:48,857
+00:07:51,221 --> 00:07:52,430
 Not bankruptcy.
 
 118
-00:07:48,887 --> 00:07:52,257
+00:07:52,661 --> 00:07:55,790
 A great business with a price that was too high.
 
 119
-00:07:52,406 --> 00:07:54,096
+00:07:56,180 --> 00:07:57,630
 But here is the difference.
 
 120
-00:07:54,086 --> 00:07:59,137
+00:07:57,860 --> 00:08:02,430
 At its peak, Cisco cost around two hundred times its yearly profit.
 
 121
-00:07:58,966 --> 00:08:03,697
-Nvidia, after this drop, costs closer to twenty-five.
+00:08:02,661 --> 00:08:06,271
+Nvidia, after this drop, costs about twenty-two.
 
 122
-00:08:03,526 --> 00:08:06,257
+00:08:06,661 --> 00:08:08,831
 Cisco's price was built on hope.
 
 123
-00:08:06,086 --> 00:08:10,016
+00:08:09,060 --> 00:08:12,831
 Nvidia's is built on profits that exist right now.
 
 124
-00:08:09,846 --> 00:08:12,257
+00:08:13,141 --> 00:08:15,630
 The question is whether they last.
 
 125
-00:08:14,255 --> 00:08:16,346
+00:08:17,547 --> 00:08:19,637
 So here is the honest answer.
 
 126
-00:08:16,735 --> 00:08:19,146
+00:08:20,026 --> 00:08:22,437
 One crack, Nvidia survives.
 
 127
-00:08:19,375 --> 00:08:20,906
+00:08:22,666 --> 00:08:24,197
 It has survived worse.
 
 128
-00:08:21,136 --> 00:08:28,026
+00:08:24,427 --> 00:08:31,317
 It nearly died in the nineties, and its stock was cut in half in 2008 and again in 2022.
 
 129
-00:08:27,855 --> 00:08:38,145
+00:08:31,146 --> 00:08:41,437
 Two cracks at once, the spending pause and customers with a real alternative, and you get Cisco: a strong company and a lost decade for shareholders.
 
 130
-00:08:38,255 --> 00:08:40,905
+00:08:41,547 --> 00:08:44,197
 A true fall needs all five.
 
 131
-00:08:40,975 --> 00:08:46,346
+00:08:44,267 --> 00:08:49,636
 What is new is that, for the first time, all five are visible at the same moment.
 
 132
-00:08:46,576 --> 00:08:50,466
+00:08:49,866 --> 00:08:53,756
 On November seventeenth, Nvidia reports its next results.
 
 133
-00:08:50,495 --> 00:08:52,745
+00:08:53,787 --> 00:08:56,037
 That is the first real test.
 
 134
-00:08:52,816 --> 00:08:58,385
+00:08:56,106 --> 00:09:01,677
 For thirty years, Jensen Huang has said his company is thirty days from going out of business.
 
 135
-00:08:58,416 --> 00:09:01,826
+00:09:01,706 --> 00:09:05,116
 He said it to keep people scared when everything was going right.
 
 136
-00:09:01,936 --> 00:09:04,985
+00:09:05,226 --> 00:09:08,277
 Nobody at Nvidia needs reminding this month.
