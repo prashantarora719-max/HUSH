@@ -1,0 +1,53 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Logo options</title>
+<style>
+ body{margin:0;background:#0b0d0e;font-family:"Inter Display",Inter,sans-serif;color:#f2f5f0}
+ #sheet{width:1920px;height:820px;display:flex;gap:40px;padding:50px;box-sizing:border-box}
+ .opt{flex:1;display:flex;flex-direction:column;align-items:center}
+ .tile{width:400px;height:400px;border-radius:50%;background:#07090a;border:2px solid #1c231d;overflow:hidden}
+ .small{display:flex;gap:18px;align-items:center;margin-top:26px}
+ .small div{border-radius:50%;background:#07090a;overflow:hidden;border:1px solid #1c231d}
+ h2{font-size:44px;margin:34px 0 6px;font-weight:900} p{font-size:24px;color:#8d978c;margin:0;text-align:center;line-height:1.35}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+ <filter id="g" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <!-- A: T-account, the accountant's ledger symbol -->
+ <g id="A">
+  <g fill="#ffb020" filter="url(#g)"><rect x="-130" y="-112" width="260" height="26" rx="8"/><rect x="-13" y="-112" width="26" height="232" rx="8"/></g>
+  <rect x="-118" y="-56" width="78" height="24" rx="6" fill="#f2f5f0"/><rect x="-118" y="-10" width="58" height="24" rx="6" fill="#f2f5f0"/>
+  <rect x="40" y="-56" width="78" height="24" rx="6" fill="#f2f5f0"/><rect x="40" y="-10" width="58" height="24" rx="6" fill="#f2f5f0"/>
+  <rect x="40" y="36" width="78" height="24" rx="6" fill="#ff3d3d" filter="url(#g)"/>
+ </g>
+ <!-- B: the AI sparkle over ledger rows -->
+ <g id="B">
+  <path d="M-62 -128 C-54 -84 -40 -70 4 -62 C-40 -54 -54 -40 -62 4 C-70 -40 -84 -54 -128 -62 C-84 -70 -70 -84 -62 -128Z" fill="#ffb020" filter="url(#g)"/>
+  <rect x="26" y="-76" width="104" height="26" rx="7" fill="#f2f5f0"/>
+  <rect x="-128" y="30" width="258" height="26" rx="7" fill="#f2f5f0"/>
+  <rect x="-128" y="84" width="150" height="26" rx="7" fill="#ff3d3d" filter="url(#g)"/>
+ </g>
+ <!-- C: AL monogram with ledger rules -->
+ <g id="C">
+  <rect x="-128" y="-118" width="256" height="16" rx="5" fill="#ffb020" filter="url(#g)"/>
+  <text x="0" y="62" text-anchor="middle" font-family="Inter Display, Inter, sans-serif" font-weight="900" font-size="190" letter-spacing="-8" fill="#f2f5f0">AL</text>
+  <rect x="-128" y="92" width="256" height="16" rx="5" fill="#ffb020" filter="url(#g)"/>
+  <rect x="-128" y="122" width="120" height="16" rx="5" fill="#ff3d3d" filter="url(#g)"/>
+ </g>
+ <!-- D: open ledger book -->
+ <g id="D">
+  <g fill="none" stroke="#ffb020" stroke-width="18" stroke-linejoin="round" filter="url(#g)">
+   <path d="M0 -84 L-132 -112 V88 L0 116 Z"/><path d="M0 -84 L132 -112 V88 L0 116 Z"/>
+  </g>
+  <g stroke-width="18" stroke-linecap="round">
+   <path d="M-98 -50 L-34 -37 M-98 -2 L-34 11" stroke="#f2f5f0"/><path d="M98 -50 L34 -37" stroke="#f2f5f0"/>
+   <path d="M98 -2 L34 11" stroke="#ff3d3d" filter="url(#g)"/>
+  </g>
+ </g>
+</defs></svg>
+<div id="sheet"></div>
+<script>
+const O=[['A','T-account','The accountant\'s ledger symbol:<br>what came in, what went out.'],['B','Spark and ledger','The common "AI" spark,<br>sitting on ledger rows.'],
+         ['C','AL monogram','The initials, ruled off<br>like the bottom of an account.'],['D','Open ledger','A ledger book with one<br>entry in red.']];
+document.getElementById('sheet').innerHTML=O.map(([id,n,d])=>`<div class="opt">
+ <div class="tile"><svg width="400" height="400" viewBox="-200 -200 400 400"><use href="#${id}"/></svg></div>
+ <div class="small">${[96,48,28].map(s=>`<div style="width:${s}px;height:${s}px"><svg width="${s}" height="${s}" viewBox="-200 -200 400 400"><use href="#${id}"/></svg></div>`).join('')}</div>
+ <h2>${id}. ${n}</h2><p>${d}</p></div>`).join('');
+</script></body></html>
