@@ -24,6 +24,8 @@ Chapters
 This video is for education and entertainment. It is not financial advice.
 Thumbnail and illustrations are AI-generated artwork. Narration is an AI voice. Music is AI-generated.
 Figures are as of November 11, 2026. Sources: Nvidia quarterly filings and press releases, Goldman Sachs and other analyst estimates, and reporting by major news outlets.
+
+#PaperTrillions #AI #AIBusiness #Nvidia #JensenHuang #AIBubble
 ```
 
 ## Upload checklist
