@@ -8,6 +8,7 @@
 **Thumbnail idea:** "LOSES $2 FOR EVERY $1" with a red circle around the $2.
 **Audience:** United States, 30 to 50, curious about money and tech, not working in AI
 **Format:** stock footage with bold text, short chart moments marked *[CHART]*, and evidence shots marked *[DOC]*
+**Length:** about 1,220 spoken words, roughly 9 minutes at the last video's pace
 **Facts as of:** November 11, 2026. OpenAI is private, so every figure is "as reported", not audited. The script says so out loud; keep those lines.
 
 Text in *[brackets]* is a note, not narration.
@@ -36,7 +37,9 @@ One thing first. OpenAI is a private company. It does not publish its accounts. 
 
 And those figures tell a strange story.
 
-From the first quarter of this year to the second, OpenAI's revenue grew eighteen percent. Good. But its losses grew by about a third. *[CHART: two bars growing, the red one faster]*
+From the first quarter of this year to the second, OpenAI's revenue went from five point seven billion dollars to six point seven. Up eighteen percent. Good.
+
+But its losses went from nine point three billion to twelve point three. Up by about a third. *[CHART: two bars growing, the red one faster]*
 
 Most businesses lose less as they grow. This one loses more.
 
@@ -52,7 +55,9 @@ Around fifty million of them pay.
 
 So for every person with a subscription, there are about nineteen using it for free. And unlike a free video or a free search, every single answer costs real money to produce. A chip has to run. Electricity has to be bought.
 
-That is the first leak. The more popular it gets, the more it costs.
+To be clear, that does not make ChatGPT a bad product. Nine hundred million people do not come back every week to something useless.
+
+But it does make it an expensive one. That is the first leak. The more popular it gets, the more it costs.
 
 ## 3. Where it goes, two: the promises
 
@@ -102,9 +107,13 @@ Nvidia put in thirty billion. OpenAI is one of the biggest buyers of Nvidia's ch
 
 *[CHART: three arrows out, three arrows back]*
 
+And SoftBank, the Japanese investor, holds about thirteen percent.
+
 Three of its biggest backers are also three of its biggest suppliers. If you watched our last video, you know this pattern. We called it the money loop.
 
 So the losses are real. But as long as the checks keep coming, they do not matter.
+
+And they have to keep coming. By one report, the money raised in March is expected to run out by 2028.
 
 *[beat]*
 
@@ -120,7 +129,7 @@ In February, it started showing ads. Two hundred days later, OpenAI said that wa
 
 And remember those nineteen free users? Google and Meta built two of the most profitable companies on earth out of people who pay nothing.
 
-OpenAI's own forecast says its sales will reach three hundred and fifty billion dollars a year by 2030. That is about what Google's parent company made in 2024.
+This year, OpenAI expects about thirty-six billion dollars in sales. Its own forecast says that will reach three hundred and fifty billion a year by 2030. Ten times bigger, in four years. That is about what Google's parent company made in 2024.
 
 So investors are not betting on what OpenAI earns today. They are betting it becomes the next Google, in four years. If they are right, one and a quarter trillion dollars will look cheap.
 
@@ -138,6 +147,8 @@ For comparison. Amazon, famous for losing money, lost about three billion dollar
 
 OpenAI's plan is nine Ubers.
 
+And in fairness, this is the improved version. An earlier forecast, from May, was reportedly even larger.
+
 ## 8. What has to go right
 
 So here is the ledger, as honestly as I can write it.
@@ -150,7 +161,7 @@ Two. The cost of each answer has to fall faster than the number of answers grows
 
 Three. Those free users have to turn into money, through subscriptions or through ads.
 
-Any one of those is possible. It needs all three.
+Any one of those is possible. It needs all three, at the same time, for four years in a row.
 
 And here is why it matters to you. OpenAI's finance chief says the company is aiming to sell shares to the public in 2027. When that happens, this stops being a problem for venture capitalists. It could land in your index fund.
 
@@ -192,6 +203,7 @@ Confidence: **High** = the company itself or several major outlets. **Medium** =
 | Projected cash burn | $278B negative free cash flow, 2026 to 2030 (FT) | Medium | [Crowdfund Insider](https://www.crowdfundinsider.com/2026/09/311511-openai-sees-278-billion-cash-drain-by-2030-amid-compute-buildout/) |
 | Amazon and Uber losses | About $3B and about $31.7B before profit | Medium | [Crunchbase News](https://news.crunchbase.com/news/why-amazons-history-of-ipo-era-losses-means-little-for-todays-unprofitable-unicorns), [Burn Rate Hall of Fame](https://brianbuntz.github.io/openaiburnrate) |
 | "Nine Ubers" | 278 / 31.7 = 8.8 | Check | My arithmetic |
+| SoftBank stake; March money lasting to 2028; May forecast of about $305B | About 13%; one report each | Check | [FourWeekMBA](https://fourweekmba.com/who-owns-openai/), [CryptoBriefing](https://cryptobriefing.com/openai-projects-278b-cash-burn-through-2030/) |
 | Share sale | Targeting 2027 (CFO Sarah Friar, to CNBC) | Medium | [CNBC](https://www.cnbc.com/2026/10/22/openai-funding-round-uae-investors.html) |
 
 ## Changes from the first draft
