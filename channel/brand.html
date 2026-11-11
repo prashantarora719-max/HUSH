@@ -11,28 +11,28 @@
 <svg width="0" height="0" style="position:absolute"><defs>
  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
  <g id="mark">
-  <g stroke="#84e11a" stroke-width="12" stroke-linecap="round" filter="url(#glow)">
-   <path d="M-105 -200v40M-35 -200v40M35 -200v40M105 -200v40M-105 160v40M-35 160v40M35 160v40M105 160v40M-200 -105h40M-200 -35h40M-200 35h40M-200 105h40M160 -105h40M160 -35h40M160 35h40M160 105h40"/>
-   <rect x="-160" y="-160" width="320" height="320" rx="26" fill="#0c120d"/>
+  <g fill="none" stroke="#ffb020" stroke-width="18" stroke-linejoin="round" filter="url(#glow)">
+   <path d="M0 -84 L-132 -112 V88 L0 116 Z"/><path d="M0 -84 L132 -112 V88 L0 116 Z"/>
   </g>
-  <rect x="-104" y="-92" width="208" height="30" rx="6" fill="#f2f5f0"/>
-  <rect x="-104" y="-22" width="150" height="30" rx="6" fill="#f2f5f0"/>
-  <rect x="-104" y="48" width="96" height="30" rx="6" fill="#ff3d3d" filter="url(#glow)"/>
+  <g stroke-width="18" stroke-linecap="round">
+   <path d="M-98 -50 L-34 -37 M-98 -2 L-34 11" stroke="#f2f5f0"/><path d="M98 -50 L34 -37" stroke="#f2f5f0"/>
+   <path d="M98 -2 L34 11" stroke="#ff3d3d" filter="url(#glow)"/>
+  </g>
  </g>
 </defs></svg>
 
 <div id="avatar" class="grid"><div class="vig"></div>
- <svg class="abs" width="800" height="800" viewBox="-400 -400 800 800"><use href="#mark" transform="scale(1.02)"/></svg>
+ <svg class="abs" width="800" height="800" viewBox="-400 -400 800 800"><use href="#mark" transform="scale(1.5)"/></svg>
 </div>
 
 <div id="banner" class="grid"><div class="vig"></div>
  <svg class="abs" width="2560" height="1440" style="left:0;top:0">
-  <path d="M0 1180 L260 1150 420 1090 640 1110 860 1010 1040 1030 1280 900 1500 930 1720 760 1960 800 2200 560 2380 600 2560 380" fill="none" stroke="#84e11a" stroke-width="6" opacity=".28" filter="url(#glow)"/>
+  <path d="M0 1180 L260 1150 420 1090 640 1110 860 1010 1040 1030 1280 900 1500 930 1720 760 1960 800 2200 560 2380 600 2560 380" fill="none" stroke="#ffb020" stroke-width="6" opacity=".26" filter="url(#glow)"/>
   <path d="M0 240 L300 300 520 280 800 400 1040 380 1300 520 1560 500 1800 660 2060 640 2300 820 2560 880" fill="none" stroke="#ff3d3d" stroke-width="6" opacity=".2" filter="url(#glow)"/>
  </svg>
  <!-- everything below sits inside the 1546x423 area that shows on every device -->
- <svg class="abs" width="360" height="360" viewBox="-220 -220 440 440" style="left:530px;top:545px"><use href="#mark"/></svg>
- <div class="abs" style="left:910px;top:572px;font-size:140px;font-weight:900;color:#f2f5f0;letter-spacing:-3px;line-height:1;white-space:nowrap">THE AI <span style="color:#84e11a">LEDGER</span></div>
+ <svg class="abs" width="330" height="330" viewBox="-160 -150 320 300" style="left:540px;top:556px" preserveAspectRatio="xMidYMid meet"><use href="#mark"/></svg>
+ <div class="abs" style="left:910px;top:572px;font-size:140px;font-weight:900;color:#f2f5f0;letter-spacing:-3px;line-height:1;white-space:nowrap">THE AI <span style="color:#ffb020">LEDGER</span></div>
  <div class="abs" style="left:915px;top:736px;font-size:52px;font-weight:600;color:#f2f5f0;white-space:nowrap">The money and power behind AI.</div>
  <div class="abs mono" style="left:917px;top:826px;font-size:28px;color:#7d877c;white-space:nowrap">A NEW INVESTIGATION EVERY WEEK</div>
 </div>
