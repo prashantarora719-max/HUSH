@@ -1,0 +1,49 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Paper style test</title>
+<style>
+ body{margin:0;background:#333;font-family:"Inter Display",Inter,sans-serif}
+ .f{width:1920px;height:1080px;position:relative;overflow:hidden;background:#efe7d6;color:#17130e;margin-bottom:30px}
+ .f::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(60,90,130,.16) 2px,transparent 2px);background-size:100% 72px;background-position:0 150px}
+ .f::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(255,255,255,.35),rgba(120,90,40,.22));pointer-events:none}
+ .margin{position:absolute;left:150px;top:0;bottom:0;width:3px;background:rgba(200,50,40,.45)}
+ .abs{position:absolute;z-index:2}
+ .mono{font-family:"JetBrains Mono",monospace;letter-spacing:.2em;font-weight:500;color:#6b5f4c}
+ .serif{font-family:"DejaVu Serif","Liberation Serif",serif}
+ .red{color:#c4271b}.gold{background:#f0b429;padding:0 14px}
+</style></head><body>
+<!-- 1: big number -->
+<div class="f" id="a"><div class="margin"></div>
+ <div class="abs mono" style="left:200px;top:96px;font-size:28px">PAPER TRILLIONS · ENTRY NO. 2 · NOVEMBER 17, 2026</div>
+ <div class="abs serif" style="left:196px;top:190px;font-size:64px;font-weight:700">Nvidia's results are in.</div>
+ <div class="abs" style="left:190px;top:330px;font-size:330px;font-weight:900;letter-spacing:-10px;line-height:1">$00.0<span style="font-size:150px;letter-spacing:0"> billion</span></div>
+ <div class="abs mono" style="left:204px;top:700px;font-size:30px">REVENUE THIS QUARTER <span style="color:#17130e">(placeholder until the report)</span></div>
+ <svg class="abs" width="620" height="150" style="left:196px;top:790px"><path d="M10 110 C150 60 300 130 450 70 S600 60 610 80" fill="none" stroke="#c4271b" stroke-width="10" stroke-linecap="round"/></svg>
+ <div class="abs serif" style="left:860px;top:820px;font-size:54px;font-style:italic;color:#c4271b;transform:rotate(-3deg)">but did the five cracks show?</div>
+</div>
+<!-- 2: chart as a ledger page -->
+<div class="f" id="b"><div class="margin"></div>
+ <div class="abs mono" style="left:200px;top:96px;font-size:28px">CRACK 03 · THE BILL</div>
+ <div class="abs serif" style="left:196px;top:176px;font-size:60px;font-weight:700">What the biggest cloud companies spend each year</div>
+ <svg class="abs" width="1920" height="1080" style="left:0;top:0">
+  <g font-family="Inter Display, Inter, sans-serif" font-weight="900">
+   <rect x="260" y="738" width="300" height="140" fill="#8f8674"/><text x="410" y="716" text-anchor="middle" font-size="76" fill="#17130e">$260B</text>
+   <rect x="700" y="448" width="300" height="430" fill="#17130e"/><text x="850" y="426" text-anchor="middle" font-size="76" fill="#17130e">$800B</text>
+   <rect x="1140" y="288" width="300" height="590" fill="#c4271b"/><text x="1290" y="266" text-anchor="middle" font-size="76" fill="#c4271b">$1T+</text>
+  </g>
+  <rect x="200" y="878" width="1520" height="5" fill="#17130e"/>
+  <g font-family="JetBrains Mono, monospace" font-size="30" fill="#6b5f4c" text-anchor="middle" letter-spacing="5"><text x="410" y="936">2024</text><text x="850" y="936">2026</text><text x="1290" y="936">2027</text></g>
+  <path d="M1470 420 C1560 400 1600 470 1580 540" fill="none" stroke="#c4271b" stroke-width="7" stroke-linecap="round"/><path d="M1560 518 L1580 546 1604 520" fill="none" stroke="#c4271b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+ </svg>
+ <div class="abs serif" style="left:1480px;top:560px;font-size:44px;font-style:italic;color:#c4271b;line-height:1.15;transform:rotate(-2deg)">a very large part<br>lands at Nvidia</div>
+ <div class="abs mono" style="left:200px;top:990px;font-size:22px">ANALYST ESTIMATES AND FORECASTS</div>
+</div>
+<!-- 3: document evidence shot -->
+<div class="f" id="c" style="background:#2a2620"><div class="abs" style="inset:0;background:radial-gradient(ellipse at 50% 45%,rgba(255,240,200,.14),rgba(0,0,0,.55));z-index:1"></div>
+ <div class="abs" style="left:330px;top:90px;width:1180px;height:1100px;background:#f7f3ea;box-shadow:0 40px 90px rgba(0,0,0,.6);transform:rotate(-2.5deg);padding:80px 90px;box-sizing:border-box;color:#222;font-family:'Liberation Serif',serif">
+  <div style="font-size:26px;letter-spacing:.14em;font-family:'Liberation Sans',sans-serif;color:#555">FORM 10-Q · QUARTERLY REPORT</div>
+  <div style="font-size:50px;font-weight:700;margin:22px 0 34px">NVIDIA CORPORATION</div>
+  <div style="font-size:31px;line-height:1.75;color:#444">The Company has provided guarantees of certain lease obligations of a customer in connection with data center capacity. <span class="gold" style="color:#111;font-weight:700">The maximum potential amount of future payments under these guarantees is $105 billion.</span> Each guarantee generally becomes effective upon commencement of the applicable lease, with corresponding guarantee amounts increasing as each data center is placed in service.</div>
+  <div style="font-size:22px;margin-top:40px;color:#999;font-family:'Liberation Sans',sans-serif">Mock-up for style only. The real video would show the actual filing page.</div>
+ </div>
+ <div class="abs" style="left:1240px;top:770px;z-index:3;font-family:'DejaVu Serif',serif;font-size:58px;font-style:italic;color:#f0b429;transform:rotate(-4deg);text-shadow:0 4px 20px rgba(0,0,0,.6)">it's in their own filing.</div>
+</div>
+</body></html>
