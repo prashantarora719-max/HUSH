@@ -28,6 +28,12 @@ Figures are as of November 11, 2026. Sources: Nvidia quarterly filings and press
 #PaperTrillions #AI #AIBusiness #Nvidia #JensenHuang #AIBubble
 ```
 
+## Tags (paste into the Tags box)
+
+```text
+Nvidia, Nvidia stock, NVDA, can Nvidia fall, Nvidia crash, Nvidia stock drop, Jensen Huang, AI bubble, AI stocks, AI chips, Nvidia vs Cisco, dot com bubble, Nvidia China, Huawei chips, AI spending, Nvidia earnings, stock market news, tech stocks, investing, Paper Trillions
+```
+
 ## Upload checklist
 - Upload `can-nvidia-fall.mp4`, the thumbnail `thumbnail/thumbnail-final.png`, and the captions file `captions.srt`.
 - "Altered content" question: the video has no realistic synthetic footage of real people or events, and the portrait is clearly a drawing, so the answer is most likely No. Read YouTube's current wording when you upload, because the rule changes.

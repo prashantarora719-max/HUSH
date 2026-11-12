@@ -31,6 +31,12 @@ Photos of Colette Kress, Ian Buck, Mark Zuckerberg, Lisa Su, Rene Haas, Steve Jo
 #PaperTrillions #AI #AIBusiness #Nvidia #JensenHuang #NVDA
 ```
 
+## Tags (paste into the Tags box)
+
+```text
+Jensen Huang, Jensen Huang resigns, Nvidia, Nvidia CEO, Nvidia stock, NVDA, Nvidia news, Colette Kress, Ian Buck, Lisa Su, Nvidia interim CEO, who replaces Jensen Huang, Nvidia without Jensen Huang, Nvidia board, AI stocks, AI chips, AI bubble, stock market news, tech news, Paper Trillions
+```
+
 ## Upload checklist
 - **Photo credits:** the video now shows photos of seven people that you supplied. Fill in the credit lines in the description from each photo's source page. Photos under a Creative Commons licence require the photographer's name and the licence. If a photo did not come from a page that states a reuse licence, it can draw a copyright claim.
 - Upload `nvidia-without-jensen.mp4`, the thumbnail `thumbnail/thumbnail-b.png` (or all three through "Test & compare": `thumbnail-b.png`, `thumbnail-c.png`, `thumbnail-a.png`) and the captions file `captions.srt`.
