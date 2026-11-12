@@ -67,7 +67,7 @@ const FX = {
   quote(e, t) { bar(140, 520, 12, 250, C.y, t, e.a.q - .2, .3);
     e.q.forEach((s, i) => { const k = outCubic(prog(t, e.a.q + i * .9, e.a.q + i * .9 + .4)); if (k > 0) text(s, 190 - (1 - k) * 20, 620 + i * 110, { size: 84, weight: 700, italic: true, alpha: k, spacing: -1 }); });
     label(e.by, 190, 850, t, e.a.q + 1.9, { size: 26 }); },
-  reports(e, t) { label('PEOPLE REPORTING DIRECTLY TO THE CEO', 144, 190, t, e.big ? -1 : e.t0 + .1);
+  reports(e, t) { g.fillStyle = 'rgba(0,0,0,.5)'; g.fillRect(0, 0, W, H); label('PEOPLE REPORTING DIRECTLY TO THE CEO', 144, 190, t, e.big ? -1 : e.t0 + .1);
     label('A TYPICAL CEO', 144, 280, t, e.big ? -1 : e.t0 + .3, { color: C.w });
     for (let i = 0; i < 10; i++) person(170 + i * 60, 370, 1, C.w, e.big ? 1 : outBack(prog(t, e.a.n - .2 + i * .05, e.a.n + .05 + i * .05)));
     pop('ABOUT 10', 1780, 390, { size: 110, align: 'right', spacing: -3 }, t, e.big ? -1 : e.a.n);
