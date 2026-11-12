@@ -3,6 +3,7 @@
 <style>html,body{margin:0;background:transparent}canvas{display:block}</style></head>
 <body><canvas id="c" width="1920" height="1080"></canvas>
 <script src="plan.js"></script>
+<script src="logos.js"></script>
 <script>
 // Transparent graphics layer over the footage bed. A pure function of time t; all timing comes from plan.js.
 const W = 1920, H = 1080, DURATION = PLAN.total, CUTS = PLAN.cuts, NARR_END = DURATION - 5;
@@ -28,8 +29,12 @@ const label = (s, x, y, t, at, o = {}) => { const k = outCubic(prog(t, at, at + 
 const bar = (x, y, wd, h, col, t, at, d = .35) => { const k = outExpo(prog(t, at, at + d)); if (k > 0) { g.fillStyle = col; g.fillRect(x, y, wd * k, h); } };
 function person(x, y, s, col, k = 1) { if (k <= 0) return; g.save(); g.translate(x, y); g.scale(s * k, s * k); g.fillStyle = col; g.shadowColor = 'rgba(0,0,0,.7)'; g.shadowBlur = 14;
   g.beginPath(); g.arc(0, -34, 16, 0, 7); g.fill(); g.beginPath(); g.roundRect(-24, -12, 48, 62, 20); g.fill(); g.restore(); }
-function tag(s, t, at, col = C.y) { const k = outExpo(prog(t, at, at + .3)); if (k <= 0) return; const o = { font: MONO, weight: 700, size: 34, spacing: 4 }, wd = width(s, o) + 48;
-  g.save(); g.globalAlpha = Math.min(1, k * 2); g.fillStyle = col; g.fillRect(140, 110, wd * k, 64); g.beginPath(); g.rect(140, 110, wd * k, 64); g.clip(); text(s, 164, 154, { ...o, color: col === C.r ? '#fff' : '#111', blur: 0 }); g.restore(); }
+const BRAND = { intel: '#1a9bf0', mcdonalds: '#fbc817', apple: '#ffffff', meta: '#3b8cff', amd: '#ffffff', arm: '#19b5e6', nvidia: '#76b900' }, PATHS = {};
+// a company mark, centred on (cx, cy) and `size` pixels square
+function logo(name, cx, cy, size, t, at, col) { const k = at < 0 ? 1 : outBack(prog(t, at, at + .3)); if (k <= 0) return; PATHS[name] ??= new Path2D(LOGOS[name]);
+  g.save(); g.translate(cx, cy); g.scale(size / 24 * k, size / 24 * k); g.translate(-12, -12); g.shadowColor = 'rgba(0,0,0,.7)'; g.shadowBlur = 18; g.fillStyle = col || BRAND[name]; g.fill(PATHS[name]); g.restore(); }
+function tag(s, t, at, col = C.y, x0 = 140) { const k = outExpo(prog(t, at, at + .3)); if (k <= 0) return; const o = { font: MONO, weight: 700, size: 34, spacing: 4 }, wd = width(s, o) + 48;
+  g.save(); g.globalAlpha = Math.min(1, k * 2); g.fillStyle = col; g.fillRect(x0, 110, wd * k, 64); g.beginPath(); g.rect(x0, 110, wd * k, 64); g.clip(); text(s, x0 + 24, 154, { ...o, color: col === C.r ? '#fff' : '#111', blur: 0 }); g.restore(); }
 function fit(lines, size, maxw) { let s = size; for (const [tx] of lines) { const wd = width(tx, { size: s, spacing: -s * .025 }); if (wd > maxw) s = Math.floor(s * maxw / wd); } return s; }
 // the standard treatment: lines stacked up from the bottom-left, each landing on its spoken word
 function drawLines(e, t, bottom = 920) {
@@ -44,6 +49,8 @@ const FX = {
     [['CHIEF EXECUTIVE', e.a.a], ['PRESIDENT', e.a.b], ['BOARD SEAT', e.a.c]].forEach(([s, at], i) => { const y = 400 + i * 150, o = { size: 120, spacing: -3 }; pop(s, 250, y, o, t, at);
       const k = outExpo(prog(t, at + .25, at + .55)); if (k > 0) { g.fillStyle = C.r; g.fillRect(240, y - 48, (width(s, o) + 20) * k, 12); pop('✕', 140, y, { size: 110, color: C.r }, t, at + .25); } });
     pop('EFFECTIVE IMMEDIATELY.', 140, 900, { size: 110, color: C.y, spacing: -3 }, t, e.a.d); },
+  brand(e, t) { g.fillStyle = 'rgba(0,0,0,.5)'; g.fillRect(0, 0, W, H); logo(e.logo, W / 2, 400, 340, t, e.t0 + .05);
+    pop(e.bname, W / 2, 740, { size: 150, align: 'center', spacing: -4 }, t, e.t0 + .3); pop(e.year, W / 2, 880, { size: 110, align: 'center', color: C.y, spacing: -2 }, t, e.t0 + .75); },
   stake(e, t) { label('HIS STAKE IN NVIDIA  ·  APPROXIMATE', 144, 420, t, e.t0 + .1);
     pop((3.5 * count(t, e.a.n - .1, .7)).toFixed(1) + '%', 130, 720, { size: 330, color: C.y, spacing: -10 }, t, e.a.n - .1);
     const k = outExpo(prog(t, e.t0 + .2, e.t0 + .8)); g.fillStyle = 'rgba(255,255,255,.28)'; g.fillRect(140, 800, 1640 * k, 46); bar(140, 800, 1640 * .035, 46, C.y, t, e.a.n);
@@ -87,19 +94,19 @@ const FX = {
     label('NOV 11 CLOSE $173.73   →   AFTER HOURS ABOUT $159', 1780, 990, t, e.a.c + .5, { align: 'right', size: 24 }); },
   meta(e, t) { const box = (x, at, name, who, l1, l2, col) => { const k = outCubic(prog(t, at, at + .35)); if (k <= 0) return; g.save(); g.globalAlpha = k; g.fillStyle = 'rgba(0,0,0,.45)'; g.fillRect(x, 230, 780, 640);
       g.fillStyle = col; g.fillRect(x, 230, 780, 10); g.restore(); text(name, x + 50, 370, { size: 110, alpha: k, spacing: -3 }); label(who, x + 54, 425, t, at + .2, { size: 26 }); };
-    box(140, e.t0 + .1, 'META', 'MARK ZUCKERBERG', 0, 0, C.w); pop('SPECIAL SHARES.', 190, 560, { size: 70, spacing: -2 }, t, e.a.a); pop('CONTROLS THE VOTES.', 190, 650, { size: 62, spacing: -2 }, t, e.a.a + 1.0);
+    box(140, e.t0 + .1, 'META', 'MARK ZUCKERBERG', 0, 0, C.w); logo('meta', 820, 330, 110, t, e.t0 + .3); pop('SPECIAL SHARES.', 190, 560, { size: 70, spacing: -2 }, t, e.a.a); pop('CONTROLS THE VOTES.', 190, 650, { size: 62, spacing: -2 }, t, e.a.a + 1.0);
     pop('BOARD CANNOT FIRE HIM', 190, 800, { size: 52, color: C.y, spacing: -1 }, t, e.a.b);
-    box(1000, e.a.c - .1, 'NVIDIA', 'JENSEN HUANG', 0, 0, C.r); pop('NO SPECIAL SHARES.', 1050, 560, { size: 66, spacing: -2 }, t, e.a.d); pop('ABOUT 3.5% OF THE STOCK.', 1050, 650, { size: 50, spacing: -1 }, t, e.a.d + .6);
+    box(1000, e.a.c - .1, 'NVIDIA', 'JENSEN HUANG', 0, 0, C.r); logo('nvidia', 1680, 330, 110, t, e.a.c + .1); pop('NO SPECIAL SHARES.', 1050, 560, { size: 66, spacing: -2 }, t, e.a.d); pop('ABOUT 3.5% OF THE STOCK.', 1050, 650, { size: 50, spacing: -1 }, t, e.a.d + .6);
     pop('BOARD COULD REMOVE HIM', 1050, 800, { size: 58, color: C.r, spacing: -1 }, t, e.a.d + 1.1); },
   card(e, t) { const k = outCubic(prog(t, e.t0, e.t0 + .3)); g.save(); g.globalAlpha = k; g.fillStyle = 'rgba(0,0,0,.4)'; g.fillRect(100, 150, 1720, 800); g.fillStyle = C.y; g.fillRect(100, 150, 12, 800); g.restore();
     pop(e.num, 170, 420, { size: 290, color: C.y, spacing: -8 }, t, e.t0 + .05); label(e.role, 380, 270, t, e.t0 + .15, { color: C.y, size: 40, weight: 700 });
-    pop(e.name, 376, 400, { size: fit([[e.name]], 120, 1380), spacing: -3 }, t, e.t0 + .45);
+    (e.logos || []).forEach((n, i) => logo(n, 1700 - i * 190, 860, 130, t, e.t0 + .5 + i * .15)); pop(e.name, 376, 400, { size: fit([[e.name]], 120, 1380), spacing: -3 }, t, e.t0 + .45);
     e.bullets.forEach(([s, c, at], i) => { const y = 570 + i * 104, kk = prog(t, at, at + .2); if (kk <= 0) return; g.fillStyle = C[c]; g.globalAlpha = kk; g.fillRect(180, y - 34, 24, 24); g.globalAlpha = 1;
       pop(s, 230, y, { size: fit([[s]], 64, 1540), color: C[c], weight: 800, spacing: -1 }, t, at); }); },
   score(e, t) { label('AFTER THE CEO LEFT', 144, 230, t, e.t0 + .1);
-    [['INTEL', '2018', 'LOST ITS LEAD', 'r', e.t0 + .15], ['McDONALD’S', '2019', 'NEW HIGHS', 'y', e.t0 + .45], ['APPLE', '2011', 'ABOUT 10× THE VALUE', 'y', e.a.x - .2]].forEach(([n, yr, res, c, at], i) => { const y = 400 + i * 190, k = outCubic(prog(t, at, at + .3)); if (k <= 0) return;
+    [['INTEL', '2018', 'LOST ITS LEAD', 'r', e.t0 + .15, 'intel'], ['McDONALD’S', '2019', 'NEW HIGHS', 'y', e.t0 + .45, 'mcdonalds'], ['APPLE', '2011', 'ABOUT 10× THE VALUE', 'y', e.a.x - .2, 'apple']].forEach(([n, yr, res, c, at, lg], i) => { const y = 400 + i * 190, k = outCubic(prog(t, at, at + .3)); if (k <= 0) return;
       g.save(); g.globalAlpha = k; g.fillStyle = 'rgba(0,0,0,.42)'; g.fillRect(140, y - 110, 1640, 160); g.fillStyle = C[c]; g.fillRect(140, y - 110, 10, 160); g.restore();
-      pop(n, 190, y, { size: 96, spacing: -3 }, t, at); label(yr, 190 + width(n, { size: 96, spacing: -3 }) + 30, y, t, at + .15, { size: 34 });
+      logo(lg, 230, y - 32, 96, t, at); pop(n, 310, y, { size: 96, spacing: -3 }, t, at); label(yr, 310 + width(n, { size: 96, spacing: -3 }) + 30, y, t, at + .15, { size: 34 });
       pop((c === 'r' ? '▼  ' : '▲  ') + res, 1740, y, { size: 66, color: C[c], align: 'right', spacing: -1 }, t, at + .25); }); },
   versus(e, t) { label('WHERE DOES THE COMPANY’S EDGE LIVE?', W / 2, 280, t, e.t0 + .2, { align: 'center' });
     const box = (x, at, l1, l2, fill) => { const k = outBack(prog(t, at - .1, at + .25)); if (k <= 0) return; g.save(); g.translate(x + 380, 560); g.scale(k, k); g.globalAlpha = Math.min(1, k);
@@ -120,7 +127,7 @@ function render(t) {
   const gr = g.createLinearGradient(0, H * .4, 0, H); gr.addColorStop(0, 'rgba(0,0,0,0)'); gr.addColorStop(1, 'rgba(0,0,0,.66)'); g.fillStyle = gr; g.fillRect(0, 0, W, H);
   for (const c of CUTS) { if (c > 0 && t >= c && t < c + .11) { g.fillStyle = `rgba(255,255,255,${.2 * (1 - prog(t, c, c + .11))})`; g.fillRect(0, 0, W, H); } }
   const e = PLAN.entries.find(e => t >= e.t0 && t < e.t1);
-  if (e) { if (e.tag) tag(e.tag, t, e.tagAt ?? e.t0 + .05, e.tagc === 'r' ? C.r : C.y); if (e.fx) FX[e.fx](e, t); else drawLines(e, t); }
+  if (e) { if (e.logo && e.fx !== 'brand') logo(e.logo, 172, 142, 64, t, -1); if (e.tag && e.fx !== 'brand') tag(e.tag, t, e.fx === 'brand' || !e.logo ? e.t0 + .05 : -1, e.tagc === 'r' ? C.r : C.y, e.logo ? 226 : 140); if (e.fx) FX[e.fx](e, t); else drawLines(e, t); }
   text('PAPER TRILLIONS', 1780, 80, { font: MONO, weight: 700, size: 22, spacing: 5, align: 'right', alpha: .55, blur: 8 });
   const o = Math.max(1 - prog(t, 0, .3), prog(t, DURATION - .9, DURATION - .1)); if (o > 0) { g.fillStyle = `rgba(0,0,0,${o})`; g.fillRect(0, 0, W, H); }
 }
