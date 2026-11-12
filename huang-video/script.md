@@ -1,4 +1,4 @@
-# Nvidia Without Jensen Huang: Paper Trillions, Entry No. 2 (draft script)
+# Nvidia Without Jensen Huang: Paper Trillions, Entry No. 2 (script as recorded)
 
 **Title options**
 1. Nvidia Without Jensen Huang: What Happens Now?
@@ -9,7 +9,7 @@
 **Audience:** United States, 30 to 55, people with retirement accounts who have heard the headlines and want to know what it means for them
 **Voice:** Jimmy (same as the OpenAI narration)
 **Format:** footage-led, with short charts marked *[CHART]*
-**Facts as of:** the morning of November 12, 2026. The board met on the night of November 11; no outcome had been announced when this was written. **Re-check before recording.**
+**Facts as of:** the morning of November 12, 2026. The board met on the night of November 11; no outcome had been announced when this was recorded, and none had been reported at a second check later that morning. **Re-check before uploading.**
 
 Text in *[brackets]* is a note, not narration.
 
@@ -62,6 +62,8 @@ Since the investigation was announced, more than four hundred and fifty billion 
 That is the price the market is putting on one person.
 
 ## 4. Can the board really do it?
+
+So can the board really do it?
 
 Yes. And this surprises people.
 

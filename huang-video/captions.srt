@@ -1,0 +1,475 @@
+1
+00:00:00,500 --> 00:00:04,990
+For thirty-three years, Nvidia has had one boss.
+
+2
+00:00:04,820 --> 00:00:09,550
+Last night, his own board met to decide whether to fire him.
+
+3
+00:00:09,380 --> 00:00:11,949
+Jensen Huang founded the company.
+
+4
+00:00:11,779 --> 00:00:15,310
+He is the face of the entire AI boom.
+
+5
+00:00:15,140 --> 00:00:18,510
+But he owns only about three and a half percent of it.
+
+6
+00:00:18,339 --> 00:00:20,750
+He has no special shares.
+
+7
+00:00:20,660 --> 00:00:28,910
+And under Nvidia's own rules, a simple majority of the board can remove him as CEO, with or without a reason.
+
+8
+00:00:28,739 --> 00:00:30,589
+There are eleven directors.
+
+9
+00:00:30,500 --> 00:00:32,590
+It takes six votes.
+
+10
+00:00:32,380 --> 00:00:38,189
+When the report came out, after the market had closed, the stock fell more than eight percent.
+
+11
+00:00:38,259 --> 00:00:42,509
+And here is the part that should worry anyone with a retirement account.
+
+12
+00:00:42,340 --> 00:00:45,630
+There is no plan for who comes next.
+
+13
+00:00:45,460 --> 00:00:51,390
+This is what happens to the most important company in AI if the man who built it is gone.
+
+14
+00:00:52,198 --> 00:00:53,969
+A quick note before we start.
+
+15
+00:00:54,279 --> 00:00:56,889
+This was recorded on November 12th.
+
+16
+00:00:56,918 --> 00:01:00,209
+The board had met, but had not announced a decision.
+
+17
+00:01:00,518 --> 00:01:05,569
+If that has changed by the time you watch this, everything that follows still applies.
+
+18
+00:01:05,879 --> 00:01:10,688
+Because the real question is no longer whether Jensen Huang survives this week.
+
+19
+00:01:10,918 --> 00:01:13,968
+It is whether Nvidia can run without him.
+
+20
+00:01:14,772 --> 00:01:17,902
+Here is what has been reported, and by whom.
+
+21
+00:01:18,292 --> 00:01:25,341
+On November 8th, Nvidia said its board had opened an independent investigation into its CEO.
+
+22
+00:01:25,171 --> 00:01:36,861
+That followed reports that Huang had a relationship with an executive at a company that buys Nvidia's chips, and that American officials believe she was working with Chinese intelligence.
+
+23
+00:01:36,691 --> 00:01:38,462
+China denies it.
+
+24
+00:01:38,251 --> 00:01:43,822
+Huang told employees, in his words, "There is no excuse for what I did."
+
+25
+00:01:43,652 --> 00:01:46,221
+At first, the board backed him.
+
+26
+00:01:46,052 --> 00:01:52,061
+It said it had confidence in Jensen, and no reason to believe company secrets were compromised.
+
+27
+00:01:51,971 --> 00:01:59,262
+Then, this week, the New York Times reported a second relationship, this time with someone who worked for him.
+
+28
+00:01:59,052 --> 00:02:03,542
+And the Wall Street Journal reported that the board was preparing to remove him.
+
+29
+00:02:03,572 --> 00:02:06,861
+Those are reports, from people familiar with the matter.
+
+30
+00:02:07,091 --> 00:02:09,262
+Nvidia has not confirmed them.
+
+31
+00:02:09,491 --> 00:02:12,861
+And the spying claim in particular has not been proven.
+
+32
+00:02:13,092 --> 00:02:15,901
+We are not going to dwell on the personal story.
+
+33
+00:02:16,132 --> 00:02:20,062
+The question for anyone who owns this stock is a different one.
+
+34
+00:02:20,864 --> 00:02:25,593
+Most giant companies are built so that no single person matters too much.
+
+35
+00:02:25,984 --> 00:02:28,473
+Nvidia was built the opposite way.
+
+36
+00:02:28,783 --> 00:02:32,713
+A typical CEO has maybe ten people reporting to them.
+
+37
+00:02:33,024 --> 00:02:35,954
+Jensen Huang has more than fifty.
+
+38
+00:02:36,144 --> 00:02:37,354
+No layers.
+
+39
+00:02:37,264 --> 00:02:38,633
+No deputy.
+
+40
+00:02:38,704 --> 00:02:41,593
+Every big decision goes through one desk.
+
+41
+00:02:41,424 --> 00:02:44,153
+And the decisions were his.
+
+42
+00:02:44,144 --> 00:02:50,394
+Twenty years ago he bet the company on software that let its gaming chips do scientific math.
+
+43
+00:02:50,383 --> 00:02:52,554
+Wall Street hated it.
+
+44
+00:02:52,463 --> 00:02:57,193
+That bet is the reason Nvidia owns the AI chip market today.
+
+45
+00:02:57,024 --> 00:03:03,114
+So when investors paid five trillion dollars for this company, they were not only buying chips.
+
+46
+00:03:02,943 --> 00:03:05,514
+They were buying his judgment.
+
+47
+00:03:05,503 --> 00:03:12,713
+Since the investigation was announced, more than four hundred and fifty billion dollars of that value has disappeared.
+
+48
+00:03:12,623 --> 00:03:14,234
+And counting.
+
+49
+00:03:14,223 --> 00:03:17,993
+That is the price the market is putting on one person.
+
+50
+00:03:18,806 --> 00:03:21,137
+So can the board really do it?
+
+51
+00:03:21,447 --> 00:03:22,377
+Yes.
+
+52
+00:03:22,326 --> 00:03:24,016
+And this surprises people.
+
+53
+00:03:24,326 --> 00:03:29,616
+At Meta, Mark Zuckerberg holds special shares that give him control of the votes.
+
+54
+00:03:29,847 --> 00:03:31,937
+The board cannot fire him.
+
+55
+00:03:32,247 --> 00:03:34,417
+Nvidia has nothing like that.
+
+56
+00:03:34,727 --> 00:03:37,657
+Huang's three and a half percent makes him rich.
+
+57
+00:03:37,606 --> 00:03:39,537
+It does not make him safe.
+
+58
+00:03:40,086 --> 00:03:41,776
+There is one twist.
+
+59
+00:03:42,086 --> 00:03:44,336
+The board can take his job.
+
+60
+00:03:44,567 --> 00:03:46,977
+It cannot take his seat at the table.
+
+61
+00:03:47,447 --> 00:03:50,977
+Removing him as a director would need a vote of the shareholders.
+
+62
+00:03:51,127 --> 00:03:54,817
+So even if he is fired, he could still be in the room.
+
+63
+00:03:55,206 --> 00:03:58,977
+There is also a reason the board cannot simply wait this out.
+
+64
+00:03:59,287 --> 00:04:03,776
+Nvidia needs permission from Washington to sell its best chips abroad.
+
+65
+00:04:04,086 --> 00:04:09,056
+A CEO under a cloud about China is a problem for exactly that.
+
+66
+00:04:09,366 --> 00:04:13,856
+A senior member of Congress has already said he is prepared to subpoena him.
+
+67
+00:04:14,247 --> 00:04:17,137
+So this is not only about a private life.
+
+68
+00:04:17,286 --> 00:04:23,776
+It is about whether the United States government still trusts the person running its most important chip company.
+
+69
+00:04:24,586 --> 00:04:26,435
+So who could take the job?
+
+70
+00:04:26,745 --> 00:04:28,516
+There are three kinds of answer.
+
+71
+00:04:28,906 --> 00:04:30,036
+The engineer.
+
+72
+00:04:30,346 --> 00:04:33,956
+Ian Buck joined Nvidia in 2004.
+
+73
+00:04:33,745 --> 00:04:43,716
+He was a key architect of the software that made the AI boom possible, and today he runs the part of Nvidia that sells to the biggest AI customers.
+
+74
+00:04:43,545 --> 00:04:48,355
+If you want someone who understands why Nvidia wins, it is him.
+
+75
+00:04:48,305 --> 00:04:51,156
+But he has never run a whole company.
+
+76
+00:04:50,946 --> 00:04:52,355
+The operator.
+
+77
+00:04:52,146 --> 00:04:54,836
+Colette Kress, the finance chief.
+
+78
+00:04:54,665 --> 00:04:57,396
+Steady, trusted by Wall Street.
+
+79
+00:04:57,346 --> 00:05:01,795
+According to one report, some directors favor her as a temporary CEO.
+
+80
+00:05:02,105 --> 00:05:03,555
+The outsider.
+
+81
+00:05:03,466 --> 00:05:08,836
+Names like Lisa Su, who runs rival AMD, or Rene Haas of Arm.
+
+82
+00:05:08,985 --> 00:05:10,836
+Proven chief executives.
+
+83
+00:05:11,065 --> 00:05:15,956
+But it would mean handing the keys to someone who was not there for any of it.
+
+84
+00:05:15,786 --> 00:05:18,755
+And then there is the answer Newsweek put in a headline.
+
+85
+00:05:19,065 --> 00:05:20,915
+Who could replace Jensen Huang?
+
+86
+00:05:21,305 --> 00:05:22,355
+Nobody.
+
+87
+00:05:23,156 --> 00:05:24,685
+That sounds bleak.
+
+88
+00:05:24,995 --> 00:05:29,365
+So let us look at what actually happened to three other companies.
+
+89
+00:05:29,475 --> 00:05:31,886
+Intel, 2018.
+
+90
+00:05:31,716 --> 00:05:36,125
+The CEO was pushed out over a relationship with an employee.
+
+91
+00:05:35,915 --> 00:05:38,766
+The stock barely moved that day.
+
+92
+00:05:38,596 --> 00:05:43,406
+But over the next few years, Intel lost its lead in making chips.
+
+93
+00:05:43,235 --> 00:05:45,805
+The trouble was already underway.
+
+94
+00:05:45,636 --> 00:05:49,805
+Losing the boss did not cause it, and did not fix it.
+
+95
+00:05:49,636 --> 00:05:52,125
+McDonald's, 2019.
+
+96
+00:05:51,995 --> 00:05:55,326
+Same reason, same outcome for the CEO.
+
+97
+00:05:55,156 --> 00:05:57,886
+The stock dropped about five percent.
+
+98
+00:05:57,795 --> 00:06:02,286
+Then the new boss carried on, and the shares went on to new highs.
+
+99
+00:06:02,355 --> 00:06:03,485
+And Apple.
+
+100
+00:06:03,475 --> 00:06:09,565
+In 2011, Steve Jobs stepped down, and plenty of people said the company was finished.
+
+101
+00:06:09,396 --> 00:06:13,045
+His replacement was an operations man named Tim Cook.
+
+102
+00:06:13,076 --> 00:06:16,286
+Apple is worth about ten times more today.
+
+103
+00:06:16,596 --> 00:06:18,125
+The lesson is simple.
+
+104
+00:06:18,276 --> 00:06:25,005
+It depends on whether the company's edge lives in one person's head, or in the system that person built.
+
+105
+00:06:25,903 --> 00:06:27,913
+So here is what to look for.
+
+106
+00:06:28,303 --> 00:06:28,874
+One.
+
+107
+00:06:29,103 --> 00:06:32,954
+Who gets named, and whether it is "interim" or permanent.
+
+108
+00:06:33,184 --> 00:06:36,793
+An interim boss means the board does not have a plan yet.
+
+109
+00:06:37,184 --> 00:06:38,033
+Two.
+
+110
+00:06:38,064 --> 00:06:39,913
+Whether the engineers stay.
+
+111
+00:06:40,223 --> 00:06:42,553
+Nvidia's lead is its people.
+
+112
+00:06:42,704 --> 00:06:47,754
+If the top technical names start leaving, that tells you more than any press release.
+
+113
+00:06:48,064 --> 00:06:48,793
+Three.
+
+114
+00:06:49,024 --> 00:06:50,634
+November 17th.
+
+115
+00:06:50,863 --> 00:06:52,954
+Nvidia reports its earnings.
+
+116
+00:06:53,103 --> 00:06:58,954
+It will be the first set of results delivered under this cloud, and possibly by someone new.
+
+117
+00:06:59,024 --> 00:07:05,834
+For thirty years, Jensen Huang told his employees the company was thirty days from going out of business.
+
+118
+00:07:05,624 --> 00:07:08,793
+He was trying to prepare them for everything.
+
+119
+00:07:08,663 --> 00:07:12,793
+He never told them what to do if the thing they lost was him.
