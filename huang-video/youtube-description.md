@@ -26,14 +26,7 @@ This video is for education and entertainment. It is not financial advice.
 Sources: Nvidia's announcement and SEC filing, Reuters, the Wall Street Journal, the New York Times, CNBC, CBS News, Semafor and Newsweek. The intelligence allegation has not been proven, and China denies it.
 The portrait is an AI-generated illustration. Narration is an AI voice. Music is AI-generated. Other footage is licensed stock video.
 
-Photo credits: [fill in each photographer and licence from the photo's source page before publishing]
-Colette Kress: 
-Ian Buck: 
-Mark Zuckerberg: 
-Lisa Su: 
-Rene Haas: 
-Steve Jobs: 
-Tim Cook: 
+Photos of Colette Kress, Ian Buck, Mark Zuckerberg, Lisa Su, Rene Haas, Steve Jobs and Tim Cook are from Wikimedia Commons, used under their Creative Commons licences. Photographers and licences: [add each name and licence from the photo's Commons page]
 
 #PaperTrillions #AI #AIBusiness #Nvidia #JensenHuang #NVDA
 ```
