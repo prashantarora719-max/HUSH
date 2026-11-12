@@ -4,3 +4,5 @@ openai-video/footage/*.mp4
 __pycache__/
 huang-video/nvidia-without-jensen.mp4
 huang-video/audio/mix-raw.wav
+huang-video/photos/
+huang-video/video/photos.js

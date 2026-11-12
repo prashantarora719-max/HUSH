@@ -26,10 +26,20 @@ This video is for education and entertainment. It is not financial advice.
 Sources: Nvidia's announcement and SEC filing, Reuters, the Wall Street Journal, the New York Times, CNBC, CBS News, Semafor and Newsweek. The intelligence allegation has not been proven, and China denies it.
 The portrait is an AI-generated illustration. Narration is an AI voice. Music is AI-generated. Other footage is licensed stock video.
 
+Photo credits: [fill in each photographer and licence from the photo's source page before publishing]
+Colette Kress: 
+Ian Buck: 
+Mark Zuckerberg: 
+Lisa Su: 
+Rene Haas: 
+Steve Jobs: 
+Tim Cook: 
+
 #PaperTrillions #AI #AIBusiness #Nvidia #JensenHuang #NVDA
 ```
 
 ## Upload checklist
+- **Photo credits:** the video now shows photos of seven people that you supplied. Fill in the credit lines in the description from each photo's source page. Photos under a Creative Commons licence require the photographer's name and the licence. If a photo did not come from a page that states a reuse licence, it can draw a copyright claim.
 - Upload `nvidia-without-jensen.mp4`, the thumbnail `thumbnail/thumbnail-b.png` (or all three through "Test & compare": `thumbnail-b.png`, `thumbnail-c.png`, `thumbnail-a.png`) and the captions file `captions.srt`.
 - Two lines in the middle were recorded before the resignation and are slightly out of date: "Jensen Huang has more than fifty" direct reports (present tense, at about 2:25) and "Nvidia has not confirmed them" about the board reports (at about 1:58). Neither is false about what was known at the time.
 - Before you press publish, check the news once more. If anything new has happened (a permanent CEO, a statement from Huang), add a pinned comment.
