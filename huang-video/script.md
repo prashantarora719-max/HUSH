@@ -21,9 +21,9 @@ For thirty-three years, Nvidia has had one boss.
 
 Last night, his own board met to decide whether to fire him.
 
-Jensen Huang founded the company. He is the face of the entire AI boom. But he owns only about three and a half percent of it. He has no special shares. And under Nvidia's own rules, a simple majority of the board can remove him, with or without a reason.
+Jensen Huang founded the company. He is the face of the entire AI boom. But he owns only about three and a half percent of it. He has no special shares. And under Nvidia's own rules, a simple majority of the board can remove him as CEO, with or without a reason. There are eleven directors. It takes six votes.
 
-When the news broke, the stock fell eight percent in minutes.
+When the report came out, after the market had closed, the stock fell more than eight percent.
 
 And here is the part that should worry anyone with a retirement account. There is no plan for who comes next.
 
@@ -43,7 +43,7 @@ At first, the board backed him. It said it had confidence in Jensen, and no reas
 
 Then, this week, the New York Times reported a second relationship, this time with someone who worked for him. And the Wall Street Journal reported that the board was preparing to remove him.
 
-Those are reports. The spying claim in particular has not been proven. We are not going to dwell on the personal story.
+Those are reports, from people familiar with the matter. Nvidia has not confirmed them. And the spying claim in particular has not been proven. We are not going to dwell on the personal story.
 
 The question for anyone who owns this stock is a different one.
 
@@ -57,7 +57,7 @@ And the decisions were his. Twenty years ago he bet the company on software that
 
 So when investors paid five trillion dollars for this company, they were not only buying chips. They were buying his judgment.
 
-Since the investigation was announced, more than four hundred and fifty billion dollars of that value has disappeared. *[CHART: the stock since November 8]*
+Since the investigation was announced, more than four hundred and fifty billion dollars of that value has disappeared. And counting. *[CHART: the stock since November 8]*
 
 That is the price the market is putting on one person.
 
@@ -67,6 +67,8 @@ Yes. And this surprises people.
 
 At Meta, Mark Zuckerberg holds special shares that give him control of the votes. The board cannot fire him. Nvidia has nothing like that. Huang's three and a half percent makes him rich. It does not make him safe.
 
+There is one twist. The board can take his job. It cannot take his seat at the table. Removing him as a director would need a vote of the shareholders. So even if he is fired, he could still be in the room.
+
 There is also a reason the board cannot simply wait this out. Nvidia needs permission from Washington to sell its best chips abroad. A CEO under a cloud about China is a problem for exactly that. A senior member of Congress has already said he is prepared to subpoena him.
 
 So this is not only about a private life. It is about whether the United States government still trusts the person running its most important chip company.
@@ -75,7 +77,7 @@ So this is not only about a private life. It is about whether the United States 
 
 So who could take the job? There are three kinds of answer.
 
-The engineer. Ian Buck joined Nvidia in 2004 and led the software that made the AI boom possible. If you want someone who understands why Nvidia wins, it is him. But he has never run a company.
+The engineer. Ian Buck joined Nvidia in 2004. He was a key architect of the software that made the AI boom possible, and today he runs the part of Nvidia that sells to the biggest AI customers. If you want someone who understands why Nvidia wins, it is him. But he has never run a whole company.
 
 The operator. Colette Kress, the finance chief. Steady, trusted by Wall Street. According to one report, some directors favor her as a temporary CEO.
 
@@ -120,11 +122,11 @@ He never told them what to do if the thing they lost was him.
 | Claim | Figure | Confidence | Source |
 |---|---|---|---|
 | Board met to decide Huang's future on Nov 11; no outcome reported | Meeting reported by Reuters; ouster preparation reported by WSJ | Medium | [Yahoo Finance / Reuters](https://finance.yahoo.com/news/nvidia-preparing-oust-ceo-jensen-223546395.html), [France 24](https://www.france24.com/en/technology/20261112-nvidia-board-to-decide-whether-to-oust-longtime-ceo-jensen-huang) |
-| Removal by majority, "with or without cause" | Nvidia's bylaws, per Reuters | Medium | Same Reuters report |
+| Removal as CEO by majority, "with or without cause"; 11 directors, so 6 votes; board seat needs a shareholder vote | Section 32 of Nvidia's bylaws | High | Checked by the channel owner against the SEC filing |
 | "Thirty-three years" | Founded 1993 | Check | My arithmetic |
 | Huang's stake | About 3.5% | Medium | [Simply Wall St](https://simplywall.st/stocks/ar/semiconductors/base-nvda/nvidia-shares/management) (aggregator; confirm in the proxy) |
 | "No special shares" | Single share class | Check | Not confirmed in today's search; confirm in the annual report |
-| Stock fell about 8% after hours | To about $159.50 from a $173.73 close | High | [CBS News](https://www.cbsnews.com/news/nvidia-stock-dives-report-board-prepares-oust-jensen-huang/), [TechCrunch](https://techcrunch.com/2026/11/11/nvidias-stock-drops-as-board-reportedly-preps-to-oust-ceo-jensen-huang/) |
+| Stock fell more than 8% after hours | Closed up at $173.73, then fell to about $159 after the WSJ report | High | [CBS News](https://www.cbsnews.com/news/nvidia-stock-dives-report-board-prepares-oust-jensen-huang/), [TechCrunch](https://techcrunch.com/2026/11/11/nvidias-stock-drops-as-board-reportedly-preps-to-oust-ceo-jensen-huang/) |
 | No succession plan; outside firm identifying candidates | CNBC, Bloomberg | Medium | [CNBC](https://www.cnbc.com/2026/11/09/jensen-huang-affair-nvidia-succession.html) |
 | Investigation opened Nov 8; Huang's quote; board's statement of confidence | As quoted in press reports | Medium | [CNBC](https://www.cnbc.com/2026/11/08/nvidia-jensen-huang-investigation-china-spy.html), [CBS News](https://www.cbsnews.com/news/nvidia-jensen-huang-investigation-china-intelligence/) |
 | China denies the allegation | | Medium | [The Week](https://www.theweek.in/news/biz-tech/2026/11/10/who-will-be-the-next-nvidia-ceo-top-contenders-to-replace-jensen-huang.html) |
@@ -134,7 +136,7 @@ He never told them what to do if the thing they lost was him.
 | $450B lost since Nov 8 | CBS News | Medium | [CBS News](https://www.cbsnews.com/news/nvidia-stock-dives-report-board-prepares-oust-jensen-huang/) |
 | Zuckerberg's voting control at Meta | Super-voting shares | Check | From memory; well established, confirm |
 | Member of Congress prepared to subpoena | House Foreign Affairs chair, to ABC News | Medium | Yahoo Finance summary |
-| Ian Buck, Colette Kress | Buck joined 2004 and led CUDA; some directors favor Kress as interim (Semafor) | Medium | [Global Banking and Finance / Reuters](https://www.globalbankingandfinance.com/whos-next-ceo-nvidia-top-engineer-cfo-favored-candidates/) |
+| Ian Buck, Colette Kress | Buck joined 2004, was a key architect of CUDA and runs the hyperscale and HPC business; some directors favor Kress as interim (Semafor) | Medium | [Global Banking and Finance / Reuters](https://www.globalbankingandfinance.com/whos-next-ceo-nvidia-top-engineer-cfo-favored-candidates/) |
 | Lisa Su, Rene Haas named as outside candidates | | Medium | [The Week](https://www.theweek.in/news/biz-tech/2026/11/10/who-will-be-the-next-nvidia-ceo-top-contenders-to-replace-jensen-huang.html) |
 | Newsweek headline | "Who Could Replace Jensen Huang as Nvidia CEO? Nobody" | High | [Newsweek](https://www.newsweek.com/who-could-replace-jensen-huang-as-nvidia-ceo-nobody-12695728) |
 | Intel 2018 | CEO out over a relationship with an employee; stock down about 2% | High | [Data Center Knowledge](https://www.datacenterknowledge.com/data-center-career-development/intel-ousts-ceo-krzanich-after-relationship-with-employee) |
