@@ -1,3 +1,5 @@
 nvidia-video/can-nvidia-fall.mp4
 nvidia-video/audio/narration.mp3
 openai-video/footage/*.mp4
+__pycache__/
+huang-video/nvidia-without-jensen.mp4
