@@ -44,6 +44,7 @@ function drawLines(e, t, bottom = 920) {
 }
 const count = (t, at, d = .9) => outExpo(prog(t, at, at + d));
 
+const CHAPTERS = [[2, 'WHAT WAS REPORTED'], [3, 'WHY ONE MAN MATTERED'], [4, 'WHY HE COULD NOT HOLD ON'], [5, 'WHO’S NEXT?'], [6, 'WHAT HISTORY SAYS'], [7, 'WHAT TO WATCH']];
 const FX = {
   three(e, t) { label('RESIGNED FROM ALL THREE ROLES', 144, 250, t, e.t0 + .1);
     [['CHIEF EXECUTIVE', e.a.a], ['PRESIDENT', e.a.b], ['BOARD SEAT', e.a.c]].forEach(([s, at], i) => { const y = 400 + i * 150, o = { size: 120, spacing: -3 }; pop(s, 250, y, o, t, at);
@@ -128,6 +129,12 @@ function render(t) {
   for (const c of CUTS) { if (c > 0 && t >= c && t < c + .11) { g.fillStyle = `rgba(255,255,255,${.2 * (1 - prog(t, c, c + .11))})`; g.fillRect(0, 0, W, H); } }
   const e = PLAN.entries.find(e => t >= e.t0 && t < e.t1);
   if (e) { if (e.logo && e.fx !== 'brand') logo(e.logo, 172, 142, 64, t, -1); if (e.tag && e.fx !== 'brand') tag(e.tag, t, e.fx === 'brand' || !e.logo ? e.t0 + .05 : -1, e.tagc === 'r' ? C.r : C.y, e.logo ? 226 : 140); if (e.fx) FX[e.fx](e, t); else drawLines(e, t); }
+  // chapter marker at the start of each part, documentary style
+  CHAPTERS.forEach(([sec, name], i) => { const t0 = PLAN.entries.find(e => e.sec === sec).t0 - .1, k = outExpo(prog(t, t0, t0 + .4)), out = 1 - prog(t, t0 + 3.4, t0 + 3.8); if (t < t0 || out <= 0) return;
+    const o = { font: MONO, weight: 700, size: 34, spacing: 4 }, part = `PART ${i + 1} OF ${CHAPTERS.length}`, w1 = width(part, o) + 48; g.save(); g.globalAlpha = out;
+    g.fillStyle = C.y; g.fillRect(140, 110, w1 * k, 64); g.save(); g.beginPath(); g.rect(140, 110, w1 * k, 64); g.clip(); text(part, 164, 154, { ...o, color: '#111', blur: 0 }); g.restore();
+    const k2 = outCubic(prog(t, t0 + .25, t0 + .6)); if (k2 > 0) text(name, 140 + w1 + 28 - (1 - k2) * 20, 156, { size: 44, weight: 800, alpha: k2, spacing: 1 });
+    g.fillStyle = 'rgba(255,255,255,.25)'; g.fillRect(140, 186, 520 * k, 4); g.fillStyle = C.y; g.fillRect(140, 186, 520 * k * (i + 1) / CHAPTERS.length, 4); g.restore(); });
   text('PAPER TRILLIONS', 1780, 80, { font: MONO, weight: 700, size: 22, spacing: 5, align: 'right', alpha: .55, blur: 8 });
   const o = Math.max(1 - prog(t, 0, .3), prog(t, DURATION - .9, DURATION - .1)); if (o > 0) { g.fillStyle = `rgba(0,0,0,${o})`; g.fillRect(0, 0, W, H); }
 }
