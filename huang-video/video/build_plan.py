@@ -161,6 +161,7 @@ def build():
             t = word(sec, k[2:], e['t0']) if k.startswith('w:') else sent(k)['start']
             shots.append([t - .1, clip, ss, e.get('dim', 0)])
     shots.sort(key=lambda s: s[0])
+    shots[0][0] = 0  # the first shot runs from the very first frame
     return ents, shots
 
 if __name__ == '__main__':
