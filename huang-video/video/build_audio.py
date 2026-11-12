@@ -7,10 +7,10 @@ plan = json.loads((ROOT / 'video' / 'plan.js').read_text().split('=', 1)[1].rstr
 sec = tl['sections']; total = tl['total']
 def run(*a): subprocess.check_call(['ffmpeg', '-y', '-loglevel', 'error', *a])
 ent = {e['key']: e for e in plan['entries']}
-title = ent['0.12']['a']['t']
-hits = [(ent['0.1']['t0'], .7), (ent['0.8']['a']['six'], .8), (title, 1.0), (ent['4.1']['t0'], .7), (ent['5.17']['t0'], .9), (total - 5 + .7, .8)]
+title = ent['0.16']['a']['t']
+hits = [(ent['0.2']['lines'][1][2], .9), (ent['0.10']['lines'][1][2], .7), (title, 1.0), (ent['4.10']['a']['six'], .7), (ent['5.19']['t0'], .9), (total - 5 + .7, .8)]
 hits += [(sec[n]['start'] - .25, .55) for n in range(2, 8)]
-risers = [(title - 2.2, .5), (ent['5.17']['t0'] - 2.2, .4)]
+risers = [(title - 2.2, .5), (ent['5.19']['t0'] - 2.2, .4)]
 cmd = ['-i', str(A / 'narration.mp3'), '-stream_loop', '-1', '-i', str(FX / 'music.mp3')]
 fl = ["[0]aresample=48000,aformat=channel_layouts=stereo,asplit=2[v][key]",
       f"[1]aresample=48000,aformat=channel_layouts=stereo,atrim=0:{total},afade=t=in:d=1.0,afade=t=out:st={total-4}:d=4,volume=0.12[m0]",

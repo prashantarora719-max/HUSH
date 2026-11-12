@@ -35,7 +35,7 @@ for i, (t, clip, ss, dim) in enumerate(shots):
         inp = ['-ss', str(ss), '-i', str(F / f'{clip}.mp4')]
     vf = (f"{pre}fps=30,scale=2880:1620:force_original_aspect_ratio=increase,crop=2880:1620,"
           f"zoompan=z='{z0}+0.0008*on':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1920x1080:fps=30,{grade},format=yuv420p")
-    jobs.append((['ffmpeg', '-y', '-loglevel', 'error', *inp, '-frames:v', str(n), '-vf', vf, '-an', '-c:v', 'libx264', '-crf', '17', '-preset', 'fast', str(T / f's{i:03}.mp4')], n))
+    jobs.append((['ffmpeg', '-y', '-loglevel', 'error', *inp, '-frames:v', str(n), '-vf', vf, '-an', '-c:v', 'libx264', '-bf', '0', '-crf', '17', '-preset', 'fast', str(T / f's{i:03}.mp4')], n))
 with ThreadPoolExecutor(4) as ex: list(ex.map(lambda j: subprocess.check_call(j[0]), jobs))
 # every shot must have exactly its frame count, or the pictures drift off the words
 for i, (_, n) in enumerate(jobs):

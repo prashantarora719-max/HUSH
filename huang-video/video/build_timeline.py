@@ -2,7 +2,7 @@
 import json, re, subprocess, pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 LEAD, GAP, TAIL = 0.5, 1.1, 5.0
-FIX = {'two thousand four': '2004', 'twenty eighteen': '2018', 'twenty nineteen': '2019', 'twenty eleven': '2011', 'A M D': 'AMD', 'November twelfth': 'November 12th', 'November eighth': 'November 8th', 'November seventeenth': 'November 17th', 'interim or permanent': '"interim" or permanent'}
+FIX = {'two thousand four': '2004', 'twenty eighteen': '2018', 'twenty nineteen': '2019', 'twenty eleven': '2011', 'A M D': 'AMD', 'November twelfth': 'November 12th', 'November eighth': 'November 8th', 'November seventeenth': 'November 17th', 'the word interim lasts': 'the word "interim" lasts', 'whether interim becomes': 'whether "interim" becomes'}
 def dur(f):
     return float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','csv=p=0',f]).decode())
 tl, t0, inputs = {'sections': []}, LEAD, []
