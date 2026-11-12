@@ -30,7 +30,7 @@ The portrait is an AI-generated illustration. Narration is an AI voice. Music is
 ```
 
 ## Upload checklist
-- Upload `nvidia-without-jensen.mp4`, the thumbnail `thumbnail/thumbnail.png` and the captions file `captions.srt`.
+- Upload `nvidia-without-jensen.mp4`, the thumbnail `thumbnail/thumbnail-b.png` (or all three through "Test & compare": `thumbnail-b.png`, `thumbnail-c.png`, `thumbnail-a.png`) and the captions file `captions.srt`.
 - Two lines in the middle were recorded before the resignation and are slightly out of date: "Jensen Huang has more than fifty" direct reports (present tense, at about 2:25) and "Nvidia has not confirmed them" about the board reports (at about 1:58). Neither is false about what was known at the time.
 - Before you press publish, check the news once more. If anything new has happened (a permanent CEO, a statement from Huang), add a pinned comment.
 - "Altered content" question: the video has no realistic synthetic footage of real people or events, and the portrait is clearly a drawing, so the answer is most likely No. Read YouTube's current wording when you upload.
