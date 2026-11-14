@@ -16,7 +16,7 @@ for arg in sys.argv[2:]:
     if any(c['person'] == name for c in credits): continue  # already fetched
     time.sleep(5)
     q = urllib.parse.urlencode({'action': 'query', 'format': 'json', 'generator': 'search', 'gsrsearch': f'intitle:"{name}" filetype:bitmap', 'gsrnamespace': 6, 'gsrlimit': 20,
-                                'prop': 'imageinfo', 'iiprop': 'url|extmetadata|size|mime'})
+                                'prop': 'imageinfo', 'iiprop': 'url|extmetadata|size|mime', 'iiurlwidth': 1280})
     pages = sorted(json.loads(get(f'{API}?{q}')).get('query', {}).get('pages', {}).values(), key=lambda p: p.get('index', 99))
     ok = []
     for p in pages:
@@ -26,7 +26,8 @@ for arg in sys.argv[2:]:
     print(f'\n{name}: {len(ok)} usable'); [print(f'  {i+1}. {t} | {l} | {a} | {d}') for i, (t, _, l, a, d) in enumerate(ok[:6])]
     if len(ok) < pick: continue
     t, ii, lic, artist, desc = ok[pick - 1]; slug = re.sub(r'[^a-z]+', '-', name.lower()).strip('-')
-    raw = out / f'{slug}-original.jpg'; raw.write_bytes(get(ii['url']))  # the original; thumbnails live on a host we cannot reach
+    raw = out / f'{slug}-original.jpg'  # Wikimedia asks scripts to use standard thumbnail sizes, served here from the upload host
+    raw.write_bytes(get(ii['thumburl'].split('?')[0].replace('//thumb.wikimedia.org/', '//upload.wikimedia.org/') if ii.get('thumburl') else ii['url']))
     subprocess.check_call(['ffmpeg', '-y', '-loglevel', 'error', '-i', str(raw), '-vf', "scale='min(1600,iw)':-2", '-q:v', '3', str(out / f'{slug}.jpg')]); raw.unlink()
     credits = [c for c in credits if c['person'] != name]; credits.append({'person': name, 'file': f'{slug}.jpg', 'title': t, 'author': artist, 'licence': lic, 'page': ii['descriptionurl']})
     cf.write_text(json.dumps(credits, indent=1))
