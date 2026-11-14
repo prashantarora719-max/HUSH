@@ -6,7 +6,7 @@
 3. Anthropic Goes Public Thursday. The Winners Are Already Decided.
 
 **Audience:** United States, 40 to 65+, people with index funds and retirement accounts
-**Voice:** Jimmy  ·  **Target length:** 10 to 11 minutes
+**Voice:** Jimmy  ·  **Target length:** 11 to 12 minutes
 **Publish:** Tuesday November 17 or Wednesday November 18, before the listing
 **Facts as of:** November 14, 2026. Pricing is expected on the night of November 18 and trading on November 19. **Re-check every number the day before recording.**
 **Note for the channel owner (not in the video):** this script was drafted with Claude, which is made by Anthropic, the subject of the video. The narration does not mention it, at your request. Check the framing for bias.
@@ -57,7 +57,19 @@ To run AI, you need computing power. Anthropic spent nearly nine billion dollars
 
 That is the bet. Revenue has to keep growing faster than the bills.
 
-## 4. Part three: the rival that blinked
+## 3b. Part three: what you would actually be buying
+
+So what does this company sell?
+
+Not a chatbot for the public. Most people have never used Claude. Anthropic's money comes mainly from businesses. Banks, software companies, and law firms pay to run Claude inside their own products, and they pay by how much they use it.
+
+And they are using a lot more. According to the filing, customers who were paying a year ago are now spending about nine times as much. Revenue in the second quarter was more than double the first quarter. Not double in a year. Double in three months.
+
+That is the number behind the trillion dollar price. Growth like that is almost unheard of at this size.
+
+The question is how long it can last. Because growth that fast usually means one of two things. Either a new industry is being born. Or customers are experimenting with money they will not keep spending.
+
+## 4. Part four: the rival that blinked
 
 Which brings us to the company everyone expected to go first. OpenAI. The maker of ChatGPT.
 
@@ -69,7 +81,7 @@ OpenAI's own stock market debut has now been pushed to next year.
 
 So for the first time, the smaller rival may be valued higher than the company that started the boom. That is the story Wall Street is telling this week. Keep in mind who benefits from that story. A company about to sell sixty-four billion dollars of stock.
 
-## 5. Part four: the company that gets paid either way
+## 5. Part five: the company that gets paid either way
 
 Now the part most headlines skip. Google.
 
@@ -83,9 +95,13 @@ Think about that. If Anthropic wins, Google's shares go up. If Anthropic spends 
 
 Amazon is in the same position. It is Anthropic's other giant shareholder, with a stake valued at around one hundred and forty billion dollars, and it sells Anthropic computing power too.
 
+And they are not alone. Alongside the public sale, about twenty-six billion dollars of stock is being sold directly to a small group of companies. Reports name Microsoft, Nvidia, Alphabet, and the chip maker Micron.
+
+Look at that list again. Those are the companies that sell Anthropic its chips and its computing power. They are buying shares in their own customer. If you watched our first video, you have seen this loop before. The money goes around in a circle, and everyone in the circle reports growth.
+
 Those are the winners that were decided years ago. They bought in early, and they get paid on the way in and on the way out.
 
-## 6. Part five: who is actually in charge
+## 6. Part six: who is actually in charge
 
 One more thing the filing tells you. Who is in charge.
 
@@ -97,7 +113,19 @@ And the people buying on Thursday? Together, they get about six percent of the c
 
 You may think founder control is a good thing or a bad thing. But know that it is the deal. If you own this stock, you are a passenger.
 
-## 7. Part six: your retirement account
+## 6b. Part seven: what history says about day one
+
+Before you decide anything, look at what happened the last few times the whole country wanted the same stock.
+
+Facebook, 2012. The most anticipated debut of its era. It went public at thirty-eight dollars. Within four months it had lost more than half its value. It took over a year just to get back to the starting price.
+
+Uber, 2019. Priced at forty-five dollars. It fell on its very first day, and spent most of the next year and a half below that price.
+
+Both companies went on to be worth far more. Facebook is now one of the most valuable companies on earth. So the lesson is not that these were bad businesses.
+
+The lesson is that the first day is usually the most expensive day to be excited. The people who did best were not the ones who bought the debut. They were the ones who owned it before, and the ones who waited until the excitement had passed.
+
+## 7. Part eight: your retirement account
 
 So what does this mean for you?
 
@@ -149,6 +177,12 @@ On Thursday, it is your turn to decide what it is worth.
 | Operating profit, latest reported quarter | $974 million on $11.6 billion revenue, quarter ended June 30 | Medium | Secondary analysis of the S-1; confirm in the filing |
 | Compute spend | Nearly $9 billion in the first half, against $7.3 billion in all of 2025 | Medium | Secondary analysis of the S-1 |
 | Commitment to Google | At least $121.3 billion | High: confirmed by the channel owner | Anthropic Form S-1/A, November 10, 2026 |
+| Revenue comes mainly from businesses | Businesses paying by usage | Check: from general knowledge; confirm in the filing's business section | S-1 |
+| Customers spending about nine times as much | Net revenue retention about 900% as of September 30, 2026 | Medium | Secondary analysis of the S-1 |
+| Second quarter revenue more than double the first | $11.6 billion in Q2 against $16.3 billion for the half, so about $4.7 billion in Q1 | Medium | My arithmetic from the two figures above |
+| $26 billion sold directly to strategic investors | Including Microsoft, Nvidia, Alphabet and Micron, at the IPO price | Medium | [InvestingLive](https://investinglive.com/stocks/anthropic-ipo-targets-around-1-trillion-valuation-half-the-2-trillion-once-whispered/) |
+| Facebook 2012 | IPO at $38 in May 2012; under $18 by early September 2012; back above $38 in mid-2013 | Check: from memory, well documented | Any price history |
+| Uber 2019 | IPO at $45 in May 2019; fell about 7.6% on day one; below $45 for most of the following 18 months | Check: from memory, well documented | Any price history |
 | OpenAI valuation target cut | From $1.4 trillion to $1.25 trillion after investor pushback | Medium | [Yahoo Finance](https://finance.yahoo.com/technology/ai/articles/openai-cuts-fundraising-valuation-target-143300967.html) |
 | OpenAI raised about half | About $15 billion against $30 billion sought (CNBC); a first close of $11 billion (Bloomberg) | Medium | [Yahoo Finance](https://finance.yahoo.com/markets/stocks/articles/openai-raised-only-15-billion-123354575.html) |
 | OpenAI second quarter | $6.7 billion revenue, $12.3 billion operating loss (Wall Street Journal) | Medium | Same figures as our OpenAI script |
