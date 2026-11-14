@@ -8,6 +8,7 @@ const a = process.argv.slice(2);
   await p.goto('file://' + path.join(__dirname, process.env.PAGE || 'overlay.html'));
   await p.evaluate(() => Promise.all(['900 40px "Inter Display"', 'italic 700 40px "Inter Display"', '800 40px "Inter Display"', '600 40px "JetBrains Mono"', '700 40px "JetBrains Mono"'].map(f => document.fonts.load(f))));
   await p.evaluate(() => window.photosReady);
+  await p.evaluate(() => window.fontsReady);
   const grab = t => p.evaluate(t => { render(t); return document.getElementById('c').toDataURL('image/png'); }, t).then(u => Buffer.from(u.split(',')[1], 'base64'));
   if (a[0] === 'stills') { fs.mkdirSync(a[2], { recursive: true });
     for (const t of a.slice(3)) { const png = path.join(a[2], 'o.png'); fs.writeFileSync(png, await grab(+t));
