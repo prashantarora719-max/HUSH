@@ -5,7 +5,7 @@ const a = process.argv.slice(2);
 (async () => {
   const b = await chromium.launch(), p = await b.newPage({ viewport: { width: 1920, height: 1080 } });
   p.on('pageerror', e => { console.error('PAGE ERROR', e.message); process.exit(1); });
-  await p.goto('file://' + path.join(__dirname, 'overlay.html'));
+  await p.goto('file://' + path.join(__dirname, process.env.PAGE || 'overlay.html'));
   await p.evaluate(() => Promise.all(['900 40px "Inter Display"', 'italic 700 40px "Inter Display"', '800 40px "Inter Display"', '600 40px "JetBrains Mono"', '700 40px "JetBrains Mono"'].map(f => document.fonts.load(f))));
   await p.evaluate(() => window.photosReady);
   const grab = t => p.evaluate(t => { render(t); return document.getElementById('c').toDataURL('image/png'); }, t).then(u => Buffer.from(u.split(',')[1], 'base64'));
