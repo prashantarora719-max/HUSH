@@ -9,7 +9,7 @@
 **Voice:** Jimmy  ·  **Target length:** 10 to 11 minutes
 **Publish:** Tuesday November 17 or Wednesday November 18, before the listing
 **Facts as of:** November 14, 2026. Pricing is expected on the night of November 18 and trading on November 19. **Re-check every number the day before recording.**
-**Disclosure:** this script was researched and drafted with Claude, an AI model made by Anthropic, the company the video is about. The narration says so in section 1.
+**Note for the channel owner (not in the video):** this script was drafted with Claude, which is made by Anthropic, the subject of the video. The narration does not mention it, at your request. Check the framing for bias.
 
 Text in *[brackets]* is a note, not narration.
 
@@ -29,7 +29,7 @@ And the biggest winners of this deal are not the people buying on Thursday. They
 
 ## 1. Two quick notes
 
-Two quick notes. This was recorded before the shares started trading, so the final price may differ. And a disclosure. The research for this video was done with the help of Claude, the AI that Anthropic makes. So every number you are about to see has its source on screen. Check them.
+Two quick notes. This was recorded on November seventeenth, before the shares started trading, so the final price may differ. And every number you are about to see has its source on screen. Check them.
 
 ## 2. Part one: the deal
 
