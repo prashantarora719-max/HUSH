@@ -1,0 +1,651 @@
+1
+00:00:00,500 --> 00:00:07,469
+On Thursday, a company that reported an eighty billion dollar loss in six months is going public.
+
+2
+00:00:07,860 --> 00:00:13,710
+Investors want it so badly that orders are running at about six times the shares for sale.
+
+3
+00:00:14,099 --> 00:00:16,309
+The company is Anthropic.
+
+4
+00:00:16,339 --> 00:00:18,989
+It makes an AI model called Claude.
+
+5
+00:00:19,219 --> 00:00:25,190
+And at the top of its price range, it would be worth one point four trillion dollars.
+
+6
+00:00:25,300 --> 00:00:29,309
+Here is why this matters even if you never buy a single share.
+
+7
+00:00:29,620 --> 00:00:37,390
+Within a few weeks, some of the biggest index funds in America may have to buy it, at whatever price it happens to be trading.
+
+8
+00:00:37,780 --> 00:00:40,869
+One of them could be in your retirement account.
+
+9
+00:00:40,899 --> 00:00:44,990
+And the biggest winners of this deal are not the people buying on Thursday.
+
+10
+00:00:45,219 --> 00:00:47,310
+They were decided years ago.
+
+11
+00:00:48,124 --> 00:00:49,253
+One quick note.
+
+12
+00:00:49,484 --> 00:00:55,533
+This was recorded a few days before the shares started trading, so the final price may differ.
+
+13
+00:00:55,564 --> 00:00:59,334
+Every number you are about to see has its source on screen.
+
+14
+00:01:00,143 --> 00:01:02,273
+Start with the deal itself.
+
+15
+00:01:02,302 --> 00:01:08,953
+Anthropic is selling eight hundred and twenty-five million shares, at seventy to seventy-eight dollars each.
+
+16
+00:01:09,343 --> 00:01:12,873
+That would raise up to sixty-four billion dollars.
+
+17
+00:01:12,942 --> 00:01:19,673
+Reports call it the second largest stock market debut in history, behind SpaceX earlier this year.
+
+18
+00:01:19,903 --> 00:01:21,433
+Now, the valuation.
+
+19
+00:01:21,742 --> 00:01:25,753
+You will see two numbers in the headlines, and both are real.
+
+20
+00:01:25,822 --> 00:01:31,673
+Count only the shares that exist today, and Anthropic is worth about one trillion dollars.
+
+21
+00:01:31,983 --> 00:01:38,552
+Count every share that has been promised to employees and investors, and you get one point four trillion.
+
+22
+00:01:38,623 --> 00:01:43,992
+Either way, it is less than the two trillion that was being whispered a few months ago.
+
+23
+00:01:43,942 --> 00:01:45,033
+Remember that.
+
+24
+00:01:44,822 --> 00:01:46,233
+We will come back to it.
+
+25
+00:01:47,036 --> 00:01:49,085
+Now, that loss.
+
+26
+00:01:49,115 --> 00:01:55,445
+In the first half of this year, Anthropic brought in sixteen point three billion dollars in revenue.
+
+27
+00:01:55,756 --> 00:02:00,046
+And it reported a net loss of eighty point seven billion.
+
+28
+00:02:00,075 --> 00:02:02,325
+That sounds like a company on fire.
+
+29
+00:02:02,555 --> 00:02:04,126
+It is not.
+
+30
+00:02:04,156 --> 00:02:09,045
+About seventy-two billion dollars of that loss is an accounting charge.
+
+31
+00:02:09,116 --> 00:02:13,205
+Anthropic had borrowed money using notes that convert into shares.
+
+32
+00:02:13,436 --> 00:02:18,645
+When the company became more valuable, those notes became more expensive on paper.
+
+33
+00:02:18,955 --> 00:02:20,645
+No cash left the building.
+
+34
+00:02:21,036 --> 00:02:27,205
+Strip that out, and the loss from actually running the business was under seven hundred million dollars.
+
+35
+00:02:27,436 --> 00:02:32,006
+In its most recent reported quarter, Anthropic made an operating profit.
+
+36
+00:02:32,395 --> 00:02:34,406
+So is it safe?
+
+37
+00:02:34,235 --> 00:02:34,806
+No.
+
+38
+00:02:35,195 --> 00:02:36,725
+Here is the other side.
+
+39
+00:02:36,955 --> 00:02:39,925
+To run AI, you need computing power.
+
+40
+00:02:40,156 --> 00:02:44,725
+Anthropic spent nearly nine billion dollars on it in six months.
+
+41
+00:02:44,955 --> 00:02:48,086
+That is more than it spent in all of last year.
+
+42
+00:02:48,156 --> 00:02:51,605
+And it has signed contracts to keep spending for years.
+
+43
+00:02:51,915 --> 00:02:58,885
+One analysis of the filing puts its commitment to Google alone above one hundred and twenty billion dollars.
+
+44
+00:02:59,276 --> 00:03:00,566
+That is the bet.
+
+45
+00:03:00,795 --> 00:03:04,406
+Revenue has to keep growing faster than the bills.
+
+46
+00:03:05,223 --> 00:03:07,393
+So what does this company sell?
+
+47
+00:03:07,703 --> 00:03:09,832
+Not a chatbot for the public.
+
+48
+00:03:09,862 --> 00:03:12,193
+Most people have never used Claude.
+
+49
+00:03:12,423 --> 00:03:15,712
+Anthropic's money comes mainly from businesses.
+
+50
+00:03:15,782 --> 00:03:24,353
+Banks, software companies, and law firms pay to run Claude inside their own products, and they pay by how much they use it.
+
+51
+00:03:24,502 --> 00:03:27,193
+And they are using a lot more.
+
+52
+00:03:27,223 --> 00:03:33,953
+According to the filing, customers who were paying a year ago are now spending about nine times as much.
+
+53
+00:03:34,263 --> 00:03:38,112
+Revenue in the second quarter was more than double the first quarter.
+
+54
+00:03:38,342 --> 00:03:39,872
+Not double in a year.
+
+55
+00:03:40,022 --> 00:03:42,112
+Double in three months.
+
+56
+00:03:42,502 --> 00:03:45,552
+That is the number behind the trillion dollar price.
+
+57
+00:03:45,943 --> 00:03:49,393
+Growth like that is almost unheard of at this size.
+
+58
+00:03:49,782 --> 00:03:52,513
+The question is how long it can last.
+
+59
+00:03:52,742 --> 00:03:56,673
+Because growth that fast usually means one of two things.
+
+60
+00:03:56,983 --> 00:03:59,592
+Either a new industry is being born.
+
+61
+00:03:59,622 --> 00:04:04,432
+Or customers are experimenting with money they will not keep spending.
+
+62
+00:04:05,229 --> 00:04:09,278
+Which brings us to the company everyone expected to go first.
+
+63
+00:04:09,308 --> 00:04:10,639
+OpenAI.
+
+64
+00:04:10,588 --> 00:04:13,038
+The maker of ChatGPT.
+
+65
+00:04:13,149 --> 00:04:20,598
+This month, OpenAI went to investors asking for a valuation of one point four trillion dollars.
+
+66
+00:04:20,668 --> 00:04:24,079
+According to reports, investors pushed back.
+
+67
+00:04:24,108 --> 00:04:27,478
+It settled for one point two five trillion.
+
+68
+00:04:27,269 --> 00:04:32,678
+And it raised about fifteen billion dollars, roughly half of what it wanted.
+
+69
+00:04:32,548 --> 00:04:34,278
+Why the pushback?
+
+70
+00:04:34,108 --> 00:04:44,759
+The Wall Street Journal reported that last quarter, OpenAI took in six point seven billion dollars, and lost twelve point three billion running the business.
+
+71
+00:04:44,588 --> 00:04:48,759
+For every dollar it earned, it lost almost two.
+
+72
+00:04:48,588 --> 00:04:53,639
+OpenAI's own stock market debut has now been pushed to next year.
+
+73
+00:04:53,468 --> 00:05:00,119
+So for the first time, the smaller rival may be valued higher than the company that started the boom.
+
+74
+00:05:00,028 --> 00:05:03,238
+That is the story Wall Street is telling this week.
+
+75
+00:05:03,069 --> 00:05:06,199
+Keep in mind who benefits from that story.
+
+76
+00:05:06,028 --> 00:05:10,439
+A company about to sell sixty-four billion dollars of stock.
+
+77
+00:05:11,244 --> 00:05:13,653
+Now the part most headlines skip.
+
+78
+00:05:13,483 --> 00:05:14,774
+Google.
+
+79
+00:05:14,603 --> 00:05:18,213
+Google competes with both of these companies.
+
+80
+00:05:18,084 --> 00:05:22,134
+Its own AI, Gemini, has a billion users.
+
+81
+00:05:21,963 --> 00:05:25,653
+But Google also owns a large piece of Anthropic.
+
+82
+00:05:25,483 --> 00:05:29,413
+Estimates range from about ten to fourteen percent.
+
+83
+00:05:29,244 --> 00:05:35,494
+At the middle of the price range, that stake is worth around one hundred and thirty billion dollars.
+
+84
+00:05:35,324 --> 00:05:38,533
+And Google sells Anthropic the chips it runs on.
+
+85
+00:05:38,363 --> 00:05:40,454
+Up to a million of them.
+
+86
+00:05:40,283 --> 00:05:46,213
+Google's cloud business more than doubled last quarter, to over thirty billion dollars.
+
+87
+00:05:46,043 --> 00:05:47,413
+Think about that.
+
+88
+00:05:47,244 --> 00:05:50,853
+If Anthropic wins, Google's shares go up.
+
+89
+00:05:50,684 --> 00:05:54,374
+If Anthropic spends heavily, Google gets the money.
+
+90
+00:05:54,163 --> 00:05:58,533
+And if Anthropic loses, Google still has Gemini.
+
+91
+00:05:58,363 --> 00:06:00,894
+Amazon is in the same position.
+
+92
+00:06:00,684 --> 00:06:10,747
+It is Anthropic's other giant shareholder, with a stake valued at around one hundred and forty billion dollars, and it sells Anthropic computing power too.
+
+93
+00:06:10,550 --> 00:06:12,774
+And they are not alone.
+
+94
+00:06:12,603 --> 00:06:20,574
+Alongside the public sale, about twenty-six billion dollars of stock is being sold directly to a small group of companies.
+
+95
+00:06:20,363 --> 00:06:26,507
+Reports name Microsoft, Nvidia, Alphabet, and the chip maker Micron.
+
+96
+00:06:26,310 --> 00:06:28,173
+Look at that list again.
+
+97
+00:06:27,963 --> 00:06:32,973
+Those are the companies that sell Anthropic its chips and its computing power.
+
+98
+00:06:32,764 --> 00:06:36,093
+They are buying shares in their own customer.
+
+99
+00:06:35,884 --> 00:06:40,093
+If you watched our first video, you have seen this loop before.
+
+100
+00:06:39,884 --> 00:06:45,173
+The money goes around in a circle, and everyone in the circle reports growth.
+
+101
+00:06:45,043 --> 00:06:48,266
+Those are the winners that were decided years ago.
+
+102
+00:06:48,071 --> 00:06:52,774
+They bought in early, and they get paid on the way in and on the way out.
+
+103
+00:06:53,593 --> 00:06:55,923
+One more thing the filing tells you.
+
+104
+00:06:55,913 --> 00:06:57,524
+Who is in charge.
+
+105
+00:06:57,913 --> 00:07:03,603
+Last week we told you how Nvidia's founder could be removed, because he had no special shares.
+
+106
+00:07:03,913 --> 00:07:05,923
+Anthropic is the opposite.
+
+107
+00:07:06,153 --> 00:07:09,843
+Its seven founders own about thirteen percent of the company.
+
+108
+00:07:10,153 --> 00:07:15,043
+But through a special class of shares, they hold just over half of the votes.
+
+109
+00:07:15,353 --> 00:07:19,444
+Amazon and Google, for all their money, have no vote at all.
+
+110
+00:07:19,834 --> 00:07:21,843
+And the people buying on Thursday?
+
+111
+00:07:22,074 --> 00:07:25,124
+Together, they get about six percent of the company.
+
+112
+00:07:25,514 --> 00:07:29,283
+You may think founder control is a good thing or a bad thing.
+
+113
+00:07:29,434 --> 00:07:31,764
+But know that it is the deal.
+
+114
+00:07:31,994 --> 00:07:35,444
+If you own this stock, you are a passenger.
+
+115
+00:07:36,254 --> 00:07:43,144
+Before you decide anything, look at what happened the last few times the whole country wanted the same stock.
+
+116
+00:07:43,615 --> 00:07:45,625
+Facebook, 2012.
+
+117
+00:07:45,855 --> 00:07:48,824
+The most anticipated debut of its era.
+
+118
+00:07:49,134 --> 00:07:51,704
+It went public at thirty-eight dollars.
+
+119
+00:07:51,935 --> 00:07:55,785
+Within four months it had lost more than half its value.
+
+120
+00:07:56,014 --> 00:07:59,865
+It took over a year just to get back to the starting price.
+
+121
+00:08:00,334 --> 00:08:02,185
+Uber, 2019.
+
+122
+00:08:02,415 --> 00:08:04,584
+Priced at forty-five dollars.
+
+123
+00:08:04,814 --> 00:08:10,904
+It fell on its very first day, and spent most of the next year and a half below that price.
+
+124
+00:08:11,454 --> 00:08:14,345
+Both companies went on to be worth far more.
+
+125
+00:08:14,654 --> 00:08:18,345
+Facebook is now one of the most valuable companies on earth.
+
+126
+00:08:18,814 --> 00:08:22,305
+So the lesson is not that these were bad businesses.
+
+127
+00:08:22,334 --> 00:08:28,425
+The lesson is that the first day is usually the most expensive day to be excited.
+
+128
+00:08:28,254 --> 00:08:32,504
+The people who did best were not the ones who bought the debut.
+
+129
+00:08:32,335 --> 00:08:38,105
+They were the ones who owned it before, and the ones who waited until the excitement had passed.
+
+130
+00:08:39,004 --> 00:08:41,214
+So what does this mean for you?
+
+131
+00:08:41,244 --> 00:08:43,653
+It depends on which fund you own.
+
+132
+00:08:43,724 --> 00:08:47,333
+Earlier this year, Nasdaq changed its rules.
+
+133
+00:08:47,203 --> 00:08:53,974
+A giant new company can now join the Nasdaq-100 index after just fifteen trading days.
+
+134
+00:08:53,964 --> 00:08:56,933
+Before, the wait was at least three months.
+
+135
+00:08:57,004 --> 00:09:04,214
+Reuters reports that Anthropic is likely to be added to several major indexes within five to fifteen days.
+
+136
+00:09:04,443 --> 00:09:09,494
+When that happens, every fund that tracks those indexes has to buy the stock.
+
+137
+00:09:09,644 --> 00:09:12,134
+They do not get to wait for a better price.
+
+138
+00:09:12,524 --> 00:09:21,813
+When SpaceX went public in June, analysts estimated that index funds had to buy about fourteen billion dollars of its stock within three weeks.
+
+139
+00:09:21,964 --> 00:09:25,573
+And only around five percent of the company was actually for sale.
+
+140
+00:09:25,964 --> 00:09:34,293
+So if you own a Nasdaq-100 fund, or a total market fund, you will probably own a little Anthropic by the end of the year.
+
+141
+00:09:34,364 --> 00:09:37,813
+But if you own an S&P 500 fund, you will not.
+
+142
+00:09:38,124 --> 00:09:40,374
+That index kept its old rules.
+
+143
+00:09:40,443 --> 00:09:44,374
+A company must be public for twelve months, and profitable.
+
+144
+00:09:44,604 --> 00:09:48,333
+The earliest Anthropic could join is late next year.
+
+145
+00:09:48,524 --> 00:09:49,774
+Same company.
+
+146
+00:09:49,724 --> 00:09:50,813
+Same week.
+
+147
+00:09:50,764 --> 00:09:57,094
+Two very different outcomes, depending on a line in your statement that most people have never read.
+
+148
+00:09:57,897 --> 00:10:00,067
+So here is what to watch.
+
+149
+00:10:00,136 --> 00:10:00,947
+One.
+
+150
+00:10:00,937 --> 00:10:02,866
+The price on Wednesday night.
+
+151
+00:10:03,096 --> 00:10:07,586
+If it lands at the top of the range, or above it, demand is real.
+
+152
+00:10:07,817 --> 00:10:12,386
+If it lands at the bottom, the two trillion dollar whisper was the peak.
+
+153
+00:10:12,777 --> 00:10:13,626
+Two.
+
+154
+00:10:13,657 --> 00:10:15,866
+Where it closes on Thursday.
+
+155
+00:10:15,897 --> 00:10:21,506
+Above one point two five trillion, and Anthropic is officially worth more than OpenAI.
+
+156
+00:10:21,817 --> 00:10:22,746
+Three.
+
+157
+00:10:22,777 --> 00:10:23,907
+Mid December.
+
+158
+00:10:24,216 --> 00:10:29,067
+That is when the index decision is due, and when the forced buying would begin.
+
+159
+00:10:29,177 --> 00:10:33,346
+Every boom has a moment when the public is finally invited in.
+
+160
+00:10:33,657 --> 00:10:36,067
+Sometimes that moment is the beginning.
+
+161
+00:10:36,057 --> 00:10:37,907
+Sometimes it is the top.
+
+162
+00:10:38,297 --> 00:10:43,907
+The people who built this company, and the giants who funded it, have already been paid.
+
+163
+00:10:43,736 --> 00:10:47,746
+On Thursday, it is your turn to decide what it is worth.

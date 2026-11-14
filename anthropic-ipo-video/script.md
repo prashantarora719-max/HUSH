@@ -1,4 +1,4 @@
-# Anthropic's $1.4 Trillion IPO: Paper Trillions, Entry No. 3 (draft script, awaiting approval)
+# Anthropic's $1.4 Trillion IPO: Paper Trillions, Entry No. 3 (script as recorded)
 
 **Title options**
 1. Anthropic's $1.4 Trillion IPO: Who Really Wins?
@@ -27,9 +27,9 @@ Here is why this matters even if you never buy a single share. Within a few week
 
 And the biggest winners of this deal are not the people buying on Thursday. They were decided years ago.
 
-## 1. Two quick notes
+## 1. A quick note
 
-Two quick notes. This was recorded a few days before the shares started trading, so the final price may differ. And every number you are about to see has its source on screen. Check them.
+One quick note. This was recorded a few days before the shares started trading, so the final price may differ. Every number you are about to see has its source on screen.
 
 ## 2. Part one: the deal
 
@@ -117,9 +117,9 @@ You may think founder control is a good thing or a bad thing. But know that it i
 
 Before you decide anything, look at what happened the last few times the whole country wanted the same stock.
 
-Facebook, 2012. The most anticipated debut of its era. It went public at thirty-eight dollars. Within four months it had lost more than half its value. It took over a year just to get back to the starting price.
+Facebook, twenty twelve. The most anticipated debut of its era. It went public at thirty-eight dollars. Within four months it had lost more than half its value. It took over a year just to get back to the starting price.
 
-Uber, 2019. Priced at forty-five dollars. It fell on its very first day, and spent most of the next year and a half below that price.
+Uber, twenty nineteen. Priced at forty-five dollars. It fell on its very first day, and spent most of the next year and a half below that price.
 
 Both companies went on to be worth far more. Facebook is now one of the most valuable companies on earth. So the lesson is not that these were bad businesses.
 
