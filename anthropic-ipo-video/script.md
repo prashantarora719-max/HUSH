@@ -29,7 +29,7 @@ And the biggest winners of this deal are not the people buying on Thursday. They
 
 ## 1. Two quick notes
 
-Two quick notes. This was recorded on November seventeenth, before the shares started trading, so the final price may differ. And every number you are about to see has its source on screen. Check them.
+Two quick notes. This was recorded a few days before the shares started trading, so the final price may differ. And every number you are about to see has its source on screen. Check them.
 
 ## 2. Part one: the deal
 
@@ -139,8 +139,8 @@ On Thursday, it is your turn to decide what it is worth.
 |---|---|---|---|
 | Listing date | Pricing November 18, Nasdaq trading November 19, ticker ANT (one outlet says 19 or 20) | Medium | [Yahoo Finance](https://finance.yahoo.com/technology/ai/articles/anthropic-launches-ipo-roadshow-1-162029558.html), [TradingView](https://www.tradingview.com/symbols/NASDAQ-ANT/) |
 | Offer | 825 million shares at $70 to $78, up to $64.4 billion | Medium | [InvestingLive](https://investinglive.com/stocks/anthropic-ipo-targets-around-1-trillion-valuation-half-the-2-trillion-once-whispered/) |
-| Demand "about six times" | Order book about 6x covered | Medium, single source | Search summary of IPO coverage; find the original |
-| Second largest IPO after SpaceX | | Medium | [CryptoTicker](https://cryptoticker.io/en/anthropic-ipo-second-biggest-ever-spacex/) (weak source; confirm) |
+| Demand "about six times" | Order book about 6x covered | High: confirmed by the channel owner | Bloomberg News and Reuters, November 12, 2026 |
+| Second largest IPO after SpaceX | $64.4 billion, behind SpaceX at $75.0 billion (June 2026), ahead of Saudi Aramco at $25.6 billion (2019) | High: confirmed by the channel owner | Owner's research |
 | Valuation | About $0.9 to $1.0 trillion on basic shares; about $1.4 trillion fully diluted at the top of the range; earlier talk of $2 trillion | Medium | [InvestingLive](https://investinglive.com/stocks/anthropic-ipo-targets-around-1-trillion-valuation-half-the-2-trillion-once-whispered/), [Fortune](https://fortune.com/2026/11/10/anthropic-lower-than-expected-ipo-valuation-smart-strategy-or-red-flag/) |
 | First-half 2026 revenue | $16.286 billion | High | [Anthropic S-1 on SEC.gov](https://www.sec.gov/Archives/edgar/data/0002130357/000162828026067168/anthropicpbc-sx1.htm) |
 | First-half net loss | $80.748 billion | High | S-1 |
@@ -148,7 +148,7 @@ On Thursday, it is your turn to decide what it is worth.
 | Operating loss, first half | $693 million | High | S-1 |
 | Operating profit, latest reported quarter | $974 million on $11.6 billion revenue, quarter ended June 30 | Medium | Secondary analysis of the S-1; confirm in the filing |
 | Compute spend | Nearly $9 billion in the first half, against $7.3 billion in all of 2025 | Medium | Secondary analysis of the S-1 |
-| Commitment to Google | At least $121.3 billion, April 2026 to July 2033. Other sources say $200 billion over five years. **Conflicting; confirm in the filing or cut the line.** | Low | [Trefis](https://www.trefis.com/stock/googl/articles/624608/what-does-the-anthropic-ipo-mean-for-alphabet-stock/2026-11-12) |
+| Commitment to Google | At least $121.3 billion | High: confirmed by the channel owner | Anthropic Form S-1/A, November 10, 2026 |
 | OpenAI valuation target cut | From $1.4 trillion to $1.25 trillion after investor pushback | Medium | [Yahoo Finance](https://finance.yahoo.com/technology/ai/articles/openai-cuts-fundraising-valuation-target-143300967.html) |
 | OpenAI raised about half | About $15 billion against $30 billion sought (CNBC); a first close of $11 billion (Bloomberg) | Medium | [Yahoo Finance](https://finance.yahoo.com/markets/stocks/articles/openai-raised-only-15-billion-123354575.html) |
 | OpenAI second quarter | $6.7 billion revenue, $12.3 billion operating loss (Wall Street Journal) | Medium | Same figures as our OpenAI script |
