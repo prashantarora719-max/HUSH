@@ -108,6 +108,7 @@ function render(t) {
   for (const c of CUTS) { if (c > 0 && t >= c && t < c + .11) { g.fillStyle = `rgba(255,255,255,${.2 * (1 - prog(t, c, c + .11))})`; g.fillRect(0, 0, W, H); } }
   const e = PLAN.entries.find(e => t >= e.t0 && t < e.t1);
   if (e) { const brand = e.fx === 'brand', chap = CHAPTERS.some(([s]) => { const c0 = PLAN.entries.find(x => x.sec === s).t0; return t >= c0 - .1 && t < c0 + 3.8; });
+    if (e.scrim) { g.fillStyle = `rgba(0,0,0,${e.scrim})`; g.fillRect(0, 0, W, H); }
     if (e.logo && !brand && !chap) logo(e.logo, 172, 142, 64, t, -1); if (e.tag && !brand && !chap) tag(e.tag, t, e.logo ? -1 : e.t0 + .05, e.tagc === 'r' ? C.r : C.y, e.logo ? 226 : 140);
     if (e.photo) { const at = e.lines[0][2]; photo(e.photo, 1340, 250, 440, t, at); label(e.pname, 1560, 745, t, at + .3, { align: 'center', color: C.w, size: 26, weight: 700 }); if (e.pcredit) label(e.pcredit, 1560, 785, t, at + .5, { align: 'center', size: 18, spacing: 2 }); }
     if (e.fx) FX[e.fx](e, t); else drawLines(e, t);
