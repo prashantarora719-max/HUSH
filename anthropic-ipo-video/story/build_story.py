@@ -10,13 +10,15 @@ flat = lambda w: w.replace('-', '')
 tl = {'sections': [], 'total': new['total']}; miss = []
 for s, osec in enumerate(old['sections']):
     ls = [l for l in L if l['sec'] == s]
-    if s == 0:
-        n = len(osec['sentences']); tl['sections'].append({'start': 0, 'end': OPEN_END, 'sentences': [{'text': x['text'], 'start': round(i * OPEN_END / n, 3), 'end': round((i + 1) * OPEN_END / n, 3)} for i, x in enumerate(osec['sentences'])], 'words': []}); continue
+    if s == 0 or not ls:
+        n = len(osec['sentences']); tl['sections'].append({'start': 0 if s == 0 else OPEN_END, 'end': OPEN_END, 'sentences': [{'text': x['text'], 'start': round(i * OPEN_END / n, 3) if s == 0 else OPEN_END, 'end': round((i + 1) * OPEN_END / n, 3) if s == 0 else OPEN_END} for i, x in enumerate(osec['sentences'])], 'words': []}); continue
     nw = [w for l in ls if l['who'] == 'N' for w in l['words']]; allw = sorted([w for l in ls for w in l['words']], key=lambda w: w[1]); p = 0; st = []
     for x in osec['sentences']:
         tok = [w for w, t in osec['words'] if t >= x['start'] - .01][:4]; hit = None; n_ = len(st)
         if (s, n_) in OV:
-            ph = OV[(s, n_)].split(); j = next(i for i in range(len(allw)) if [flat(w) for w, _ in allw[i:i + len(ph)]] == ph); st.append(allw[j][1]); p = next((i for i, w in enumerate(nw) if w[1] >= allw[j][1]), len(nw)); continue
+            ph = OV[(s, n_)].split(); j = next((i for i in range(len(allw)) if [flat(w) for w, _ in allw[i:i + len(ph)]] == ph), None)
+            if j is not None: st.append(allw[j][1]); p = next((i for i, w in enumerate(nw) if w[1] >= allw[j][1]), len(nw)); continue
+            st.append(None); miss.append((s, n_, 'cut: ' + x['text'][:50])); continue
         for n_tok in (4, 3, 2):
             t2 = tok[:n_tok]
             for i in range(p, min(len(nw), p + 70)):

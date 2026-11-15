@@ -9,13 +9,14 @@ t = re.sub(r"IM = \{\}, BG = \{.*?\};", "IM = {}, BG = " + json.dumps(bg) + ";",
 (D / 'story.js').write_text('(() => {\n' + t + (D / 'story-extra.js').read_text() + '\n})();\n')
 (D / 'core.js').write_text((V / 'film-core.js').read_text().replace("CREAM = '#f0eee6'", "CREAM = '#faf3e1'"))
 src = (V / 'build_film.py').read_text(); blk = src[src.index('SCENES = ['):]; blk = blk[:blk.index('\n]')]
-sc = [(n, k) for n, k in re.findall(r"\('([A-Za-z_]+)', '([0-9.:a-z#-]+)'", blk) if int(k.split('.')[0]) >= 1]
+sc = [(n, k) for n, k in re.findall(r"\('([A-Za-z_]+)', '([0-9.:a-z#-]+)'", blk) if int(k.split('.')[0]) >= 2]
 TL = json.loads((D / 'tl.js').read_text().split('\n')[0].split('=', 1)[1].rstrip(';'))
 def at(k):
     s, n = map(int, k.split(':')[0].split('.')); t0 = TL['sections'][s]['sentences'][n]['start']
     if ':' not in k: return t0
     w = k.split(':')[1].split('#')[0]; return next((tt for x, tt in TL['sections'][s]['words'] if x == w and tt >= t0 - .05), t0)
 out = [{'n': n, 't0': round(63.5 if i == 0 else at(k) - .25, 3), 'foot': False} for i, (n, k) in enumerate(sc)]
+out = [o for i, o in enumerate(out) if i + 1 >= len(out) or out[i + 1]['t0'] - o['t0'] >= 1.0 or print('dropped short scene', o['n'])]
 for i, o in enumerate(out): o['t1'] = out[i + 1]['t0'] if i + 1 < len(out) else TL['total']
 (D / 'scenes.js').write_text('window.SC = ' + json.dumps(out) + ';\n')
 h = (V / 'film.html').read_text().replace("url('fonts/", "url('../video/fonts/")

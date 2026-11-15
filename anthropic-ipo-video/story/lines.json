@@ -54,24 +54,7 @@
 },
 {
 "n": 1,
-"lines": [
-[
-"N",
-"One quick note. This was recorded a few days before the shares started trading, so the final price may differ. Every number you are about to see has its source on screen."
-],
-[
-"F",
-"And none of it is financial advice."
-],
-[
-"N",
-"Thank you, Frank."
-],
-[
-"F",
-"I read the small print. Somebody has to."
-]
-]
+"lines": []
 },
 {
 "n": 2,
@@ -212,11 +195,7 @@
 ],
 [
 "N",
-"That is the number behind the trillion dollar price. Growth like that is almost unheard of at this size."
-],
-[
-"N",
-"The question is how long it can last. Growth that fast usually means one of two things. Either a new industry is being born. Or customers are experimenting with money they will not keep spending."
+"Either a new industry is being born. Or customers are experimenting with money they will not keep spending."
 ],
 [
 "F",
@@ -241,7 +220,7 @@
 ],
 [
 "N",
-"This month, OpenAI went to investors asking for a valuation of one point four trillion dollars. According to reports, investors pushed back. It settled for one point two five trillion. And it raised about fifteen billion dollars, roughly half of what it wanted."
+"This month, OpenAI went to investors asking for a valuation of one point four trillion dollars. According to reports, investors pushed back. It settled for one point two five trillion."
 ],
 [
 "F",
@@ -271,6 +250,16 @@
 [
 "N",
 "That is the story Wall Street is telling this week. Keep in mind who benefits from that story. A company about to sell sixty-four billion dollars of stock."
+],
+[
+"F",
+"Still waiting to hear about my fund.",
+"f4"
+],
+[
+"N",
+"We're getting there, Frank.",
+"n11"
 ]
 ]
 },

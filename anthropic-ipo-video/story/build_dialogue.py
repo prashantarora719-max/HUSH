@@ -2,7 +2,7 @@
 import json, re, subprocess, difflib, pathlib, numpy as np
 D = pathlib.Path(__file__).resolve().parent; A = D / 'audio'; SR = 44100
 secs = json.load(open(D / 'lines.json'))
-NT = {'n12': [1, 2], 'n3': [3], 'n4': [4], 'n5': [5], 'n6': [6], 'n78': [7, 8], 'n9': [9], 'n10': [10]}; FT = {'f1': [1, 2, 3, 4, 5], 'f2': [6, 7, 8, 9, 10], 'f3': list(range(1, 11))}
+NT = {'n12': [1, 2], 'n3': [3], 'n4': [4], 'n5': [5], 'n6': [6], 'n78': [7, 8], 'n9': [9], 'n10': [10], 'n11': list(range(1, 11))}; FT = {'f1': [1, 2, 3, 4, 5], 'f2': [6, 7, 8, 9, 10], 'f3': list(range(1, 11)), 'f4': list(range(1, 11))}; EXTRA = ('f3', 'f4', 'n11')
 norm = lambda s: re.sub(r'[^a-z0-9]', '', s.lower())
 def words(name): return [w for w in json.load(open(A / f'{name}.words.json'))['words'] if w.get('type', 'word') == 'word' and '[' not in w['text'] and ']' not in w['text'] and norm(w['text'])]
 def load(name, loud=True): return np.frombuffer(subprocess.check_output(['ffmpeg', '-loglevel', 'error', '-i', str(A / f'{name}.mp3'), *(['-af', 'loudnorm=I=-16:TP=-1.5:LRA=11'] if loud else []), '-ac', '1', '-ar', str(SR), '-f', 'f32le', '-']), dtype=np.float32).copy()
@@ -15,7 +15,7 @@ def quiet(x, a, b, prefer):
 seg = {}
 for who, takes in (('N', NT), ('F', FT)):
     for name, ss in takes.items():
-        keys = [(s, i) for s in ss for i, l in enumerate(secs[s]['lines']) if l[0] == who and (l[2] if len(l) > 2 else None) == (name if name == 'f3' else None)]
+        keys = [(s, i) for s in ss for i, l in enumerate(secs[s]['lines']) if l[0] == who and (l[2] if len(l) > 2 else None) == (name if name in EXTRA else None)]
         if not keys: continue
         ws = words(name); wt = [norm(w['text']) for w in ws]; exp, owner = [], []
         for k in keys:
@@ -29,9 +29,9 @@ for who, takes in (('N', NT), ('F', FT)):
             if e in m: first.setdefault(k, m[e]); last[k] = m[e]
         assert len(m) > .9 * len(exp), (name, len(m), len(exp)); x = PCM[name]; total = len(x) / SR
         for n, k in enumerate(keys):
-            i0 = first[k] if n == 0 else min(first[k], last[keys[n - 1]] + 1); i1 = last[k] if n == len(keys) - 1 else max(last[k], first[keys[n + 1]] - 1)
+            i0, i1 = first[k], last[k]   # words between two kept lines were cut from the script and are dropped
             pe = ws[i0 - 1]['end'] if i0 else 0; nx = ws[i1 + 1]['start'] if i1 + 1 < len(ws) else total
-            a = 0 if i0 == 0 else quiet(x, pe - .15, ws[i0]['start'] + .15, 'late'); b = total if i1 + 1 >= len(ws) else quiet(x, ws[i1]['end'] - .15, nx + .15, 'early')
+            a = 0 if i0 == 0 and name != 'x' else quiet(x, pe - .15, ws[i0]['start'] + .15, 'late'); b = total if i1 + 1 >= len(ws) else quiet(x, ws[i1]['end'] - .15, nx + .15, 'early')
             # the word times are estimates, so tighten each end onto where the voice really starts and stops
             env = lambda t: np.sqrt((x[int(t * SR):int((t + .02) * SR)] ** 2).mean()) if int((t + .02) * SR) <= len(x) else 0
             thr = 10 ** (-42 / 20); a0 = a
@@ -47,7 +47,8 @@ def silence(d): global t; n = int(round(d * SR)); out.append(np.zeros(n, np.floa
 silence(max(0, 63.5 - t))
 for s in secs[1:]:
     Ls = s['lines']
-    if s['n'] > 1: silence(1.0)
+    if not Ls: continue
+    if len(lines) > len(op): silence(1.0)
     for i, l in enumerate(Ls):
         who, text = l[0], l[1]; g = seg[(s['n'], i)]
         if i:
