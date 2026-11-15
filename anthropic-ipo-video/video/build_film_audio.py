@@ -8,6 +8,7 @@ run('-f', 'lavfi', '-i', 'sine=f=540:d=0.16', '-af', "volume='0.6*exp(-22*t)':ev
 chap = {'d_terms', 'l_cols', 's_what', 'o_intro', 'g_intro', 'c_nvidia', 'h_intro', 'r_you', 'w_intro'}
 ev = [('fx-whoosh.wav', s['t0'] - .05, .22) for s in sc[1:]] + [(str(FX / 'fx-impact.wav'), s['t0'] + .25, .5) for s in sc if s['n'] in chap]
 ev += [(str(FX / 'fx-impact.wav'), t, v) for t, v in ((at('0.0:eighty') - .1, .9), (at('0.4:one') - .2, .7), (at('1.0'), 1.0), (at('3.12:no'), .7), (at('5.1'), .6), (at('9.11:not'), .5), (total - 5 + .9, .8))]
+ev += [('fx-pop.wav', t, .7) for t in (.45, 1.15, 1.85)] + [('fx-tick.wav', 2.3, .5)]
 ev += [(str(FX / 'fx-riser.wav'), at('1.0') - 2.2, .45), (str(FX / 'fx-riser.wav'), at('10.15') - 2.2, .3)]
 ev += [('fx-tick.wav', at('0.1:orders') + i * .27, .6) for i in range(6)] + [('fx-tick.wav', at('4.6:nine') - .5 + i * .1, .5) for i in range(9)] + [('fx-tick.wav', at('7.8:six') - .4 + i * .08, .5) for i in range(6)] + [('fx-tick.wav', at('9.3:fifteen') - .4 + i * .05, .4) for i in range(15)]
 ev += [('fx-pop.wav', at(k) + d, .5) for k, d in (('0.6:weeks', 0), ('0.6:index', 0), ('0.6:funds', 0), ('0.7:retirement', 0), ('2.1:eight', -.2), ('2.1:seventy', -.2), ('2.2:sixty-four', -.2), ('4.4:banks', -.2), ('4.4:software', -.2), ('4.4:law', -.2),

@@ -6,7 +6,7 @@ TL = json.loads((V / 'timeline.js').read_text().split('=', 1)[1].rstrip().rstrip
 FS = [R / 'anthropic-ipo-video' / 'footage', R / 'openai-video' / 'footage']
 # (scene name, where it starts, footage clip, clip offset, window [x, y, w, h] or None for full frame)
 SCENES = [
- ('A_loss', '0.0'), ('B_public', '0.0:is', 'a19-bell', .5), ('C_demand', '0.1'), ('D_anthropic', '0.2'), ('E_value', '0.4'), ('F_never', '0.5', 'a05-older-man-paperwork', 1),
+ ('K_open', '0.0', 'a16-times-square-crowd', 8), ('K_loss', '0.0:eighty'), ('B_public', '0.0:is', 'a19-bell', .5), ('C_demand', '0.1'), ('D_anthropic', '0.2'), ('E_value', '0.4'), ('F_never', '0.5', 'a05-older-man-paperwork', 1),
  ('G_flow', '0.6', 'a12-retired-couple', 1, [1160, 600, 620, 380]), ('H_winners', '0.8'), ('T_title', '1.0'), ('S_source', '1.2'),
  ('d_terms', '2.0'), ('d_rank', '2.3'), ('d_value', '2.4'), ('d_whisper', '2.8'),
  ('l_cols', '3.0'), ('l_fire', '3.3'), ('l_waterfall', '3.5'), ('l_operating', '3.9'), ('l_seesaw', '3.11'), ('l_compute', '3.14'), ('l_contract', '3.17'), ('l_race', '3.19'),
