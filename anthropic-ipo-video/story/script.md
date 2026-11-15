@@ -1,0 +1,155 @@
+# Anthropic's $1.4 Trillion IPO: story-mode script (draft for approval)
+
+**Voices:** N = narrator (Jimmy) · F = Frank (Frank Sullivan voice)
+**Length:** about 1,900 words, 12 to 13 minutes · **Publish:** Wednesday November 18
+**Facts:** unchanged from the recorded script and its fact sheet (`../script.md`). Every Frank line is a joke or a question, never a new fact.
+**Running jokes:** "Nobody asked me." · Frank's hardware store · the neighbor · the glasses on his head.
+
+---
+
+## 0. Cold open (already recorded)
+
+**N:** This is Dario. Five years ago, he walked out of OpenAI with six colleagues, and started a rival.
+**N:** On Thursday, that rival goes public. The price tag? One point four trillion dollars.
+**F:** Good for him. I'm not buying it.
+**N:** This is Frank. Frank is fifty-eight. Frank has a retirement account. Frank, do you own a Nasdaq one hundred fund?
+**F:** …Yes.
+**N:** Then within a few weeks, you may be buying it anyway. At whatever price it's trading.
+**F:** Nobody asked me.
+**N:** Nobody has to. And here's what you'd be buying. A company that just reported a loss of eighty point seven billion dollars. In six months.
+**F:** Eighty billion?!
+**N:** And investors still ordered six times more shares than are for sale.
+**N:** So either they have all lost their minds, or that loss is not what it looks like. The answer decides who really wins on Thursday. And it probably isn't Frank.
+**F:** Hey.
+
+## 1. A quick note
+
+**N:** One quick note. This was recorded a few days before the shares started trading, so the final price may differ. Every number you are about to see has its source on screen.
+**F:** And none of it is financial advice.
+**N:** Thank you, Frank.
+**F:** I read the small print. Somebody has to.
+
+## 2. The deal
+
+**N:** Start with the deal. Anthropic is selling eight hundred and twenty-five million shares, at seventy to seventy-eight dollars each.
+**F:** Seventy-eight bucks. That's not so bad.
+**N:** Times eight hundred and twenty-five million.
+**F:** …That's worse.
+**N:** It would raise up to sixty-four billion dollars. The second largest stock market debut in history, behind SpaceX earlier this year.
+**N:** Now, the valuation. You will see two numbers in the headlines, and both are real. Count only the shares that exist today, and Anthropic is worth about one trillion dollars. Count every share that has been promised to employees and investors, and you get one point four trillion.
+**F:** So which one is it?
+**N:** Depends who's selling.
+**N:** Either way, it is less than the two trillion that was being whispered a few months ago.
+**F:** Only on Wall Street is one point four trillion a disappointment.
+**N:** Remember that number. We will come back to it.
+
+## 3. The eighty billion dollar loss
+
+**N:** Now, that loss. In the first half of this year, Anthropic brought in sixteen point three billion dollars in revenue. And it reported a net loss of eighty point seven billion.
+**F:** I ran a hardware store for thirty years. If I lost five times what I took in, they'd have taken the keys.
+**N:** Fair. But about seventy-two billion dollars of that loss is an accounting charge. Anthropic had borrowed money using notes that convert into shares. When the company became more valuable, those notes became more expensive on paper. No cash left the building.
+**F:** So they lost seventy-two billion dollars… by doing well.
+**N:** On paper. Yes.
+**F:** I'd like my mortgage to be on paper.
+**N:** Strip that out, and the loss from actually running the business was under seven hundred million dollars. In its most recent reported quarter, Anthropic made an operating profit.
+**F:** So it's safe.
+**N:** No.
+**F:** You're doing this on purpose.
+**N:** Here is the other side. To run AI, you need computing power. Anthropic spent nearly nine billion dollars on it in six months. That is more than it spent in all of last year. And it has signed contracts to keep spending for years. Its filing shows a commitment to Google alone of at least one hundred and twenty-one billion dollars.
+**F:** To one supplier.
+**N:** To one supplier.
+**N:** That is the bet. Revenue has to keep growing faster than the bills.
+
+## 4. What you would actually be buying
+
+**N:** So what does this company actually sell?
+**F:** The chatbot. My grandson uses one for his homework.
+**N:** Probably not this one. Most people have never used Claude. Anthropic's money comes mainly from businesses. Banks, software companies, and law firms pay to run Claude inside their own products, and they pay by how much they use it.
+**N:** And they are using a lot more. According to the filing, customers who were paying a year ago are now spending about nine times as much.
+**F:** Nine times. My best customer once bought a second ladder.
+**N:** Revenue in the second quarter was more than double the first quarter. Not double in a year. Double in three months.
+**N:** That is the number behind the trillion dollar price. Growth like that is almost unheard of at this size.
+**N:** The question is how long it can last. Growth that fast usually means one of two things. Either a new industry is being born. Or customers are experimenting with money they will not keep spending.
+**F:** Which is it?
+**N:** Nobody knows. That is why it costs one point four trillion dollars to find out.
+
+## 5. The rival that blinked
+
+**N:** Which brings us to the company everyone expected to go first. OpenAI. The maker of ChatGPT.
+**F:** That one I've heard of.
+**N:** This month, OpenAI went to investors asking for a valuation of one point four trillion dollars. According to reports, investors pushed back. It settled for one point two five trillion. And it raised about fifteen billion dollars, roughly half of what it wanted.
+**F:** Asked for one point four, got one point two five. I had that conversation with my wife about a boat.
+**N:** Why the pushback? The Wall Street Journal reported that last quarter, OpenAI took in six point seven billion dollars, and lost twelve point three billion running the business. For every dollar it earned, it lost almost two.
+**F:** And that one's not on paper?
+**N:** That one is not on paper.
+**N:** OpenAI's own stock market debut has now been pushed to next year. So for the first time, the smaller rival may be valued higher than the company that started the boom.
+**N:** That is the story Wall Street is telling this week. Keep in mind who benefits from that story. A company about to sell sixty-four billion dollars of stock.
+
+## 6. The company that gets paid either way
+
+**N:** Now the part most headlines skip. Google.
+**N:** Google competes with both of these companies. Its own AI, Gemini, has a billion users. But Google also owns a large piece of Anthropic. Estimates range from about ten to fourteen percent. At the middle of the price range, that stake is worth around one hundred and thirty billion dollars.
+**F:** Wait. Google owns part of the company it's competing with?
+**N:** And sells it the chips it runs on. Up to a million of them. Google's cloud business more than doubled last quarter, to over thirty billion dollars.
+**N:** Think about that. If Anthropic wins, Google's shares go up. If Anthropic spends heavily, Google gets the money. And if Anthropic loses, Google still has Gemini.
+**F:** So Google bet on every horse.
+**N:** And sells the hay.
+**N:** Amazon is in the same position. It is Anthropic's other giant shareholder, with a stake valued at around one hundred and forty billion dollars, and it sells Anthropic computing power too.
+**N:** And they are not alone. Alongside the public sale, about twenty-six billion dollars of stock is being sold directly to a small group of companies. Reports name Microsoft, Nvidia, Alphabet, and the chip maker Micron.
+**F:** Hold on. Those are the people selling them the chips.
+**N:** They are buying shares in their own customer. If you watched our first video, you have seen this loop before. The money goes around in a circle, and everyone in the circle reports growth.
+**F:** If I lent my best customer the money to shop at my store, my accountant would have questions.
+**N:** Those are the winners that were decided years ago. They bought in early, and they get paid on the way in, and on the way out.
+
+## 7. Who is actually in charge
+
+**N:** One more thing the filing tells you. Who is in charge.
+**N:** Last week we told you how Nvidia's founder could be removed, because he had no special shares. Anthropic is the opposite.
+**N:** Its seven founders own about thirteen percent of the company. But through a special class of shares, they hold just over half of the votes. Amazon and Google, for all their money, have no vote at all.
+**F:** And me? If my fund buys it?
+**N:** The people buying on Thursday, all together, get about six percent of the company.
+**F:** So I'm paying for the bus, and I don't get to drive.
+**N:** You are a passenger. You may think founder control is a good thing or a bad thing. But know that it is the deal.
+
+## 8. What history says about day one
+
+**N:** Before you decide anything, look at what happened the last few times the whole country wanted the same stock.
+**N:** Facebook, twenty twelve. The most anticipated debut of its era. It went public at thirty-eight dollars. Within four months it had lost more than half its value. It took over a year just to get back to the starting price.
+**F:** I remember. My neighbor bought it on day one. He stopped mentioning it by August.
+**N:** Uber, twenty nineteen. Priced at forty-five dollars. It fell on its very first day, and spent most of the next year and a half below that price.
+**N:** Both companies went on to be worth far more. Facebook is now one of the most valuable companies on earth. So the lesson is not that these were bad businesses.
+**F:** Then what is the lesson?
+**N:** The first day is usually the most expensive day to be excited. The people who did best were not the ones who bought the debut. They were the ones who owned it before, and the ones who waited until the excitement had passed.
+**F:** My neighbor's mentioning it again now.
+
+## 9. Your retirement account
+
+**N:** So, Frank. What does this mean for you?
+**F:** I've been asking that for ten minutes.
+**N:** It depends on which fund you own. Earlier this year, Nasdaq changed its rules. A giant new company can now join the Nasdaq one hundred index after just fifteen trading days. Before, the wait was at least three months. Reuters reports that Anthropic is likely to be added to several major indexes within five to fifteen days.
+**N:** When that happens, every fund that tracks those indexes has to buy the stock. They do not get to wait for a better price.
+**F:** Has to?
+**N:** Has to. When SpaceX went public in June, analysts estimated that index funds had to buy about fourteen billion dollars of its stock within three weeks. And only around five percent of the company was actually for sale.
+**F:** Lot of buyers. Not a lot of stock.
+**N:** Now you're getting it.
+**N:** So if you own a Nasdaq one hundred fund, or a total market fund, you will probably own a little Anthropic by the end of the year.
+**N:** But if you own an S and P five hundred fund, you will not. That index kept its old rules. A company must be public for twelve months, and profitable. The earliest Anthropic could join is late next year.
+**F:** Which one do I have?
+**N:** It's on your statement.
+**F:** …I'm going to need my glasses.
+**N:** They're on your head, Frank.
+**N:** Same company. Same week. Two very different outcomes, depending on a line most people have never read.
+
+## 10. Three things to watch
+
+**N:** So here is what to watch.
+**N:** One. The price on Wednesday night. If it lands at the top of the range, or above it, demand is real. If it lands at the bottom, the two trillion dollar whisper was the peak.
+**N:** Two. Where it closes on Thursday. Above one point two five trillion, and Anthropic is officially worth more than OpenAI.
+**N:** Three. Mid December. That is when the index decision is due, and when the forced buying would begin.
+**F:** And what do I do?
+**N:** That's not my call, Frank. But now you know what you'd own, who got paid first, and who's driving.
+**N:** Every boom has a moment when the public is finally invited in. Sometimes that moment is the beginning. Sometimes it is the top.
+**N:** The people who built this company, and the giants who funded it, have already been paid.
+**N:** On Thursday, it is your turn to decide what it is worth.
+**F:** Nobody asked me.
+**N:** We just did.
