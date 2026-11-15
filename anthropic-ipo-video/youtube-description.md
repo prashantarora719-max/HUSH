@@ -33,6 +33,7 @@ Dario Amodei: TechCrunch, CC BY 2.0
 Sam Altman: TechCrunch, CC BY 2.0
 Sundar Pichai: Lukasz Kobus, European Commission, CC BY 4.0
 Andy Jassy: Lisi Mezistrano Wolf, CC BY-SA 4.0
+Nasdaq MarketSite: ajay_suresh, CC BY 2.0
 
 Narration is an AI voice. Music is AI-generated. The thumbnail is an AI-generated illustration. Other footage is licensed stock video.
 

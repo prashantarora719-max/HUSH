@@ -6,7 +6,7 @@ TL = json.loads((V / 'timeline.js').read_text().split('=', 1)[1].rstrip().rstrip
 FS = [R / 'anthropic-ipo-video' / 'footage', R / 'openai-video' / 'footage']
 # (scene name, where it starts, footage clip, clip offset, window [x, y, w, h] or None for full frame)
 SCENES = [
- ('K_open', '0.0', 'a16-times-square-crowd', 8), ('K_loss', '0.0:eighty'), ('B_public', '0.0:is', 'a19-bell', .5), ('C_demand', '0.1'), ('D_anthropic', '0.2'), ('E_value', '0.4'), ('F_never', '0.5', 'a05-older-man-paperwork', 1),
+ ('K_open', '0.0', 'a16-times-square-crowd', 8), ('K_loss', '0.0:eighty'), ('B_public', '0.0:is', 'img:photos/places/nasdaq-marketsite.jpg', 0, None, '700:394:300:832'), ('C_demand', '0.1'), ('D_anthropic', '0.2'), ('E_value', '0.4'), ('F_never', '0.5', 'a05-older-man-paperwork', 1),
  ('G_flow', '0.6', 'a12-retired-couple', 1, [1160, 600, 620, 380]), ('H_winners', '0.8'), ('T_title', '1.0'), ('S_source', '1.2'),
  ('d_terms', '2.0'), ('d_rank', '2.3'), ('d_value', '2.4'), ('d_whisper', '2.8'),
  ('l_cols', '3.0'), ('l_fire', '3.3'), ('l_waterfall', '3.5'), ('l_operating', '3.9'), ('l_seesaw', '3.11'), ('l_compute', '3.14'), ('l_contract', '3.17'), ('l_race', '3.19'),
@@ -44,6 +44,8 @@ if __name__ == '__main__':
             a, b = fr(s['t0']), fr(s['t1']); n = b - a; o = T / f'{i:03}.mp4'; parts.append(o)
             if not s['foot']: subprocess.check_call(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'lavfi', '-i', 'color=c=black:s=1920x1080:r=30', '-frames:v', str(n), '-c:v', 'libx264', '-bf', '0', '-crf', '22', '-pix_fmt', 'yuv420p', str(o)]); continue
             clip, ss, win = s['foot'][0], s['foot'][1], (s['foot'][2] if len(s['foot']) > 2 else None)
+            if clip.startswith('img:'):  # a still photo, cropped and given a slow push-in
+                subprocess.check_call(['ffmpeg', '-y', '-loglevel', 'error', '-loop', '1', '-framerate', '30', '-i', str(V.parent / clip[4:]), '-frames:v', str(n), '-vf', f"crop={s['foot'][3]},scale=2304:1296:flags=lanczos,zoompan=z='1+0.0012*on':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1920x1080:fps=30,eq=brightness=-0.08:contrast=1.12:saturation=0.85,vignette=PI/4,format=yuv420p", '-an', '-c:v', 'libx264', '-bf', '0', '-crf', '17', '-preset', 'fast', str(o)]); continue
             cd = float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', str(SRC[clip])]).decode()) - .2; d = n / 30; slow = ''
             if ss + d > cd: ss = max(0, cd - d)
             if d > cd: slow = f'setpts={d / cd * 1.03:.3f}*PTS,'  # the clip is shorter than the scene, so play it slightly slower
