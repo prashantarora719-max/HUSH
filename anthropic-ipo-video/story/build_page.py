@@ -9,7 +9,7 @@ t = re.sub(r"IM = \{\}, BG = \{.*?\};", "IM = {}, BG = " + json.dumps(bg) + ";",
 (D / 'story.js').write_text('(() => {\n' + t + (D / 'story-extra.js').read_text() + '\n})();\n')
 (D / 'core.js').write_text((V / 'film-core.js').read_text().replace("CREAM = '#f0eee6'", "CREAM = '#faf3e1'"))
 src = (V / 'build_film.py').read_text(); blk = src[src.index('SCENES = ['):]; blk = blk[:blk.index('\n]')]
-sc = [(n, k) for n, k in re.findall(r"\('([A-Za-z_]+)', '([0-9.:a-z#-]+)'", blk) if int(k.split('.')[0]) >= 2]
+sc = [(n, k) for n, k in re.findall(r"\('([A-Za-z_]+)', '([0-9.:a-z#-]+)'", blk) if int(k.split('.')[0]) >= 2 and n not in ('s_behind', 'o_half')]   # scenes whose narration was cut
 TL = json.loads((D / 'tl.js').read_text().split('\n')[0].split('=', 1)[1].rstrip(';'))
 def at(k):
     s, n = map(int, k.split(':')[0].split('.')); t0 = TL['sections'][s]['sentences'][n]['start']

@@ -4,7 +4,7 @@ D = pathlib.Path(__file__).resolve().parent; V = D.parent / 'video'
 old = json.loads((V / 'timeline.js').read_text().split('=', 1)[1].rstrip().rstrip(';')); new = json.load(open(D / 'timeline.json')); L = new['lines']
 OPEN_END = 63.5
 # old sentences whose wording changed: where they now begin, as the first words of the new line
-OV = {(2, 2): 'it would raise', (2, 3): 'the second largest', (3, 3): 'i ran a', (3, 4): 'fair but about', (3, 11): 'so its safe', (3, 18): 'its filing shows', (4, 1): 'probably not this', (4, 13): 'growth that fast', (6, 7): 'and sells it',
+OV = {(2, 2): 'it would raise', (2, 3): 'the second largest', (3, 3): 'i ran a', (3, 4): 'fair but about', (3, 11): 'so its safe', (3, 18): 'its filing shows', (4, 1): 'probably not this', (4, 12): 'either a new', (4, 13): 'either a new', (4, 14): 'either a new', (4, 15): 'or customers are', (6, 7): 'and sells it',
       (6, 19): 'hold on those', (6, 20): 'they are buying', (6, 21): 'they are buying', (6, 22): 'if you watched', (6, 23): 'the money goes', (6, 24): 'those are the winners', (7, 7): 'and me if', (7, 8): 'the people buying', (7, 11): 'you are a passenger', (9, 0): 'so frank what'}
 flat = lambda w: w.replace('-', '')
 tl = {'sections': [], 'total': new['total']}; miss = []
