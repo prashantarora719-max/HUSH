@@ -2,8 +2,8 @@
 const PAPER = 'rgb(250,243,225)', LINES = window.ST.lines, OPEN_END = window.ST.open_end;
 // which picture each of Frank's lines cuts to, in script order ('s:' marks a full illustrated scene)
 const SHOTS = ['frank-ref', 'frank-smallprint', 'frank-notbad', 'frank-wince', 'frank-point', 'frank-deadpan', 's:store', 'frank-facepalm', 'frank-shrug', 'frank-thumbs', 'frank-handsup', 'frank-chin',
-  'frank-ref', 's:ladder', 'frank-point', 'frank-thumbs', 's:frank-boat', 'frank-chin', 'frank-wait', 's:bettor', 'frank-chin', 's:store', 'frank-neck', 's:bus', 's:neighbor', 'frank-point', 's:neighbor',
-  'frank-deadpan', 'frank-shock', 'frank-chin', 'frank-neck', 'frank-pockets', 'frank-shrug', 'frank-last'];
+  'frank-ref', 's:ladder', 'frank-point', 'frank-thumbs', 's:frank-boat', 'frank-chin', 'frank-notbad', 'frank-wait', 's:bettor', 'frank-chin', 's:store', 'frank-deadpan', 'frank-neck', 's:bus', 's:neighbor', 'frank-point', 's:neighbor',
+  'frank-deadpan', 'frank-shock', 'frank-chin', 'frank-neck', 'frank-pockets', 'frank-thumbs', 'frank-shrug', 'frank-last'];
 // narrator replies that stay on Frank's picture instead of cutting back to a chart
 const STAY = ['Thank you, Frank.', 'Depends who\'s selling.', 'On paper. Yes.', 'No.', 'To one supplier.', 'That one is not on paper.', 'And sells the hay.', 'Now you\'re getting it.', 'It\'s on your statement.', 'They\'re on your head, Frank.', 'That\'s not my call, Frank. But now you know what you\'d own, who got paid first, and who\'s driving.', 'We just did.'];
 const CUTS = []; { let k = 0; const body = LINES.filter(l => l.sec > 0);
@@ -35,7 +35,10 @@ FN.e_final = (t, sc) => { cream(); const a = sc.t0, e = LINES[LINES.length - 1].
   const k = outCubic(prog(t, e, e + .6)); if (k > 0) { g.save(); g.globalAlpha = k; cream(); g.restore(); rise('Paper Trillions', W / 2, 520, { size: 150, align: 'center', spacing: -3 }, t, e + .1); rise('The money and power behind AI', W / 2, 620, { weight: 400, italic: true, size: 56, align: 'center', color: CLAY }, t, e + .5); cap('A NEW ENTRY EVERY WEEK  ·  EDUCATION AND ENTERTAINMENT, NOT FINANCIAL ADVICE', W / 2, 900, t, e + .9, { align: 'center', size: 20 }); } };
 // the remaining dark scenes move onto paper by the same colour translation used for the others
 for (const n of ['S_source', 'h_facebook', 'h_uber', 'h_both', 'h_lesson', 'r_rule', 'r_indexes', 'r_spacex', 'r_funds', 'r_sp']) { const f = FN[n]; FN[n] = (t, sc) => { REMAP = FIRSTG = true; try { f(t, sc); } finally { REMAP = false; } const G = window.MAINCTX; }; }
-const coreRender = window.render;
+const coreRender = window.render, SNAP = (() => { const c = document.createElement('canvas'); c.width = W; c.height = H; return c.getContext('2d'); })();
 window.render = t => { if (t < OPEN_END) { let i = 0; while (i + 1 < S.length && t >= S[i + 1][0]) i++; g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.clearRect(0, 0, W, H); S[i][1](t); return; }
-  coreRender(t); const c = CUTS.find(c => t >= c.t0 && t < c.t1); g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; if (c) drawCut(c, t);
+  coreRender(t); const ci = CUTS.findIndex(c => t >= c.t0 && t < c.t1), c = CUTS[ci]; g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1;
+  if (c) { // a short dissolve in and out of each cutaway, unless it joins straight onto another one
+    const pv = CUTS[ci - 1], nx = CUTS[ci + 1], kin = pv && c.t0 - pv.t1 < .12 ? 1 : prog(t, c.t0, c.t0 + .16), kout = nx && nx.t0 - c.t1 < .12 ? 1 : 1 - prog(t, c.t1 - .16, c.t1), k = Math.min(kin, kout);
+    if (k < 1) { SNAP.clearRect(0, 0, W, H); SNAP.drawImage(g.canvas, 0, 0); } drawCut(c, t); g.setTransform(1, 0, 0, 1, 0, 0); if (k < 1) { g.globalAlpha = 1 - k; g.drawImage(SNAP.canvas, 0, 0); g.globalAlpha = 1; } }
   const f = prog(t, window.TL.total - 1.2, window.TL.total - .2); if (f > 0) { g.fillStyle = `rgba(0,0,0,${f})`; g.fillRect(0, 0, W, H); } };
