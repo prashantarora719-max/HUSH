@@ -29,7 +29,7 @@ for who, takes in (('N', NT), ('F', FT)):
             i1 = max(i1, last[k]); i0 = min(i0, first[k])
             pe = ws[i0 - 1]['end'] if i0 else 0; nx = ws[i1 + 1]['start'] if i1 + 1 < len(ws) else total
             a = max(pe + (ws[i0]['start'] - pe) * .5, ws[i0]['start'] - .14); b = min(ws[i1]['end'] + (nx - ws[i1]['end']) * .5, ws[i1]['end'] + .22)
-            seg[k] = dict(take=name, a=a, b=b, gap_after=nx - ws[i1]['end'], words=[[norm(w['text']), w['start'] - a] for w in ws[i0:i1 + 1]])
+            seg[k] = dict(take=name, a=a, b=b, gap_after=nx - ws[i1]['end'], words=[[re.sub(r'[^a-z0-9-]', '', w['text'].lower()), w['start'] - a] for w in ws[i0:i1 + 1]])
 for n in list(NT) + list(FT):
     subprocess.check_call(['ffmpeg', '-y', '-loglevel', 'error', '-i', str(A / f'{n}.mp3'), '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11', '-ar', '44100', '-ac', '1', str(A / f'{n}.wav')])
 op = json.load(open(A / 'opening-lines.json')); t = op[-1]['t1']; lines = [dict(sec=0, who=o['who'], text=secs[0]['lines'][i][1], t0=o['t0'], t1=o['t1'], words=[]) for i, o in enumerate(op)] if len(op) == len(secs[0]['lines']) else None
