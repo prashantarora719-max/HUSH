@@ -3,7 +3,7 @@ const PAPER = 'rgb(250,243,225)', LINES = window.ST.lines, OPEN_END = window.ST.
 // which picture each of Frank's lines cuts to, in script order ('s:' marks a full illustrated scene)
 const SHOTS = ['frank-notbad', 'frank-wince', 'frank-point', 'frank-deadpan', 's:store', 'frank-facepalm', 'frank-shrug', 'frank-thumbs', 'frank-handsup', 'frank-chin',
   'frank-ref', 's:ladder', 'frank-point', 'frank-thumbs', 's:frank-boat', 'frank-chin', 'frank-notbad', 'frank-crossed', 'frank-wait', 's:bettor', 'frank-chin', 's:store', 'frank-deadpan', 'frank-neck', 's:bus', 's:neighbor', 'frank-point', 's:neighbor',
-  'frank-deadpan', 'frank-shock', 'frank-chin', 'frank-neck', 'frank-pockets', 'frank-thumbs', 'frank-shrug', 'frank-last'];
+  'frank-deadpan', 'frank-handsup', 'frank-shock', 'frank-chin', 'frank-neck', 'frank-pockets', 'frank-thumbs', 'frank-shrug', 'frank-last'];
 // narrator replies that stay on Frank's picture instead of cutting back to a chart
 const STAY = ['Thank you, Frank.', 'We\'re getting there, Frank.', 'Depends who\'s selling.', 'On paper. Yes.', 'No.', 'To one supplier.', 'That one is not on paper.', 'And sells the hay.', 'Now you\'re getting it.', 'It\'s on your statement.', 'They\'re on your head, Frank.', 'That\'s not my call, Frank. But now you know what you\'d own, who got paid first, and who\'s driving.', 'We just did.'];
 const CUTS = []; { let k = 0; const body = LINES.filter(l => l.sec > 0);
@@ -48,3 +48,8 @@ window.render = t => { if (t < OPEN_END) { let i = 0; while (i + 1 < S.length &&
     text('QUESTION ' + n + ' OF 3  ·  ' + q, x + 94, y + 36, { font: UI, weight: 600, size: 19, spacing: 2, color: 'rgba(255,255,255,.7)' }); text(ans, x + 94, y + 74, { size: 34, weight: 500, color: '#fff' }); g.restore(); }
   { const k = prog(t, OPEN_END + .8, OPEN_END + 1.3) * (1 - prog(t, OPEN_END + 8.5, OPEN_END + 9)); if (k > 0) text('Recorded a few days before trading began; the final price may differ. Education, not financial advice.', 150, 1040, { font: UI, weight: 500, size: 21, color: 'rgba(20,20,19,.62)', alpha: k }); }
   const f = prog(t, window.TL.total - 1.2, window.TL.total - .2); if (f > 0) { g.fillStyle = `rgba(0,0,0,${f})`; g.fillRect(0, 0, W, H); } };
+
+// ---- cold open: two seconds of Frank's reaction before the story starts, so the first frame matches the thumbnail
+const PRE = 2.0, R2 = window.render;
+window.render = t => { if (t >= PRE) return R2(t - PRE); g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.clearRect(0, 0, W, H); const z = 1 + .06 * outExpo(prog(t, 0, .5)); g.fillStyle = BG['frank-shock']; g.fillRect(0, 0, W, H); g.save(); g.translate(1290, H); g.scale(z, z); g.drawImage(IM['frank-shock'], -W * .46, -H * .92, W * .92, H * .92); g.restore(); g.fillStyle = CLAY; g.fillRect(0, 0, 22, H);
+  rise('“Eighty', 150, 440, { size: 170, spacing: -4, color: AR }, t, .05, .2); rise('billion?!”', 150, 620, { size: 170, spacing: -4, color: AR }, t, .4, .2); cap('ANTHROPIC  ·  SIX-MONTH LOSS', 154, 720, t, .7, { size: 26, spacing: 4 }); };

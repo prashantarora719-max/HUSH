@@ -1,6 +1,6 @@
 # YouTube upload sheet: Anthropic's $1.4 Trillion IPO (story-mode cut)
 
-**File:** `story-film.mp4` (12:29) · **Captions:** `story-captions.srt` · **Thumbnails:** `story/thumb/thumb-A.png`, `thumb-B.png`, `thumb-C.png`
+**File:** `story-film.mp4` (12:35) · **Captions:** `story-captions.srt` · **Thumbnails:** `story/thumb/thumb-A.png`, `thumb-B.png`, `thumb-C.png`
 
 **Schedule:** Tuesday November 17, 11:00 pm IST (12:30 pm Eastern). Upload at least three hours earlier so the HD version finishes processing.
 
@@ -20,15 +20,15 @@ Recorded a few days before trading began. The final price may differ.
 
 Chapters
 0:00 Three questions about a $1.4 trillion IPO
-1:03 The deal
-2:01 Is the $80 billion loss real?
-3:36 What does Anthropic actually sell?
-4:35 OpenAI: the rival that blinked
-5:57 Google and Amazon: paid either way
-7:48 Who is actually in charge?
-8:41 What Facebook and Uber tell you about day one
-9:48 Does your fund have to buy it?
-11:22 Three things to watch
+1:05 The deal
+2:03 Is the $80 billion loss real?
+3:38 What does Anthropic actually sell?
+4:37 OpenAI: the rival that blinked
+5:59 Google and Amazon: paid either way
+7:50 Who is actually in charge?
+8:43 What Facebook and Uber tell you about day one
+9:50 Does your fund have to buy it?
+11:29 Three things to watch
 
 This video is for education and entertainment. It is not financial advice, and nothing here is a recommendation to buy or sell any security.
 

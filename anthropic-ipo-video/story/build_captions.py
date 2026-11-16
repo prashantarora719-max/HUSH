@@ -20,6 +20,7 @@ for l in json.load(open(D / 'timeline.json'))['lines']:
         dt = d * len(x.split()) / n; y = x
         for a, b in sorted(FIX.items(), key=lambda kv: -len(kv[0])): y = re.sub(re.escape(a), b, y, flags=re.I)
         caps.append((t, t + dt - .05, ('FRANK: ' if l['who'] == 'F' and i == 0 else '') + y)); t += dt
+PRE = 2.0; caps = [(.1, 1.8, 'FRANK: Eighty billion?!')] + [(a + PRE, b + PRE, x) for a, b, x in caps]
 ts = lambda t: f'{int(t // 3600):02}:{int(t % 3600 // 60):02}:{int(t % 60):02},{int(round(t % 1 * 1000)) % 1000:03}'
 (D.parent / 'story-captions.srt').write_text('\n'.join(f'{i + 1}\n{ts(a)} --> {ts(b)}\n{x}\n' for i, (a, b, x) in enumerate(caps)))
 print(len(caps), 'captions'); [print(' ', x) for _, _, x in caps[18:30]]

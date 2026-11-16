@@ -2,7 +2,7 @@
 import json, re, subprocess, difflib, pathlib, numpy as np
 D = pathlib.Path(__file__).resolve().parent; A = D / 'audio'; SR = 44100
 secs = json.load(open(D / 'lines.json'))
-NT = {'n12': [1, 2], 'n3': [3], 'n4': [4], 'n5': [5], 'n6': [6], 'n78': [7, 8], 'n9': [9], 'n10': [10], 'n11': list(range(1, 11))}; FT = {'f1': [1, 2, 3, 4, 5], 'f2': [6, 7, 8, 9, 10], 'f3': list(range(1, 11)), 'f4': list(range(1, 11))}; EXTRA = ('f3', 'f4', 'n11')
+NT = {'n12': [1, 2], 'n3': [3], 'n4': [4], 'n5': [5], 'n6': [6], 'n78': [7, 8], 'n9': [9], 'n10': [10], 'n11': list(range(1, 11))}; FT = {'f1': [1, 2, 3, 4, 5], 'f2': [6, 7, 8, 9, 10], 'f3': list(range(1, 11)), 'f4': list(range(1, 11)), 'f5': list(range(1, 11))}; EXTRA = ('f3', 'f4', 'f5', 'n11')
 norm = lambda s: re.sub(r'[^a-z0-9]', '', s.lower())
 def words(name): return [w for w in json.load(open(A / f'{name}.words.json'))['words'] if w.get('type', 'word') == 'word' and '[' not in w['text'] and ']' not in w['text'] and norm(w['text'])]
 def load(name, loud=True): return np.frombuffer(subprocess.check_output(['ffmpeg', '-loglevel', 'error', '-i', str(A / f'{name}.mp3'), *(['-af', 'loudnorm=I=-16:TP=-1.5:LRA=11'] if loud else []), '-ac', '1', '-ar', str(SR), '-f', 'f32le', '-']), dtype=np.float32).copy()
