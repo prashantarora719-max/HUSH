@@ -5,11 +5,11 @@
 **Schedule:** Tuesday November 17, 11:00 pm IST (12:30 pm Eastern). Upload at least three hours earlier so the HD version finishes processing.
 
 ## Title (pick one)
-1. Anthropic's $1.4 Trillion IPO: Who Really Wins?
-2. It Lost $80 Billion. It's Worth $1.4 Trillion. Who Wins?
-3. Anthropic Goes Public Thursday. The Winners Are Already Decided.
+1. It Lost $80 Billion. It's Worth $1.4 Trillion. The Anthropic IPO  (vidIQ title score 93; includes the search phrase)
+2. It Lost $80 Billion. It's Worth $1.4 Trillion. Who Wins?  (score 98; no search phrase)
+3. Anthropic's $1.4 Trillion IPO: Who Really Wins?  (score 91)
 
-Title 1 is the recommendation. Keep "retirement" out of the title and thumbnail so the video does not look aimed only at older viewers.
+Title 1 is the recommendation: a channel this small is found mostly through search, and "anthropic ipo" is the phrase people are typing. Keep "retirement" out of the title and thumbnail.
 
 ## Description
 
@@ -49,7 +49,7 @@ The narration and Frank's voice are AI voices. The music is AI-generated. The il
 ## Tags (paste into the Tags box)
 
 ```text
-Anthropic IPO, Anthropic, ANT stock, Anthropic stock, Claude AI, OpenAI, OpenAI valuation, Google Anthropic, Amazon Anthropic, AI IPO, biggest IPO, Nasdaq 100, index funds, 401k, S&P 500, AI stocks, AI bubble, SpaceX IPO, stock market news, Paper Trillions
+Anthropic IPO, Anthropic IPO analysis, Anthropic IPO filing, Anthropic IPO news, Anthropic, Anthropic stock, Anthropic valuation, Dario Amodei, Claude AI, AI bubble, AI stocks, OpenAI, OpenAI valuation, Google Anthropic, Amazon Anthropic, Nasdaq 100, index funds, 401k, S&P 500, stock market news, Paper Trillions
 ```
 
 ## Upload checklist
