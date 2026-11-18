@@ -17,3 +17,6 @@ anthropic-ipo-video/story-film.mp4
 anthropic-ipo-video/story/story.js
 anthropic-ipo-video/story/core.js
 anthropic-ipo-video/story/audio/dialogue.wav
+anthropic-ipo-video/shorts/*.mp4
+anthropic-ipo-video/shorts/png/
+anthropic-ipo-video/shorts/pages.*
