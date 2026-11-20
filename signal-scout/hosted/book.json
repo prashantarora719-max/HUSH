@@ -9,18 +9,90 @@
       "brief": {
         "company_summary": "NSE-listed Indian cloud and AI infrastructure provider (GPU cloud), headquartered in Delhi. Larsen & Toubro has been a minority strategic shareholder since a deal announced in November 2024.",
         "open_gtm_roles": [
-          {"title": "Enterprise Sales (10 to 15 years experience)", "team": "Sales", "location": "Mumbai / Bengaluru", "url": "https://freehire.me/companies/e2e-networks", "needs_seat": true},
-          {"title": "Inside Sales Executive", "team": "Sales", "location": "Delhi NCR", "url": "https://cutshort.io/job/Inside-Sales-Executive-Delhi-Noida-Gurugram-Ghaziabad-Faridabad-E2E-Networks-Limited-OTu6igsN", "needs_seat": true},
-          {"title": "Assistant Vice President, Commercial", "team": "Commercial", "location": "Delhi", "url": "https://www.glassdoor.co.in/Jobs/E2E-Networks-Jobs-E862198.htm", "needs_seat": true}
+          {
+            "title": "Enterprise Sales (10 to 15 years experience)",
+            "team": "Sales",
+            "location": "Mumbai / Bengaluru",
+            "url": "https://freehire.me/companies/e2e-networks",
+            "needs_seat": true
+          },
+          {
+            "title": "Inside Sales Executive",
+            "team": "Sales",
+            "location": "Delhi NCR",
+            "url": "https://cutshort.io/job/Inside-Sales-Executive-Delhi-Noida-Gurugram-Ghaziabad-Faridabad-E2E-Networks-Limited-OTu6igsN",
+            "needs_seat": true
+          },
+          {
+            "title": "Assistant Vice President, Commercial",
+            "team": "Commercial",
+            "location": "Delhi",
+            "url": "https://www.glassdoor.co.in/Jobs/E2E-Networks-Jobs-E862198.htm",
+            "needs_seat": true
+          }
         ],
         "gtm_roles_total_estimate": 3,
         "signals": [
-          {"category": "leadership", "title": "New Chief Revenue Officer, Anand Ganapathy, effective 24 September 2026", "detail": "About 27 years in enterprise technology sales, previously leading IBM India's Enterprise AI and Hybrid Cloud business, with earlier roles at Dell Technologies and VMware. The company says he will lead the revenue function and build the go-to-market engine around long-term contracted customers. The previous CRO resigned effective 30 June 2026.", "date": "2026-09-24", "source_name": "CXOToday", "source_url": "https://cxotoday.com/media-coverage/e2e-networks-appoints-anand-ganapathy-as-chief-revenue-officer-to-accelerate-next-phase-of-growth-and-gtm-engine/", "strength": 3, "navigator_angle": "A CRO two months into the role with a mandate to build the GTM engine is reviewing team, process and tooling right now. This is the best-timed conversation on the account."},
-          {"category": "funding_growth", "title": "Q2 FY27 revenue up 411% year on year to ₹2,238 Mn", "detail": "Quarter ended 30 September 2026: revenue up 43% on the previous quarter, EBITDA margin 76.6%, profit after tax ₹727 Mn against a loss a year earlier. Growth is driven by demand for Blackwell GPUs.", "date": "2026-10-16", "source_name": "Company press release (NSE)", "source_url": "https://nsearchives.nseindia.com/corporate/E2E_16102026150410_SignedPressRelease16102026.pdf", "strength": 3, "navigator_angle": "Strong profit and momentum mean budget exists for sales expansion and tooling is unlikely to be blocked on cost."},
-          {"category": "funding_growth", "title": "Binding term sheet of about ₹1,000 crore with an Indian sovereign AI customer", "detail": "Runs to June 2029 and moves an existing GPU cluster from pay-as-you-go to a multi-year commitment. Management is steering the business toward long-term contracted enterprise customers.", "date": "2026-10", "source_name": "ScanX", "source_url": "https://scanx.trade/stock-market-news/companies/e2e-networks-q2fy27-results-revenue-surges-411-yoy-2-238-mn/53690088", "strength": 2, "navigator_angle": "A shift from self-serve usage to large contracted deals means enterprise selling into multi-person buying committees, which is where Sales Navigator is most useful."},
-          {"category": "gtm_hiring", "title": "Three open sales roles, weighted toward senior enterprise sellers", "detail": "Job boards show an Enterprise Sales role in Mumbai / Bengaluru asking for 10 to 15 years of experience (posted mid-November), an Inside Sales Executive in Delhi NCR, and an Assistant Vice President, Commercial in Delhi. Other open roles are engineering, HR and payroll.", "date": "2026-11", "source_name": "freehire", "source_url": "https://freehire.me/companies/e2e-networks", "strength": 2, "navigator_angle": "Hiring senior enterprise sellers in Mumbai and Bengaluru points to new territory coverage. Each needs a seat from day one."},
-          {"category": "expansion", "title": "Data centre capacity expansion for AI compute", "detail": "A 5.4 MW addition was announced in October 2026 and a further 12.8 MW was reported in November. Sources disagree on the starting capacity, so treat the totals as approximate.", "date": "2026-11", "source_name": "ScanX", "source_url": "https://scanx.trade/stock-market-news/companies/e2e-networks-plans-5-4-mw-capacity-expansion-ai-services/54550643", "strength": 2, "navigator_angle": "More capacity has to be sold. Expect pressure on the sales team to fill it with contracted customers."},
-          {"category": "expansion", "title": "Launched Blaze, a pay-per-token AI inference service", "detail": "New product line reported in November 2026, aimed at teams running open AI models.", "date": "2026-11", "source_name": "Web search summary", "source_url": "", "strength": 1, "navigator_angle": "A new product opens a new buyer group (AI and ML engineering leaders) the sales team will need to reach."}
+          {
+            "category": "leadership",
+            "title": "New Chief Revenue Officer, Anand Ganapathy, effective 24 September 2026",
+            "detail": "About 27 years in enterprise technology sales, previously leading IBM India's Enterprise AI and Hybrid Cloud business, with earlier roles at Dell Technologies and VMware. The company says he will lead the revenue function and build the go-to-market engine around long-term contracted customers. The previous CRO resigned effective 30 June 2026.",
+            "date": "2026-09-24",
+            "source_name": "CXOToday",
+            "source_url": "https://cxotoday.com/media-coverage/e2e-networks-appoints-anand-ganapathy-as-chief-revenue-officer-to-accelerate-next-phase-of-growth-and-gtm-engine/",
+            "strength": 3,
+            "navigator_angle": "A CRO two months into the role with a mandate to build the GTM engine is reviewing team, process and tooling right now. This is the best-timed conversation on the account."
+          },
+          {
+            "category": "funding_growth",
+            "title": "Q2 FY27 revenue up 411% year on year to ₹2,238 Mn",
+            "detail": "Quarter ended 30 September 2026: revenue up 43% on the previous quarter, EBITDA margin 76.6%, profit after tax ₹727 Mn against a loss a year earlier. Growth is driven by demand for Blackwell GPUs.",
+            "date": "2026-10-16",
+            "source_name": "Company press release (NSE)",
+            "source_url": "https://nsearchives.nseindia.com/corporate/E2E_16102026150410_SignedPressRelease16102026.pdf",
+            "strength": 3,
+            "navigator_angle": "Strong profit and momentum mean budget exists for sales expansion and tooling is unlikely to be blocked on cost."
+          },
+          {
+            "category": "funding_growth",
+            "title": "Binding term sheet of about ₹1,000 crore with an Indian sovereign AI customer",
+            "detail": "Runs to June 2029 and moves an existing GPU cluster from pay-as-you-go to a multi-year commitment. Management is steering the business toward long-term contracted enterprise customers.",
+            "date": "2026-10",
+            "source_name": "ScanX",
+            "source_url": "https://scanx.trade/stock-market-news/companies/e2e-networks-q2fy27-results-revenue-surges-411-yoy-2-238-mn/53690088",
+            "strength": 2,
+            "navigator_angle": "A shift from self-serve usage to large contracted deals means enterprise selling into multi-person buying committees, which is where Sales Navigator is most useful."
+          },
+          {
+            "category": "gtm_hiring",
+            "title": "Three open sales roles, weighted toward senior enterprise sellers",
+            "detail": "Job boards show an Enterprise Sales role in Mumbai / Bengaluru asking for 10 to 15 years of experience (posted mid-November), an Inside Sales Executive in Delhi NCR, and an Assistant Vice President, Commercial in Delhi. Other open roles are engineering, HR and payroll.",
+            "date": "2026-11",
+            "source_name": "freehire",
+            "source_url": "https://freehire.me/companies/e2e-networks",
+            "strength": 2,
+            "navigator_angle": "Hiring senior enterprise sellers in Mumbai and Bengaluru points to new territory coverage. Each needs a seat from day one."
+          },
+          {
+            "category": "expansion",
+            "title": "Data centre capacity expansion for AI compute",
+            "detail": "A 5.4 MW addition was announced in October 2026 and a further 12.8 MW was reported in November. Sources disagree on the starting capacity, so treat the totals as approximate.",
+            "date": "2026-11",
+            "source_name": "ScanX",
+            "source_url": "https://scanx.trade/stock-market-news/companies/e2e-networks-plans-5-4-mw-capacity-expansion-ai-services/54550643",
+            "strength": 2,
+            "navigator_angle": "More capacity has to be sold. Expect pressure on the sales team to fill it with contracted customers."
+          },
+          {
+            "category": "expansion",
+            "title": "Launched Blaze, a pay-per-token AI inference service",
+            "detail": "New product line reported in November 2026, aimed at teams running open AI models.",
+            "date": "2026-11",
+            "source_name": "Web search summary",
+            "source_url": "",
+            "strength": 1,
+            "navigator_angle": "A new product opens a new buyer group (AI and ML engineering leaders) the sales team will need to reach."
+          }
         ],
         "talk_track": [
           "Anand Ganapathy joined as CRO in late September with a brief to build the GTM engine. Ask for an introduction and offer a review of how the team prospects today.",
@@ -33,8 +105,28 @@
           "body": "Hi [Name],\n\nCongratulations on the Q2 results and on Anand joining as CRO. It looks like a big moment for the revenue team, with the move toward long-term enterprise contracts and new sales hires in Mumbai and Bengaluru.\n\nAs the team shifts to larger, multi-stakeholder deals, I would like to make sure Sales Navigator is set up for that: the right people have seats, new starters get access on day one, and account mapping reflects the enterprise and sovereign AI buyers you are now targeting.\n\nCould we find 30 minutes in the next two weeks? If it is useful, I would also welcome an introduction to Anand so I can understand his priorities for the team.\n\nBest regards,\n[Your name]"
         },
         "confidence": "medium",
-        "caveats": "The company's own careers page could not be read, so open roles come from job boards and may be incomplete or out of date; the Glassdoor listing shows no posting date. Current seat count is not entered, so no growth percentage is shown. No acquisitions, new subsidiaries or risk signals were found."
-      }
+        "caveats": "The company's own careers page could not be read, so open roles come from job boards and may be incomplete or out of date; the Glassdoor listing shows no posting date. Current seat count is not entered, so no growth percentage is shown. No acquisitions, new subsidiaries or risk signals were found.",
+        "play": "Get an introduction to the new CRO, Anand Ganapathy, this month. He joined in late September to build the go-to-market engine and three sales roles are open, so ask for a seat plan that covers the new enterprise sellers before they start.",
+        "contacts": [
+          {
+            "who": "Anand Ganapathy, Chief Revenue Officer",
+            "why": "Owns the revenue function and the GTM build-out. New in role since 24 September 2026, so tooling decisions are open."
+          },
+          {
+            "who": "Whoever is hiring the Enterprise Sales roles in Mumbai and Bengaluru",
+            "why": "Regional sales heads feel the ramp-time problem first. Search Sales Navigator for sales directors and regional heads at the account."
+          },
+          {
+            "who": "Sales operations or revenue operations lead",
+            "why": "Usually manages seat allocation and onboarding. Your route to a seats-on-day-one process for new hires."
+          },
+          {
+            "who": "Your existing admin or champion",
+            "why": "Start here for the introduction to the CRO and for current seat usage."
+          }
+        ]
+      },
+      "owner": ""
     }
   ]
 }
