@@ -225,11 +225,11 @@ function renderDrawer() {
       <div><b>${s.seatRoles}</b><span>Open seat-eligible roles</span></div>
       <div><b>${risk ? 'Hold' : w.label}</b><span>Suggested add-on${w.pct && !risk ? ` · up to +${w.pct}%` : ''}</span></div>
     </div><p class="sub" style="margin-top:8px">Based on open roles that prospect or manage accounts. Acquired or subsidiary teams are not counted: size those in discovery.</p></div>
+    ${b.open_gtm_roles.length ? `<div class="section" id="roles"><h3>Open GTM roles (${b.open_gtm_roles.length})</h3><ul class="roles">${b.open_gtm_roles.map((r) => { const u = safeUrl(r.url); return `<li><span>${u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(r.title)}</a>` : esc(r.title)}</span><span class="sub">${esc([r.team, r.location].filter(Boolean).join(' · '))}</span></li>`; }).join('')}</ul><p class="sub" style="margin-top:6px">Each title links to the job posting.</p></div>` : ''}
     <div class="section"><h3>Why this score</h3><div class="bars">${s.breakdown.map((r) => `<div class="bar ${r.max < 0 ? 'neg' : ''}"><span>${esc(r.label)}</span><div class="track"><div class="fill" style="width:${Math.round(Math.abs(r.points) / Math.abs(r.max) * 100)}%"></div></div><span class="pts">${r.points} / ${r.max}</span></div>`).join('')}</div></div>
     <div class="section"><h3>Signals (${sigs.length})</h3>${sigs.map((g) => { const u = safeUrl(g.source_url); return `<div class="signal">
       <div class="meta">${tag(g.category)}<span class="dots" title="Strength ${g.strength} of 3">${'●'.repeat(g.strength)}${'○'.repeat(3 - g.strength)}</span>${g.date ? `<span>${esc(g.date)}</span>` : ''}${u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(g.source_name || 'Source')} ↗</a>` : `<span>${esc(g.source_name || 'No source link')}</span>`}</div>
-      <b>${esc(g.title)}</b><span>${esc(g.detail)}</span>${g.navigator_angle ? `<div class="angle">${esc(g.navigator_angle)}</div>` : ''}</div>`; }).join('') || '<p class="sub">No notable signals found.</p>'}</div>
-    ${b.open_gtm_roles.length ? `<div class="section"><h3>Open GTM roles (${b.open_gtm_roles.length})</h3><ul class="roles">${b.open_gtm_roles.map((r) => { const u = safeUrl(r.url); return `<li><span>${u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(r.title)}</a>` : esc(r.title)}</span><span class="sub">${esc([r.team, r.location].filter(Boolean).join(' · '))}</span></li>`; }).join('')}</ul></div>` : ''}
+      <b>${esc(g.title)}</b><span>${esc(g.detail)}</span>${g.navigator_angle ? `<div class="angle">${esc(g.navigator_angle)}</div>` : ''}${g.category === 'gtm_hiring' && b.open_gtm_roles.length ? `<button class="btn" data-jump style="margin-top:10px">See the ${b.open_gtm_roles.length} open roles</button>` : ''}</div>`; }).join('') || '<p class="sub">No notable signals found.</p>'}</div>
     ${b.talk_track.length ? `<div class="section"><div class="row-between"><h3>Talk track</h3><button class="btn" data-copy="track">Copy</button></div><ul class="track-list">${b.talk_track.map((t) => `<li>${esc(t)}</li>`).join('')}</ul></div>` : ''}
     ${b.email?.body ? `<div class="section"><div class="row-between"><h3>Email draft</h3><button class="btn" data-copy="email">Copy</button></div><div class="email" id="emailText"><span class="subject">Subject: ${esc(b.email.subject)}</span>${esc(b.email.body)}</div></div>` : ''}
     <p class="sub">Confidence: ${esc(b.confidence)} · Researched ${esc(a.researched || BOOK.refreshed)}${b.caveats ? `<br>${esc(b.caveats)}` : ''}</p>`;
@@ -248,6 +248,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && state.se
 $('drawerBody').addEventListener('click', async (e) => {
   const t = e.target.closest('button'); if (!t) return;
   if (t.dataset.close !== undefined) return close();
+  if (t.dataset.jump !== undefined) return document.getElementById('roles')?.scrollIntoView({ block: 'start' });
   const a = accounts.find((x) => x.id === state.selected);
   const text = t.dataset.copy === 'email' ? `Subject: ${a.brief.email.subject}\n\n${a.brief.email.body}` : a.brief.talk_track.map((x) => '• ' + x).join('\n');
   try { await navigator.clipboard.writeText(text); toast('Copied'); }
