@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Signal Scout</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="logo" aria-hidden="true"></span>
+      <div>
+        <h1>Signal Scout</h1>
+        <p>Add-on signals for your Sales Navigator book</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span id="mode" class="mode"></span>
+      <button id="researchAll" class="btn ghost" hidden>Research all</button>
+      <button id="openAdd" class="btn primary">Add accounts</button>
+    </div>
+  </header>
+
+  <div id="banner" class="banner" hidden></div>
+
+  <main>
+    <section class="stats" id="stats"></section>
+
+    <section class="toolbar">
+      <input id="search" type="search" placeholder="Search accounts" aria-label="Search accounts">
+      <div class="chips" id="chips" role="group" aria-label="Filter by signal"></div>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="num">Score</th>
+            <th>Account</th>
+            <th>Top signal</th>
+            <th class="num">Open GTM roles</th>
+            <th class="num">Seats</th>
+            <th class="num">Suggested add-on</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <p id="empty" class="empty" hidden>No accounts match. Add accounts to get started.</p>
+    </section>
+  </main>
+
+  <aside id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-inner" id="drawerBody" tabindex="-1"></div>
+  </aside>
+  <div id="scrim" class="scrim" hidden></div>
+
+  <dialog id="addDialog">
+    <form method="dialog" id="addForm">
+      <h2>Add accounts</h2>
+      <p class="hint">One account per line: <code>Company, website, current seats</code>. Website and seats are optional.</p>
+      <textarea id="addText" rows="8" placeholder="Acme Corp, acme.com, 40&#10;Globex, globex.com"></textarea>
+      <p id="addError" class="error" hidden></p>
+      <div class="dialog-actions">
+        <button type="button" class="btn ghost" id="cancelAdd">Cancel</button>
+        <button type="submit" class="btn primary">Add</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+  <script src="app.js" type="module"></script>
+</body>
+</html>
