@@ -58,3 +58,16 @@ Accounts and research are stored on the server in `data/accounts.json`, so
 everyone using the same deployment sees the same book. There is **no login**
 yet: host it somewhere only your team can reach (VPN, internal network, or a
 host with access control in front) until authentication is added.
+
+## Hosted version (no API key)
+
+`hosted/` holds the version the team actually uses: a single page published
+as a Claude artifact. Account research lives in `hosted/book.json`; Claude
+refreshes it weekly in a Claude Code session using web search, then rebuilds
+and republishes the page:
+
+```bash
+node hosted/build.mjs /path/to/signal-scout.html
+```
+
+To add an account, give Claude the company name (and current seats if known).

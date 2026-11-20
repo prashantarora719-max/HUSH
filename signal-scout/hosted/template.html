@@ -1,0 +1,264 @@
+<title>Signal Scout</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap">
+<style>
+/* Layout: a ranked ledger of accounts; one click opens a side brief. Score chip leads every row. */
+:root {
+  --bg: #f4f5f8; --surface: #ffffff; --surface-2: #f8f9fb; --ink: #131722; --muted: #5b6474; --line: #e1e4ea;
+  --accent: #2148c8; --accent-soft: #e6ecfb; --on-accent: #ffffff;
+  --hot: #ad3018; --hot-soft: #fbe8e3; --warm: #855600; --warm-soft: #fbf0d6; --cool: #485264; --cool-soft: #e9ecf1;
+  --risk: #9f2130; --risk-soft: #fae7ea; --scrim: rgba(19,23,34,.38);
+  --display: "Space Grotesk", "Inter", system-ui, sans-serif; --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1218; --surface: #171b24; --surface-2: #1d222d; --ink: #e9ecf2; --muted: #9aa3b4; --line: #2a303d;
+  --accent: #8fa8ff; --accent-soft: #1f2a4d; --on-accent: #0f1218;
+  --hot: #ff9d87; --hot-soft: #40201a; --warm: #f0c35e; --warm-soft: #3a2e12; --cool: #b3bccb; --cool-soft: #262c38;
+  --risk: #ff97a3; --risk-soft: #401c23; --scrim: rgba(0,0,0,.55); color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0f1218; --surface: #171b24; --surface-2: #1d222d; --ink: #e9ecf2; --muted: #9aa3b4; --line: #2a303d;
+  --accent: #8fa8ff; --accent-soft: #1f2a4d; --on-accent: #0f1218;
+  --hot: #ff9d87; --hot-soft: #40201a; --warm: #f0c35e; --warm-soft: #3a2e12; --cool: #b3bccb; --cool-soft: #262c38;
+  --risk: #ff97a3; --risk-soft: #401c23; --scrim: rgba(0,0,0,.55); color-scheme: dark }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 14px/1.5 var(--body); }
+h1, h2, h3, p { margin: 0; }
+button, input { font: inherit; color: inherit; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-block: 22px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 18px; }
+.top { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.top h1 { font: 700 26px/1.1 var(--display); letter-spacing: -.02em; }
+.top p { color: var(--muted); margin-top: 4px; }
+.fresh { color: var(--muted); font-size: 12.5px; text-align: right; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 13px 16px; min-width: 0; }
+.stat b { display: block; font: 700 24px/1.2 var(--display); font-variant-numeric: tabular-nums; }
+.stat span { color: var(--muted); font-size: 12.5px; }
+.toolbar { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+#search { flex: 0 1 240px; min-width: 0; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 5px 11px; font-size: 12.5px; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.table-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; min-width: 760px; }
+th { text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); padding: 10px 14px; border-bottom: 1px solid var(--line); font-weight: 600; }
+td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: var(--surface-2); }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.acct b { display: block; }
+.sub { color: var(--muted); font-size: 12.5px; }
+.empty { padding: 36px 16px; text-align: center; color: var(--muted); }
+.score { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 30px; border-radius: 8px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.score.hot { background: var(--hot-soft); color: var(--hot); }
+.score.warm { background: var(--warm-soft); color: var(--warm); }
+.score.cool { background: var(--cool-soft); color: var(--cool); }
+.tag { display: inline-block; font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin-right: 6px; white-space: nowrap; }
+.tag.risk { background: var(--risk-soft); color: var(--risk); }
+.btn { border: 1px solid var(--line); background: var(--surface); padding: 5px 11px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 12.5px; }
+.note { color: var(--muted); font-size: 12.5px; }
+
+.scrim { position: fixed; inset: 0; background: var(--scrim); z-index: 9; }
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(620px, 100vw); background: var(--surface); border-left: 1px solid var(--line); transform: translateX(100%); transition: transform .2s ease; z-index: 10; overflow-y: auto; visibility: hidden; }
+.drawer.open { transform: none; visibility: visible; }
+@media (prefers-reduced-motion: reduce) { .drawer { transition: none; } }
+.drawer-inner { padding: calc(22px + env(safe-area-inset-top, 0px)) max(20px, env(safe-area-inset-right, 0px)) calc(40px + env(safe-area-inset-bottom, 0px)) 20px; outline: 0; display: grid; gap: 22px; }
+.d-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+.d-head h2 { font: 700 21px/1.2 var(--display); letter-spacing: -.01em; }
+.section h3 { font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 10px; font-weight: 600; }
+.row-between { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.row-between h3 { margin: 0; }
+.callout { padding: 10px 12px; border-radius: 8px; font-size: 13px; background: var(--risk-soft); color: var(--risk); }
+.bars { display: grid; gap: 7px; }
+.bar { display: grid; grid-template-columns: 150px 1fr 56px; gap: 10px; align-items: center; font-size: 13px; }
+.bar .track { height: 8px; background: var(--cool-soft); border-radius: 4px; overflow: hidden; }
+.bar .fill { height: 100%; background: var(--accent); border-radius: 4px; }
+.bar.neg .fill { background: var(--risk); }
+.bar .pts { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+.ws { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.ws > div { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; min-width: 0; }
+.ws b { font: 700 20px/1.3 var(--display); display: block; }
+.ws input { width: 100%; max-width: 96px; padding: 3px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); font: 700 18px/1.3 var(--display); }
+.ws span { font-size: 12px; color: var(--muted); display: block; margin-top: 2px; }
+.signal { border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
+.signal .meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+.signal b { display: block; }
+.signal .angle { margin-top: 8px; padding-left: 10px; border-left: 2px solid var(--accent); font-size: 13px; }
+.dots { letter-spacing: 2px; color: var(--accent); }
+a { color: var(--accent); }
+.roles { margin: 0; padding: 0; list-style: none; }
+.roles li { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.roles li:last-child { border: 0; }
+.track-list { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+.email { border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; white-space: pre-wrap; font-size: 13.5px; background: var(--surface-2); overflow-wrap: anywhere; }
+.email .subject { font-weight: 700; display: block; margin-bottom: 8px; white-space: normal; }
+.toast { position: fixed; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 9px 16px; border-radius: 8px; font-size: 13px; z-index: 20; }
+@media (max-width: 720px) {
+  .stats { grid-template-columns: repeat(2, 1fr); } .ws { grid-template-columns: 1fr; }
+  .bar { grid-template-columns: 112px 1fr 50px; } .fresh { text-align: left; }
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Signal Scout</h1>
+      <p>Add-on signals for our Sales Navigator book, ranked by where to spend time first.</p>
+    </div>
+    <div class="fresh" id="fresh"></div>
+  </header>
+  <section class="stats" id="stats"></section>
+  <section class="toolbar">
+    <input id="search" type="search" placeholder="Search accounts" aria-label="Search accounts">
+    <div class="chips" id="chips" role="group" aria-label="Filter by signal"></div>
+  </section>
+  <section class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Score</th><th>Account</th><th>Top signal</th>
+        <th class="num">Open GTM roles</th><th class="num">Seats</th><th class="num">Suggested add-on</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p id="empty" class="empty" hidden>No accounts match this search or filter.</p>
+  </section>
+  <p class="note">Signals come from public web sources and are refreshed weekly. Check each source before using it with a customer. To add an account, ask the book owner.</p>
+</div>
+
+<aside id="drawer" class="drawer" aria-hidden="true"><div class="drawer-inner" id="drawerBody" tabindex="-1"></div></aside>
+<div id="scrim" class="scrim" hidden></div>
+<div id="toast" class="toast" role="status" hidden></div>
+
+<script>
+const BOOK = "__BOOK__";
+const CATS = {
+  gtm_hiring: { label: 'GTM hiring', max: 30 }, acquisition: { label: 'Acquisition', max: 20 },
+  subsidiary: { label: 'New subsidiary', max: 10 }, funding_growth: { label: 'Funding & growth', max: 15 },
+  leadership: { label: 'Sales leadership', max: 15 }, expansion: { label: 'New markets & products', max: 10 },
+  risk: { label: 'Risk', max: -25 },
+};
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const safeUrl = (u) => (/^https?:\/\//i.test(u || '') ? u : '');
+const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
+const state = { filter: 'all', query: '', selected: null, seats: {} };
+try { state.seats = JSON.parse(localStorage.getItem('seats') || '{}') || {}; } catch {}
+
+function score(b) {
+  const seatRoles = b.open_gtm_roles.filter((r) => r.needs_seat !== false).length;
+  const strongest = (c) => b.signals.filter((s) => s.category === c).reduce((m, s) => Math.max(m, clamp(+s.strength || 1, 1, 3)), 0);
+  let total = 0;
+  const breakdown = Object.entries(CATS).map(([key, def]) => {
+    const points = key === 'gtm_hiring'
+      ? Math.round(def.max * Math.max(Math.min(1, seatRoles / 10), (strongest(key) / 3) * 0.6))
+      : Math.round(def.max * (strongest(key) / 3));
+    total += points;
+    return { key, label: def.label, points, max: def.max };
+  });
+  const s = clamp(total, 0, 100);
+  return { score: s, tier: s >= 65 ? 'hot' : s >= 35 ? 'warm' : 'cool', breakdown, seatRoles };
+}
+const accounts = BOOK.accounts.map((a, i) => ({ ...a, id: 'a' + i, scoring: score(a.brief) }));
+const seatsOf = (a) => { const v = state.seats[a.name] ?? a.seats; return v === '' || v == null || isNaN(+v) ? null : Math.max(0, Math.round(+v)); };
+function whitespace(a) {
+  const high = Math.max(a.scoring.seatRoles, +a.brief.gtm_roles_total_estimate || 0);
+  const low = Math.ceil(a.scoring.seatRoles * 0.6);
+  const seats = seatsOf(a);
+  return { low, high, seats, pct: seats ? Math.round((high / seats) * 100) : null, label: high ? (low === high ? String(high) : low + '–' + high) : '0' };
+}
+const hasRisk = (a) => a.brief.signals.some((s) => s.category === 'risk' && s.strength >= 2);
+const topSignal = (a) => {
+  const sigs = a.brief.signals;
+  const risk = sigs.filter((s) => s.category === 'risk' && s.strength >= 2).sort((x, y) => y.strength - x.strength)[0];
+  return risk || [...sigs].sort((x, y) => y.strength - x.strength || String(y.date).localeCompare(String(x.date)))[0];
+};
+const tag = (c) => `<span class="tag ${c === 'risk' ? 'risk' : ''}">${esc(CATS[c]?.label || c)}</span>`;
+
+function renderStats() {
+  const hot = accounts.filter((a) => a.scoring.tier === 'hot').length;
+  const seats = accounts.filter((a) => !hasRisk(a)).reduce((n, a) => n + whitespace(a).high, 0);
+  $('stats').innerHTML = [[accounts.length, 'Accounts in book'], [hot, 'Hot accounts (score 65+)'], [seats, 'Potential add-on seats'], [accounts.filter(hasRisk).length, 'Accounts with risk flags']]
+    .map(([n, l]) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`).join('');
+  $('fresh').textContent = 'Last refreshed ' + BOOK.refreshed;
+}
+function renderChips() {
+  $('chips').innerHTML = ['all', ...Object.keys(CATS)].map((k) => `<button class="chip" data-k="${k}" aria-pressed="${state.filter === k}">${k === 'all' ? 'All signals' : esc(CATS[k].label)}</button>`).join('');
+}
+function renderRows() {
+  const q = state.query.toLowerCase();
+  const list = accounts
+    .filter((a) => !q || a.name.toLowerCase().includes(q) || (a.website || '').toLowerCase().includes(q))
+    .filter((a) => state.filter === 'all' || a.brief.signals.some((s) => s.category === state.filter))
+    .sort((a, b) => b.scoring.score - a.scoring.score || a.name.localeCompare(b.name));
+  $('empty').hidden = list.length > 0;
+  $('rows').innerHTML = list.map((a) => {
+    const sig = topSignal(a), w = whitespace(a);
+    return `<tr data-id="${a.id}" tabindex="0">
+      <td><span class="score ${a.scoring.tier}">${a.scoring.score}</span></td>
+      <td class="acct"><b>${esc(a.name)}</b><span class="sub">${esc(a.website || '')}</span></td>
+      <td>${sig ? tag(sig.category) + esc(sig.title) : '<span class="sub">No notable signals found</span>'}</td>
+      <td class="num">${a.scoring.seatRoles}</td>
+      <td class="num">${w.seats ?? '–'}</td>
+      <td class="num">${hasRisk(a) ? '<span class="sub">Hold</span>' : w.label}</td>
+    </tr>`;
+  }).join('');
+}
+function renderDrawer() {
+  const a = accounts.find((x) => x.id === state.selected);
+  $('drawer').classList.toggle('open', !!a);
+  $('drawer').setAttribute('aria-hidden', String(!a));
+  $('scrim').hidden = !a;
+  if (!a) return;
+  const b = a.brief, s = a.scoring, w = whitespace(a), risk = hasRisk(a);
+  const sigs = [...b.signals].sort((x, y) => y.strength - x.strength);
+  $('drawerBody').innerHTML = `
+    <div class="d-head">
+      <div><h2>${esc(a.name)}</h2><span class="sub">${esc(a.website || '')}</span></div>
+      <button class="btn" data-close>Close</button>
+    </div>
+    ${risk ? '<div class="callout"><b>Risk flag.</b> Recent signals suggest an add-on pitch may be badly timed. Lead with adoption and value.</div>' : ''}
+    <p><span class="score ${s.tier}" style="margin-right:10px">${s.score}</span>${esc(b.company_summary)}</p>
+    <div class="section"><h3>Seat whitespace</h3><div class="ws">
+      <div><input id="seats-${a.id}" type="number" min="0" inputmode="numeric" value="${w.seats ?? ''}" data-seats aria-label="Current seats"><span>Current seats (saved on this device only)</span></div>
+      <div><b>${s.seatRoles}</b><span>Open seat-eligible roles</span></div>
+      <div><b>${risk ? 'Hold' : w.label}</b><span>Suggested add-on${w.pct && !risk ? ` · up to +${w.pct}%` : ''}</span></div>
+    </div><p class="sub" style="margin-top:8px">Based on open roles that prospect or manage accounts. Acquired or subsidiary teams are not counted: size those in discovery.</p></div>
+    <div class="section"><h3>Why this score</h3><div class="bars">${s.breakdown.map((r) => `<div class="bar ${r.max < 0 ? 'neg' : ''}"><span>${esc(r.label)}</span><div class="track"><div class="fill" style="width:${Math.round(Math.abs(r.points) / Math.abs(r.max) * 100)}%"></div></div><span class="pts">${r.points} / ${r.max}</span></div>`).join('')}</div></div>
+    <div class="section"><h3>Signals (${sigs.length})</h3>${sigs.map((g) => { const u = safeUrl(g.source_url); return `<div class="signal">
+      <div class="meta">${tag(g.category)}<span class="dots" title="Strength ${g.strength} of 3">${'●'.repeat(g.strength)}${'○'.repeat(3 - g.strength)}</span>${g.date ? `<span>${esc(g.date)}</span>` : ''}${u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(g.source_name || 'Source')} ↗</a>` : `<span>${esc(g.source_name || 'No source link')}</span>`}</div>
+      <b>${esc(g.title)}</b><span>${esc(g.detail)}</span>${g.navigator_angle ? `<div class="angle">${esc(g.navigator_angle)}</div>` : ''}</div>`; }).join('') || '<p class="sub">No notable signals found.</p>'}</div>
+    ${b.open_gtm_roles.length ? `<div class="section"><h3>Open GTM roles (${b.open_gtm_roles.length})</h3><ul class="roles">${b.open_gtm_roles.map((r) => { const u = safeUrl(r.url); return `<li><span>${u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(r.title)}</a>` : esc(r.title)}</span><span class="sub">${esc([r.team, r.location].filter(Boolean).join(' · '))}</span></li>`; }).join('')}</ul></div>` : ''}
+    ${b.talk_track.length ? `<div class="section"><div class="row-between"><h3>Talk track</h3><button class="btn" data-copy="track">Copy</button></div><ul class="track-list">${b.talk_track.map((t) => `<li>${esc(t)}</li>`).join('')}</ul></div>` : ''}
+    ${b.email?.body ? `<div class="section"><div class="row-between"><h3>Email draft</h3><button class="btn" data-copy="email">Copy</button></div><div class="email" id="emailText"><span class="subject">Subject: ${esc(b.email.subject)}</span>${esc(b.email.body)}</div></div>` : ''}
+    <p class="sub">Confidence: ${esc(b.confidence)} · Researched ${esc(a.researched || BOOK.refreshed)}${b.caveats ? `<br>${esc(b.caveats)}` : ''}</p>`;
+}
+let toastTimer;
+function toast(m) { const t = $('toast'); t.textContent = m; t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => (t.hidden = true), 2400); }
+const open = (id) => { state.selected = id; renderDrawer(); $('drawerBody').focus(); };
+const close = () => { state.selected = null; renderDrawer(); };
+
+$('rows').addEventListener('click', (e) => { const tr = e.target.closest('tr[data-id]'); if (tr) open(tr.dataset.id); });
+$('rows').addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('tr[data-id]')) open(e.target.dataset.id); });
+$('chips').addEventListener('click', (e) => { const c = e.target.closest('.chip'); if (c) { state.filter = c.dataset.k; renderChips(); renderRows(); } });
+$('search').addEventListener('input', (e) => { state.query = e.target.value; renderRows(); });
+$('scrim').addEventListener('click', close);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && state.selected) close(); });
+$('drawerBody').addEventListener('click', async (e) => {
+  const t = e.target.closest('button'); if (!t) return;
+  if (t.dataset.close !== undefined) return close();
+  const a = accounts.find((x) => x.id === state.selected);
+  const text = t.dataset.copy === 'email' ? `Subject: ${a.brief.email.subject}\n\n${a.brief.email.body}` : a.brief.talk_track.map((x) => '• ' + x).join('\n');
+  try { await navigator.clipboard.writeText(text); toast('Copied'); }
+  catch { const el = t.closest('.section').lastElementChild; const r = document.createRange(); r.selectNodeContents(el); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); toast('Text selected: press copy'); }
+});
+$('drawerBody').addEventListener('change', (e) => {
+  if (e.target.dataset.seats === undefined) return;
+  const a = accounts.find((x) => x.id === state.selected);
+  state.seats[a.name] = e.target.value;
+  try { localStorage.setItem('seats', JSON.stringify(state.seats)); } catch {}
+  renderStats(); renderRows(); renderDrawer();
+});
+renderStats(); renderChips(); renderRows();
+</script>
