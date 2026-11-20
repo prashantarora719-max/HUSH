@@ -20,3 +20,5 @@ anthropic-ipo-video/story/audio/dialogue.wav
 anthropic-ipo-video/shorts/*.mp4
 anthropic-ipo-video/shorts/png/
 anthropic-ipo-video/shorts/pages.*
+toon-test/*.mp4
+toon-test/audio/dialogue.wav
