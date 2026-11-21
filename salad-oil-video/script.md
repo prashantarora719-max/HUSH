@@ -1,6 +1,6 @@
 # The Salad Oil Swindle: full script (draft 1)
 
-Narrator only (Titan). About 2,150 spoken words, 14 minutes at his sampler pace.
+Narrator only (Titan). About 1,860 spoken words: roughly 12 minutes at his sampler pace, with pauses and title cards.
 Every figure is in `fact-sheet.md` under "Verified from sources". Lines marked † rest on one source or on sources that disagree; see the notes at the end.
 
 ---
