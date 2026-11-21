@@ -52,6 +52,7 @@ function bust(t, who, x, y, h, i, o = {}) {
   else if (!o.noBlink && ((t + .9) % 3.1) < .12 && IMG[who + '-face-closed']) k = 'closed';
   const im = IMG[who + '-face-' + k], s = h / im.height, e = ob(pr(t, o.t0 ?? -9, .22));
   g.save(); g.translate(x + (o.shake || 0) * Math.sin(t * 60), y + (1 - e) * h); g.rotate(Math.sin(t * 1.7) * .012 + (m ? Math.sin(t * 13) * .008 : 0)); g.scale(o.flip ? -1 : 1, 1 + (m ? .012 : 0));
+  if (who === 'landlord') { const w = im.width * s; g.fillStyle = '#2f3440'; g.beginPath(); g.roundRect(-w / 2 + 8, -h * .44, w - 16, h * .44 + 60, [h * .26, h * .26, 0, 0]); g.fill(); }   // his suit: the face sheet has no jacket
   paper(); g.drawImage(im, -im.width * s / 2, -h, im.width * s, h); g.restore();
 }
 const SIL = {};
