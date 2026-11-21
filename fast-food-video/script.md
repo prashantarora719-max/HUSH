@@ -1,6 +1,6 @@
 # Why Fast Food Stopped Being Cheap: full script (draft 1)
 
-About 1,350 spoken words, 8.5 to 9 minutes. N = narrator, F = Frank, D = Danny, O = the owner, L = the Landlord.
+About 890 spoken words, roughly 7 minutes with pauses. N = narrator, F = Frank, D = Danny, O = the owner, L = the Landlord.
 Stage directions are in italics. Sources for every figure are in `fact-sheet.md` under "Second check".
 
 ## Cold open
