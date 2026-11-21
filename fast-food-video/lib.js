@@ -96,11 +96,17 @@ function room(t, o = {}) {
 function tray(x, y, s, o = {}) { g.save(); g.translate(x, y); g.scale(s, s); paper(); box(-190, 0, 380, 26, '#b9c2d6', 12); paper(false); if (!o.noFood) { fries(-110, -36, .5); cup(120, -36, .5); burger(5, -28, o.tiny ? .2 : .26); } g.restore(); }
 const cam = (cx, cy, z, fn) => { g.save(); g.translate(W / 2, H / 2); g.scale(z, z); g.translate(-cx, -cy); fn(); g.restore(); };
 const SHOTS = []; const shot = (t0, fn) => { SHOTS.push([t0, fn]); cue('cut', t0); };
+const OFF = [0, 1].map(() => { const c = document.createElement('canvas'); c.width = W; c.height = H; return c; });
+const TRANS = .24;   // seconds each shot change takes
+function drawShot(i, t) { const lt = t - SHOTS[i][0]; g.setTransform(1, 0, 0, 1, 0, 0); paper(false); g.globalAlpha = 1; g.fillStyle = '#000'; g.fillRect(0, 0, W, H);
+  g.save(); const z = 1 + lt * .004; g.translate(W / 2, H / 2); g.scale(z, z); g.translate(-W / 2, -H / 2); SHOTS[i][1](t, lt); g.restore(); paper(false); g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; }
 function render(t) {
   SHOTS.sort((a, b) => a[0] - b[0]); let i = 0; while (i + 1 < SHOTS.length && SHOTS[i + 1][0] <= t) i++; const lt = t - SHOTS[i][0];
-  g.setTransform(1, 0, 0, 1, 0, 0); paper(false); g.globalAlpha = 1; g.fillStyle = '#000'; g.fillRect(0, 0, W, H);
-  g.save(); const z = 1 + .05 * (1 - oc(lt / .2)) + lt * .004; g.translate(W / 2, H / 2); g.scale(z, z); g.translate(-W / 2, -H / 2); SHOTS[i][1](t, lt); g.restore(); paper(false);
-  if (i > 0 && lt < .08) { g.fillStyle = `rgba(255,255,255,${.5 * (1 - lt / .08)})`; g.fillRect(0, 0, W, H); }
+  if (i > 0 && lt < TRANS) {   // glide from the previous shot: it slides away and fades while the new one slides in
+    const p = lt / TRANS, e = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2, dir = i % 2 ? 1 : -1;
+    drawShot(i - 1, t); OFF[0].getContext('2d').drawImage(cv, 0, 0); drawShot(i, t); OFF[1].getContext('2d').drawImage(cv, 0, 0);
+    g.fillStyle = '#10142e'; g.fillRect(0, 0, W, H); g.globalAlpha = 1; g.drawImage(OFF[0], -dir * e * W * .22, 0); g.globalAlpha = e; g.drawImage(OFF[1], dir * (1 - e) * W * .22, 0); g.globalAlpha = 1;
+  } else drawShot(i, t);
   const D = TL.DUR; if (t > D - .5) { g.fillStyle = `rgba(0,0,0,${cl((t - (D - .5)) / .5)})`; g.fillRect(0, 0, W, H); }
 }
 window.render = render;

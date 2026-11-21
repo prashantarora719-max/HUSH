@@ -17,7 +17,7 @@ S['register'] = S['register'][:int(1.3 * SR)]; S['stamp'] = S['stamp'][:int(.7 *
 for k in S: f = int(.04 * SR); S[k][-f:] *= np.linspace(1, 0, f)
 w = wave.open(f'{HERE}/audio/{name}-voice.wav'); voice = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float64) / 32768; voice = np.pad(voice, (0, max(0, N - len(voice))))[:N]
 # picture cue -> (sample, gain, offset)
-MAP = {'cut': ('whoosh', .30, -.10), 'slam': ('stamp', .55, 0), 'text': ('pop', .28, 0), 'pop': ('pop', .40, 0), 'stamp': ('stamp', .5, 0), 'whoosh': ('whoosh', .45, 0), 'register': ('register', .42, 0), 'coin': ('coin', .4, 0), 'keys': ('keys', .45, 0), 'boing': ('boing', .4, 0), 'scribble': ('scribble', .45, 0)}
+MAP = {'cut': ('whoosh', .22, .02), 'slam': ('stamp', .55, 0), 'text': ('pop', .28, 0), 'pop': ('pop', .40, 0), 'stamp': ('stamp', .5, 0), 'whoosh': ('whoosh', .45, 0), 'register': ('register', .42, 0), 'coin': ('coin', .4, 0), 'keys': ('keys', .45, 0), 'boing': ('boing', .4, 0), 'scribble': ('scribble', .45, 0)}
 sfx = np.zeros(N); hush = []; last = {}
 for c in sorted(C['cues'], key=lambda s: float(s.split('@')[1])):
     p = c.split('@'); kind, t0 = p[0], float(p[1])
