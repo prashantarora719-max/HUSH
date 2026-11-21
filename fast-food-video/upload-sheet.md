@@ -1,6 +1,6 @@
 # YouTube upload sheet: Why Fast Food Stopped Being Cheap
 
-**File:** `fast-food-full.mp4` (5:32) · **Captions:** `captions.srt` · **Thumbnail:** `thumb/thumb-v1.png`
+**File:** `fast-food-final.mp4` (5:27) · **Captions:** `captions.srt` · **Thumbnail:** `thumb/thumb-v3.png`
 
 ## Title
 Why Fast Food Stopped Being Cheap
@@ -41,10 +41,10 @@ why fast food is so expensive, fast food prices, McDonald's prices, why is McDon
 
 ## Checklist
 - Upload the video, then add `captions.srt` under Subtitles (English).
-- Thumbnail: `thumb/thumb-v1.png`.
+- Thumbnail: `thumb/thumb-v3.png`.
 - "Altered content" question: the video has no realistic footage of real people or events; every character is a drawn cartoon. The answer is most likely No. Read YouTube's wording when you upload.
 - Category: Education. Audience: not made for kids.
-- The ending names the next video as "the seven-dollar coffee". Only publish with that tag if that is the next topic.
+- The video ends on the Landlord's line. The coffee tease has been removed.
 
 ## Facts still resting on one source or on memory
 - Who sets menu prices (the franchise owner, not the company): standard practice, not confirmed from the franchise disclosure.
