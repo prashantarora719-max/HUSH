@@ -1,0 +1,404 @@
+[
+ {
+  "i": 0,
+  "who": "N",
+  "text": "This is Frank. Frank just ordered lunch.",
+  "say": "This is Frank. Frank just ordered lunch."
+ },
+ {
+  "i": 1,
+  "who": "F",
+  "text": "Eleven dollars? For a burger, fries and a drink?",
+  "say": "Eleven dollars? For a burger, fries and a drink?"
+ },
+ {
+  "i": 2,
+  "who": "D",
+  "text": "That's what they cost, Grandpa.",
+  "say": "That's what they cost, Grandpa."
+ },
+ {
+  "i": 3,
+  "who": "F",
+  "text": "In my day this was a dollar.",
+  "say": "In my day this was a dollar."
+ },
+ {
+  "i": 4,
+  "who": "N",
+  "text": "It wasn't. But he has a point. McDonald's own numbers say its average menu price rose about forty percent between 2019 and 2024.",
+  "say": "It wasn't. But he has a point. McDonald's own numbers say its average menu price rose about forty percent between twenty nineteen and twenty twenty-four."
+ },
+ {
+  "i": 5,
+  "who": "F",
+  "text": "So where's it all going?",
+  "say": "So where's it all going?"
+ },
+ {
+  "i": 6,
+  "who": "D",
+  "text": "Beef. Wages. Everything's expensive.",
+  "say": "Beef. Wages. Everything's expensive."
+ },
+ {
+  "i": 7,
+  "who": "F",
+  "text": "...Who's that guy?",
+  "say": "...Who's that guy?"
+ },
+ {
+  "i": 8,
+  "who": "N",
+  "text": "Good question, Frank. Somebody is taking your eleven dollars. We have four suspects. And the one with the best deal has never cooked a burger in his life.",
+  "say": "Good question, Frank. Somebody is taking your eleven dollars. We have four suspects. And the one with the best deal has never cooked a burger in his life."
+ },
+ {
+  "i": 9,
+  "who": "F",
+  "text": "Talk.",
+  "say": "Talk."
+ },
+ {
+  "i": 10,
+  "who": "N",
+  "text": "Suspect one. The food itself. Beef prices have climbed for years, and the bun, the cheese, the cup and the wrapper all cost more than they did.",
+  "say": "Suspect one. The food itself. Beef prices have climbed for years, and the bun, the cheese, the cup and the wrapper all cost more than they did."
+ },
+ {
+  "i": 11,
+  "who": "D",
+  "text": "Told you.",
+  "say": "Told you."
+ },
+ {
+  "i": 12,
+  "who": "N",
+  "text": "In a typical restaurant like this one, food and packaging eat roughly thirty cents of every dollar. On Frank's tray, that's about three dollars fifty.",
+  "say": "In a typical restaurant like this one, food and packaging eat roughly thirty cents of every dollar. On Frank's tray, that's about three dollars fifty."
+ },
+ {
+  "i": 13,
+  "who": "F",
+  "text": "Three fifty. I paid eleven.",
+  "say": "Three fifty. I paid eleven."
+ },
+ {
+  "i": 14,
+  "who": "N",
+  "text": "Exactly. The food is guilty. But only of three fifty.",
+  "say": "Exactly. The food is guilty. But only of three fifty."
+ },
+ {
+  "i": 15,
+  "who": "N",
+  "text": "Suspect two. The people making it. Wages in fast food have risen fast. In California, the minimum for fast-food workers jumped to twenty dollars an hour in 2024.",
+  "say": "Suspect two. The people making it. Wages in fast food have risen fast. In California, the minimum for fast-food workers jumped to twenty dollars an hour in twenty twenty-four."
+ },
+ {
+  "i": 16,
+  "who": "F",
+  "text": "Twenty bucks to salt fries?",
+  "say": "Twenty bucks to salt fries?"
+ },
+ {
+  "i": 17,
+  "who": "D",
+  "text": "You paid a guy forty to change a lightbulb.",
+  "say": "You paid a guy forty to change a lightbulb."
+ },
+ {
+  "i": 18,
+  "who": "F",
+  "text": "That was a tall lightbulb.",
+  "say": "That was a tall lightbulb."
+ },
+ {
+  "i": 19,
+  "who": "N",
+  "text": "Labour takes a little under thirty cents of every dollar. Call it three dollars ten.",
+  "say": "Labour takes a little under thirty cents of every dollar. Call it three dollars ten."
+ },
+ {
+  "i": 20,
+  "who": "F",
+  "text": "That's six sixty. Where's my other four forty?",
+  "say": "That's six sixty. Where's my other four forty?"
+ },
+ {
+  "i": 21,
+  "who": "N",
+  "text": "Now you're asking the right question.",
+  "say": "Now you're asking the right question."
+ },
+ {
+  "i": 22,
+  "who": "F",
+  "text": "You. Mister McDonald.",
+  "say": "You. Mister McDonald."
+ },
+ {
+  "i": 23,
+  "who": "O",
+  "text": "I'm Gary.",
+  "say": "I'm Gary."
+ },
+ {
+  "i": 24,
+  "who": "N",
+  "text": "Suspect three. The owner. Frank expected a yacht. But about ninety-five percent of McDonald's restaurants aren't run by McDonald's. They're run by people like Gary, who pay for the right to use the name.",
+  "say": "Suspect three. The owner. Frank expected a yacht. But about ninety-five percent of McDonald's restaurants aren't run by McDonald's. They're run by people like Gary, who pay for the right to use the name."
+ },
+ {
+  "i": 25,
+  "who": "F",
+  "text": "So you're the one getting rich.",
+  "say": "So you're the one getting rich."
+ },
+ {
+  "i": 26,
+  "who": "O",
+  "text": "Sit down.",
+  "say": "Sit down."
+ },
+ {
+  "i": 27,
+  "who": "N",
+  "text": "Gary pays the staff. Gary buys the beef. Gary pays the electric bill, the insurance and the repairs when the ice cream machine breaks.",
+  "say": "Gary pays the staff. Gary buys the beef. Gary pays the electric bill, the insurance and the repairs when the ice cream machine breaks."
+ },
+ {
+  "i": 28,
+  "who": "O",
+  "text": "It's always broken.",
+  "say": "It's always broken."
+ },
+ {
+  "i": 29,
+  "who": "N",
+  "text": "After all of that, a typical owner keeps somewhere around five to ten cents of each dollar. On Frank's lunch, roughly fifty cents.",
+  "say": "After all of that, a typical owner keeps somewhere around five to ten cents of each dollar. On Frank's lunch, roughly fifty cents."
+ },
+ {
+  "i": 30,
+  "who": "F",
+  "text": "Fifty cents. You're not the guy.",
+  "say": "Fifty cents. You're not the guy."
+ },
+ {
+  "i": 31,
+  "who": "O",
+  "text": "I'm not the guy.",
+  "say": "I'm not the guy."
+ },
+ {
+  "i": 32,
+  "who": "F",
+  "text": "Then who owns this place?",
+  "say": "Then who owns this place?"
+ },
+ {
+  "i": 33,
+  "who": "N",
+  "text": "Here's what Gary doesn't own. He doesn't own the recipe. He doesn't own the sign. And he doesn't own the building he's standing in.",
+  "say": "Here's what Gary doesn't own. He doesn't own the recipe. He doesn't own the sign. And he doesn't own the building he's standing in."
+ },
+ {
+  "i": 34,
+  "who": "N",
+  "text": "In most cases the company finds the site, then owns or leases the land and the building, and rents it to the owner. And the rent isn't a fixed number.",
+  "say": "In most cases the company finds the site, then owns or leases the land and the building, and rents it to the owner. And the rent isn't a fixed number."
+ },
+ {
+  "i": 35,
+  "who": "O",
+  "text": "It's a percentage. Of everything I sell.",
+  "say": "It's a percentage. Of everything I sell."
+ },
+ {
+  "i": 36,
+  "who": "N",
+  "text": "Estimates put it around fourteen percent of sales, on top of a royalty of four to five percent. So before Gary pays himself a cent, roughly two dollars of Frank's eleven has already left the building.",
+  "say": "Estimates put it around fourteen percent of sales, on top of a royalty of four to five percent. So before Gary pays himself a cent, roughly two dollars of Frank's eleven has already left the building."
+ },
+ {
+  "i": 37,
+  "who": "F",
+  "text": "...Who's upstairs?",
+  "say": "...Who's upstairs?"
+ },
+ {
+  "i": 38,
+  "who": "N",
+  "text": "Suspect four. The Landlord.",
+  "say": "Suspect four. The Landlord."
+ },
+ {
+  "i": 39,
+  "who": "N",
+  "text": "Last year McDonald's collected about ten and a half billion dollars in rent from its restaurant owners. That's more than it made in royalties on the food, by a wide margin.",
+  "say": "Last year McDonald's collected about ten and a half billion dollars in rent from its restaurant owners. That's more than it made in royalties on the food, by a wide margin."
+ },
+ {
+  "i": 40,
+  "who": "N",
+  "text": "It owns the land under more than half of its restaurants and about four in five of the buildings. One estimate values the property at around a hundred and twenty billion dollars.",
+  "say": "It owns the land under more than half of its restaurants and about four in five of the buildings. One estimate values the property at around a hundred and twenty billion dollars."
+ },
+ {
+  "i": 41,
+  "who": "D",
+  "text": "Wait. So they're a landlord. That sells burgers on the side.",
+  "say": "Wait. So they're a landlord. That sells burgers on the side."
+ },
+ {
+  "i": 42,
+  "who": "N",
+  "text": "The line usually credited to the company's first finance chief, Harry Sonneborn, says it best: they are not really in the food business. They are in the real estate business.",
+  "say": "The line usually credited to the company's first finance chief, Harry Sonneborn, says it best: they are not really in the food business. They are in the real estate business."
+ },
+ {
+  "i": 43,
+  "who": "N",
+  "text": "And it shows. Most restaurants are happy to keep five or ten cents of each dollar. Last year the corporation kept about forty-six.",
+  "say": "And it shows. Most restaurants are happy to keep five or ten cents of each dollar. Last year the corporation kept about forty-six."
+ },
+ {
+  "i": 44,
+  "who": "F",
+  "text": "Forty-six cents?",
+  "say": "Forty-six cents?"
+ },
+ {
+  "i": 45,
+  "who": "N",
+  "text": "No fryers. No beef. No broken ice cream machine. Just the rent, the royalty and the name.",
+  "say": "No fryers. No beef. No broken ice cream machine. Just the rent, the royalty and the name."
+ },
+ {
+  "i": 46,
+  "who": "F",
+  "text": "So that's why my lunch went up.",
+  "say": "So that's why my lunch went up."
+ },
+ {
+  "i": 47,
+  "who": "N",
+  "text": "Careful, Frank. Not exactly.",
+  "say": "Careful, Frank. Not exactly."
+ },
+ {
+  "i": 48,
+  "who": "N",
+  "text": "Gary sets the price on that menu board, not the Landlord. And Gary raised it because his beef, his wages and his bills went up.",
+  "say": "Gary sets the price on that menu board, not the Landlord. And Gary raised it because his beef, his wages and his bills went up."
+ },
+ {
+  "i": 49,
+  "who": "O",
+  "text": "I didn't have a choice.",
+  "say": "I didn't have a choice."
+ },
+ {
+  "i": 50,
+  "who": "N",
+  "text": "But remember how the rent works. It's a percentage. So every time Gary raises a price to survive...",
+  "say": "But remember how the rent works. It's a percentage. So every time Gary raises a price to survive..."
+ },
+ {
+  "i": 51,
+  "who": "N",
+  "text": "...the Landlord gets a raise too. Without lifting a spatula.",
+  "say": "...the Landlord gets a raise too. Without lifting a spatula."
+ },
+ {
+  "i": 52,
+  "who": "F",
+  "text": "He makes money when prices go up.",
+  "say": "He makes money when prices go up."
+ },
+ {
+  "i": 53,
+  "who": "N",
+  "text": "He makes money when sales go up. For five years, higher prices did that job.",
+  "say": "He makes money when sales go up. For five years, higher prices did that job."
+ },
+ {
+  "i": 54,
+  "who": "N",
+  "text": "Until customers started doing what Frank is doing right now.",
+  "say": "Until customers started doing what Frank is doing right now."
+ },
+ {
+  "i": 55,
+  "who": "N",
+  "text": "This spring, visits to McDonald's in the US fell about four and a half percent from a year earlier, by one tracking firm's count. The company says lower-income customers across the industry have cut back sharply. Over a third of its visitors come from neighbourhoods where the typical household earns under fifty thousand dollars.",
+  "say": "This spring, visits to McDonald's in the U.S. fell about four and a half percent from a year earlier, by one tracking firm's count. The company says lower-income customers across the industry have cut back sharply. Over a third of its visitors come from neighbourhoods where the typical household earns under fifty thousand dollars."
+ },
+ {
+  "i": 56,
+  "who": "N",
+  "text": "So the company pushed an eight-dollar Big Mac meal and leaned on owners to hold prices down.",
+  "say": "So the company pushed an eight-dollar Big Mac meal and leaned on owners to hold prices down."
+ },
+ {
+  "i": 57,
+  "who": "O",
+  "text": "And I'm the one selling it.",
+  "say": "And I'm the one selling it."
+ },
+ {
+  "i": 58,
+  "who": "N",
+  "text": "Because a percentage of a cheaper burger is still a percentage.",
+  "say": "Because a percentage of a cheaper burger is still a percentage."
+ },
+ {
+  "i": 59,
+  "who": "F",
+  "text": "Food, three fifty. Workers, three ten. Bills and adverts, a dollar ninety. Gary, fifty cents.",
+  "say": "Food, three fifty. Workers, three ten. Bills and adverts, a dollar ninety. Gary, fifty cents."
+ },
+ {
+  "i": 60,
+  "who": "F",
+  "text": "And two dollars for the fella who owns the dirt.",
+  "say": "And two dollars for the fella who owns the dirt."
+ },
+ {
+  "i": 61,
+  "who": "N",
+  "text": "Nobody here broke a rule. It's all in the company's own filings. But it explains why fast food stopped being cheap, and why it's unlikely to be cheap again. The price was never just about the burger. It has to feed the cook, the owner and the landlord.",
+  "say": "Nobody here broke a rule. It's all in the company's own filings. But it explains why fast food stopped being cheap, and why it's unlikely to be cheap again. The price was never just about the burger. It has to feed the cook, the owner and the landlord."
+ },
+ {
+  "i": 62,
+  "who": "D",
+  "text": "So what do we do?",
+  "say": "So what do we do?"
+ },
+ {
+  "i": 63,
+  "who": "F",
+  "text": "Next time, we're packing sandwiches.",
+  "say": "Next time, we're packing sandwiches."
+ },
+ {
+  "i": 64,
+  "who": "F",
+  "text": "...It's pretty good, though.",
+  "say": "...It's pretty good, though."
+ },
+ {
+  "i": 65,
+  "who": "L",
+  "text": "See you next week, Frank.",
+  "say": "See you next week, Frank."
+ },
+ {
+  "i": 66,
+  "who": "N",
+  "text": "Next case: the seven-dollar coffee.",
+  "say": "Next case: the seven-dollar coffee."
+ }
+]

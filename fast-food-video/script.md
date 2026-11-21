@@ -108,15 +108,15 @@ Stage directions are in italics. Sources for every figure are in `fact-sheet.md`
 **N:** Until customers started doing what Frank is doing right now.
 *Frank stands with his arms crossed, not eating.*
 **N:** This spring, visits to McDonald's in the US fell about four and a half percent from a year earlier, by one tracking firm's count. The company says lower-income customers across the industry have cut back sharply. Over a third of its visitors come from neighbourhoods where the typical household earns under fifty thousand dollars.
-**N:** So the company pushed an eight-dollar Big Mac meal and leaned on owners to hold prices down.
-**O:** Guess who pays for the discount.
-**N:** The owners have complained about exactly that. Because a percentage of a cheaper burger is still a percentage.
+**N:** So the company pushed an eight-dollar Big Mac meal, and pledged to hold the line on prices.
+**O:** And I'm the one selling it.
+**N:** Because a percentage of a cheaper burger is still a percentage.
 
 ## Verdict
 
 *Frank reads his napkin like a judge.*
 
-**F:** Food, three fifty. Workers, three ten. Bills and adverts, a dollar seventy-five. Gary, fifty cents.
+**F:** Food, three fifty. Workers, three ten. Bills and adverts, a dollar ninety. Gary, fifty cents.
 *He looks at the Landlord.*
 **F:** And two dollars for the fella who owns the dirt.
 **N:** Nobody here broke a rule. It's all in the company's own filings. But it explains why fast food stopped being cheap, and why it's unlikely to be cheap again. The price was never just about the burger. It has to feed the cook, the owner and the landlord.
