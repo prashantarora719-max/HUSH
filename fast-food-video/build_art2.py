@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Flat-style Frank: embed the six poses plus blink variants in art2.js."""
+"""Flat-style cast: embed every cut-out in art2/ (plus blink variants of Frank's poses) in art2.js."""
 from PIL import Image, ImageDraw
 import numpy as np, base64, io, json, os
 from scipy import ndimage
@@ -23,4 +23,9 @@ for nm in ['stand', 'crossed', 'receipt', 'point', 'shrug', 'walk']:
         d.ellipse((x - R, y - R, x + R, y + R), fill=skin + (255,))
         d.arc((x - r * 1.7, y - r * 2.2, x + r * 1.7, y + r * .9), 25, 155, fill=(26, 34, 64, 255), width=5)
     out[nm + '-blink'] = uri(b)
+import glob
+for f in sorted(glob.glob(f'{HERE}/art2/*.png')):
+    k = os.path.basename(f)[:-4]
+    if not k.startswith('frank-') or 'face' in k: out[k] = uri(Image.open(f))
+    elif k[6:] in out: out[k] = out.pop(k[6:]); out[k + '-blink'] = out.pop(k[6:] + '-blink', out[k])
 open(f'{HERE}/art2.js', 'w').write('window.ART2=' + json.dumps(out) + ';\n')
