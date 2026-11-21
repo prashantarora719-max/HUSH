@@ -29,3 +29,35 @@
 ## Do not use
 - A site claiming McDonald's margins fell to 8 to 12%, a federal $18.50 wage floor and an FTC delivery-fee cap: unverified and contradicted by the company's own figures.
 - Single-store prices (such as a $7.59 Big Mac at one location) as if they were national.
+
+## Second check (November 21, 2026)
+
+Figures from search summaries of the linked pages. "Filing" means the company's own annual report.
+
+| Claim in script | Figure | Confidence | Source |
+|---|---|---|---|
+| Share of restaurants franchised | About 95% of 45,356 at end of 2025 | High: filing | [FY2025 10-K](https://www.sec.gov/Archives/edgar/data/63908/000006390826000035/mcd-20251231.htm) |
+| Rent collected from franchisees, 2025 | $10,442 million | High: filing | Same |
+| Royalties, 2025 | $6,018 million | High: filing | Same |
+| Operating margin, 2025 | Operating income $12,393m on revenue $26,885m, about 46% | High: company release, my division | [McDonald's Q4 2025 results](https://mcdonalds.mediaroom.com/2026-02-11-McDONALDS-REPORTS-FOURTH-QUARTER-AND-FULL-YEAR-2025-RESULTS) |
+| Property owned | About 56% of land and 80% of buildings in consolidated markets | Medium: secondary summaries of the filing; exact sentence not seen | [Motley Fool](https://www.fool.com/investing/2026/02/21/mcdonalds-120b-real-estate-portfolio-paves-the-way/) |
+| Property value | About $120 billion | Low: one outlet's estimate; say "one estimate" | Same |
+| Rent as share of franchisee sales | About 14% system average (estimate); historic 8.5%; up to 16% reported | Medium: trade press estimates, not a filing | [Restaurant Business](https://www.restaurantbusinessonline.com/financing/mcdonalds-premium-its-rent), [Tasting Table](https://www.tastingtable.com/2167355/percent-mcdonalds-locations-owned-franchisees/) |
+| Royalty | 4% long-standing; 5% for new US restaurants | Medium | [Restaurant Business](https://www.restaurantbusinessonline.com/financing/franchisees-revolt-against-mcdonalds-growing-fees) |
+| Advertising contribution | At least 4% of sales | Medium: 2022 franchise disclosure summary | [Franchise Chatter](https://www.franchisechatter.com/2022/09/22/fdd-talk-mcdonalds-franchise-costs-fees-average-revenues-and-or-profits-2022-review/) |
+| Typical restaurant costs | Food and paper about 30 to 33%; labour about 25 to 30%; about 8% left for the owner in one model | Low to medium: illustrative models, sources disagree. Label as illustration | Analyst models; McDonald's does not publish this |
+| "Real estate business" quote | Attributed to Harry Sonneborn; wording varies; no primary source found | Low for exact wording. Paraphrase with "usually credited to" | [Wikipedia](https://en.wikipedia.org/wiki/Harry_J._Sonneborn) |
+| US visits, Q2 2026 | Down 4.5% year over year | Medium: Placer.ai | [Placer.ai](https://www.placer.ai/anchor/articles/why-chipotle-and-mcdonalds-took-different-paths-in-q2-2026) |
+| Visitors from lower-income areas | 36.1% from areas with median household income under $50,000 | Medium: Placer.ai estimate | Same |
+| US same-store sales, Q3 2026 | Down 0.2% | Medium: trade press | [Nation's Restaurant News](https://www.nrn.com/quick-service/mcdonald-s-u-s-same-store-sales-decline-on-weak-traffic) |
+| Big Mac meal price | No national price. Samples: $9.45 average across several markets; $10.79 at one store. Frank's $11 is fictional | Medium | [Tasting Table](https://www.tastingtable.com/2205372/how-much-mcdonalds-big-mac-cost-1960s-vs-2026/) |
+| $8 Big Mac meal offer | Launched late 2025, still promoted September 2026 | Medium | [Fortune](https://fortune.com/2025/09/02/mcdonalds-slashes-prices-extra-value-meals-lower-income-consumer/) |
+
+### Still unverified, used in the script
+- California's $20 fast-food minimum wage from April 2024: from memory.
+- "Beef prices have climbed for years": general, no figure given.
+- Franchise owners complaining about funding discounts: reported in trade press; find a specific article before recording.
+- Who sets menu prices (franchisees, not the corporation): standard franchise practice; confirm in the franchise disclosure.
+
+### Frank's $11, as drawn (illustration only)
+Food and packaging $3.50 · labour $3.10 · rent and royalty $2.10 · adverts $0.45 · bills and other $1.30 · owner $0.55.
