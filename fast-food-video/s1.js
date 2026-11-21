@@ -7,10 +7,10 @@ const interrogation = (t, fn) => { g.fillStyle = '#141a3a'; g.fillRect(-200, -20
 
 // A. Frank walks in, the menu prices climb, the till rings up $11.00
 shot(0, t => {
-  const wp = pr(t, .2, 2.2), x = lerp(-180, FX, wp), tOrd = wt(0, 'ordered'), ring = tOrd + .9;
+  const wp = pr(t, .1, 1.45), x = lerp(-180, FX, wp), tOrd = wt(0, 'ordered'), ring = tOrd + .7;
   cam(lerp(880, 1060, oc(t / 5)), 560, lerp(1, 1.12, oc(t / 5)), () => {
-    room(t, { P: priceAt(oc(pr(t, .3, 2.6))), hot: t > .3 && t < 2.9, till: t < tOrd + .4 ? 0 : lerp(0, 11, oc(pr(t, tOrd + .4, .5))), trayX: t < tOrd - .1 ? null : lerp(2300, 1290, ob(pr(t, tOrd - .1, .4))) });
-    if (wp < 1) fig(t, 'frank-walk', x, FY, 640, { bob: 1 }); else fig(t, t > ring ? 'frank-receipt' : 'frank-stand', x, FY, FH, { land: t > ring ? ring : 2.4, ax: t > ring ? .72 : .5 });
+    room(t, { P: priceAt(oc(pr(t, .2, 1.9))), hot: t > .2 && t < 2.1, till: t < tOrd + .3 ? 0 : lerp(0, 11, oc(pr(t, tOrd + .3, .4))), trayX: t < tOrd - .1 ? null : lerp(2300, 1290, ob(pr(t, tOrd - .1, .4))) });
+    if (wp < 1) fig(t, 'frank-walk', x, FY, 640, { bob: 1 }); else fig(t, t > ring ? 'frank-receipt' : 'frank-stand', x, FY, FH, { land: t > ring ? ring : 1.55, ax: t > ring ? .72 : .5 });
   });
   big(t, 'THIS IS FRANK.', 560, 150, 150, '#fff', T0(0), { rot: -.03, out: tOrd });
   bubble(t, ['ELEVEN DOLLARS.'], 1560, 210, ring, 2000, 420, { size: 84, fill: '#e6ecff' });
@@ -56,15 +56,15 @@ shot(T0(5) - .1, t => { cam(840, 470, 1.55, () => { room(t, { trayX: 1290 }); fi
 // H. Danny: "Beef. Wages. Everything's expensive."
 shot(T0(6) - .1, t => {
   rays(t, '#3f6bff', '#1a2fb5'); bust(t, 'danny', 560, 1180, 1080, null, { rest: 'bored', noBlink: 1 });
-  ['BEEF.', 'WAGES.', 'EVERYTHING.'].forEach((s, k) => chip(t, s, 1300 + (k === 2 ? 40 : 0), 300 + k * 190, T0(6) + .15 + k * .45, [RED, YEL, '#fff'][k], k === 0 ? '#fff' : INK, 110, (k - 1) * .04));
+  ['BEEF.', 'WAGES.', 'EVERYTHING.'].forEach((s, k) => chip(t, s, 1300 + (k === 2 ? 40 : 0), 300 + k * 190, T0(6) + .12 + k * .36, [RED, YEL, '#fff'][k], k === 0 ? '#fff' : INK, 110, (k - 1) * .04));
 });
 // I. the man in the suit collects an envelope
 shot(T1(6) + .25, (t, lt) => {
-  const a = oc(pr(lt, 0, 1.1)), b = oc(pr(lt, 2.0, 1.1)), x = lerp(2250, 1420, a) + (lerp(1420, 2250, b) - 1420), give = lt > 1.15 && lt < 2.0;
-  cam(lerp(1000, 1150, oc(lt / 3)), 540, 1.18, () => { room(t, { trayX: 1290, behind: () => { fig(t, lt > 1.1 && lt < 2 ? 'landlord-stand' : 'landlord-walk', x, 965, 720, { flip: lt < 1.1, bob: lt < 1.1 || lt > 2, noShadow: 1 });
-    if (lt > 1.0) { const ex = lt < 2 ? lerp(1900, 1500, oc(pr(lt, 1.0, .35))) : x + 60; g.save(); g.translate(ex, 500 + Math.sin(t * 9) * 4); g.rotate(-.15); paper(); box(-60, -36, 120, 72, '#f4e3b0', 6, 6); paper(false); g.beginPath(); g.moveTo(-60, -36); g.lineTo(0, 8); g.lineTo(60, -36); g.lineWidth = 6; g.stroke(); label('$', 0, 16, 34, GRN); g.restore(); } } });
+  const a = oc(pr(lt, 0, .8)), b = oc(pr(lt, 1.5, .9)), x = lerp(2250, 1420, a) + (lerp(1420, 2250, b) - 1420), give = lt > .85 && lt < 1.5;
+  cam(lerp(1000, 1150, oc(lt / 3)), 540, 1.18, () => { room(t, { trayX: 1290, behind: () => { fig(t, lt > .8 && lt < 1.5 ? 'landlord-stand' : 'landlord-walk', x, 965, 720, { flip: lt < .8, bob: lt < .8 || lt > 1.5, noShadow: 1 });
+    if (lt > .75) { const ex = lt < 1.5 ? lerp(1900, 1500, oc(pr(lt, .75, .3))) : x + 60; g.save(); g.translate(ex, 500 + Math.sin(t * 9) * 4); g.rotate(-.15); paper(); box(-60, -36, 120, 72, '#f4e3b0', 6, 6); paper(false); g.beginPath(); g.moveTo(-60, -36); g.lineTo(0, 8); g.lineTo(60, -36); g.lineWidth = 6; g.stroke(); label('$', 0, 16, 34, GRN); g.restore(); } } });
     fig(t, 'danny-phone', 380, 915, 640, { ph: 1.3 }); fig(t, 'frank-crossed', FX, FY, FH, { flip: 0 }); });
-  if (give) big(t, '?', 400, 170, 220, YEL, T1(6) + 1.45, { slam: 1 });
+  if (give) big(t, '?', 400, 170, 220, YEL, T1(6) + 1.15, { slam: 1 });
 });
 // J. "...Who's that guy?"
 shot(T0(7) - .35, t => { rays(t, '#5a2bd6', '#1c0b55', .07); fig(t, 'frank-point', 700, 1500, 1250, { flip: 1, ax: .62, talk: speaking(7, t), noShadow: 1 }); big(t, "WHO'S THAT GUY?", 1330, 330, 150, '#fff', wt(7, 'Who')); });
@@ -87,7 +87,7 @@ shot(wt(8, 'We') - .08, t => {
 });
 // M. title card
 shot(T1(8) + .25, (t, lt) => { rays(t, '#ff5a4a', '#a3121c'); fig(t, 'frank-receipt', 500, 1260, 1150, { ax: .7, noShadow: 1 });
-  big(t, 'WHY FAST FOOD', 1240, 330, 200, '#fff', T1(8) + .35, { slam: 1 }); big(t, 'STOPPED BEING', 1240, 560, 200, '#fff', T1(8) + .7, { slam: 1 }); big(t, 'CHEAP', 1240, 820, 300, YEL, T1(8) + 1.1, { slam: 1, rot: -.04 }); });
+  big(t, 'WHY FAST FOOD', 1240, 330, 200, '#fff', T1(8) + .3, { slam: 1 }); big(t, 'STOPPED BEING', 1240, 560, 200, '#fff', T1(8) + .55, { slam: 1 }); big(t, 'CHEAP', 1240, 820, 300, YEL, T1(8) + .85, { slam: 1, rot: -.04 }); });
 // N. "Talk."
 shot(T0(9) - .45, t => { interrogation(t, () => { paper(); burger(1060, 730, .62); paper(false); }); fig(t, 'frank-crossed', 520, 1250, 1000, { flip: 1, noShadow: 1, talk: speaking(9, t) }); big(t, 'TALK.', 1480, 330, 260, '#fff', wt(9, 'Talk'), { slam: 1 }); });
 // O. Suspect one: the food
