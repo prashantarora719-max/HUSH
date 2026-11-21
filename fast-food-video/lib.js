@@ -7,6 +7,8 @@ const cl = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x)), lerp = (a, b, p) =>
 const ob = p => { p = cl(p); const c = 2.2; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
 const pr = (t, t0, d = .3) => cl((t - t0) / d);
 const bump = (t, t0, amt = .1, d = .2) => t < t0 ? 0 : amt * Math.exp(-(t - t0) / d) * Math.cos((t - t0) * 24);
+window.CUES = {}; const cue = (kind, t0) => { window.CUES[kind + '@' + t0.toFixed(2)] = 1; };
+const sfx = (t0, name) => cue(name, t0), hush = (a, b) => { window.CUES['hush@' + a.toFixed(2) + '@' + b.toFixed(2)] = 1; };
 const LN = {}; TL.lines.forEach(l => LN[l.i] = l);
 const T0 = i => LN[i].t0, T1 = i => LN[i].t1;
 // time a given word starts in line i (substring match, nth occurrence)
@@ -18,17 +20,17 @@ const paper = (on = true) => { g.shadowColor = on ? 'rgba(18,20,60,.38)' : 'tran
 const box = (x, y, w, h, f, r = 0, lw = 8) => { g.beginPath(); g.roundRect(x, y, w, h, r); g.fillStyle = f; g.fill(); if (lw) { g.lineWidth = lw; g.strokeStyle = INK; g.lineJoin = 'round'; g.stroke(); } };
 function label(s, x, y, size, col = '#fff', font = 'Anton', align = 'center') { g.font = `${font === 'Inter' ? '700 ' : ''}${size}px ${font}`; g.textAlign = align; g.textBaseline = 'middle'; g.fillStyle = col; g.fillText(s, x, y); }
 function big(t, s, x, y, size, fill, t0, o = {}) {
-  if (t < t0 || (o.out && t > o.out)) return; const e = o.slam ? lerp(2.4, 1, oc(pr(t, t0, .15))) : ob(pr(t, t0, .2));
+  cue(o.slam ? 'slam' : 'text', t0); if (t < t0 || (o.out && t > o.out)) return; const e = o.slam ? lerp(2.4, 1, oc(pr(t, t0, .15))) : ob(pr(t, t0, .2));
   g.save(); g.translate(x, y); g.rotate(o.rot || 0); g.scale(e, e); g.font = `${size}px ${o.font || 'Anton'}`; g.textAlign = o.align || 'center'; g.textBaseline = 'middle'; g.lineJoin = 'round'; g.lineWidth = size * .2; g.strokeStyle = INK;
   g.shadowColor = INK; g.shadowOffsetX = size * .06; g.shadowOffsetY = size * .08; g.strokeText(s, 0, 0); g.shadowColor = 'transparent'; g.fillStyle = fill; g.fillText(s, 0, 0); g.restore();
 }
 function chip(t, s, x, y, t0, fill = YEL, col = INK, size = 54, rot = -.03) {
-  if (t < t0) return; const e = ob(pr(t, t0, .2)); g.save(); g.translate(x, y); g.rotate(rot); g.scale(e, e); g.font = `${size}px Anton`; const w = g.measureText(s).width + 52;
+  cue('pop', t0); if (t < t0) return; const e = ob(pr(t, t0, .2)); g.save(); g.translate(x, y); g.rotate(rot); g.scale(e, e); g.font = `${size}px Anton`; const w = g.measureText(s).width + 52;
   paper(); g.beginPath(); g.roundRect(-w / 2, -size * .72, w, size * 1.44, 14); g.fillStyle = fill; g.fill(); paper(false); g.lineWidth = 7; g.strokeStyle = INK; g.stroke();
   g.fillStyle = col; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(s, 0, 4); g.restore();
 }
 function bubble(t, lines, x, y, t0, tx, ty, o = {}) {
-  if (t < t0 || (o.out && t > o.out)) return; const size = o.size || 92, e = ob(pr(t, t0, .2));
+  cue('pop', t0); if (t < t0 || (o.out && t > o.out)) return; const size = o.size || 92, e = ob(pr(t, t0, .2));
   g.save(); g.font = `${size}px Bangers`; const w = Math.max(...lines.map(l => g.measureText(l).width)) + 100, h = lines.length * size * 1.08 + 60;
   g.translate(x, y); g.scale(e, e); g.rotate(o.rot || -.03); g.lineJoin = 'round'; g.lineWidth = 10; g.strokeStyle = INK; g.fillStyle = o.fill || '#fff';
   const draw = () => { g.beginPath(); g.roundRect(-w / 2, -h / 2, w, h, 44); const ax = cl(tx - x, -w / 2 + 70, w / 2 - 70), dn = ty > y; g.moveTo(ax - 40, dn ? h / 2 - 4 : -h / 2 + 4); g.lineTo(tx - x, ty - y); g.lineTo(ax + 40, dn ? h / 2 - 4 : -h / 2 + 4); };
@@ -92,7 +94,7 @@ function room(t, o = {}) {
 }
 function tray(x, y, s, o = {}) { g.save(); g.translate(x, y); g.scale(s, s); paper(); box(-190, 0, 380, 26, '#b9c2d6', 12); paper(false); if (!o.noFood) { fries(-110, -36, .5); cup(120, -36, .5); burger(5, -28, o.tiny ? .2 : .26); } g.restore(); }
 const cam = (cx, cy, z, fn) => { g.save(); g.translate(W / 2, H / 2); g.scale(z, z); g.translate(-cx, -cy); fn(); g.restore(); };
-const SHOTS = []; const shot = (t0, fn) => SHOTS.push([t0, fn]);
+const SHOTS = []; const shot = (t0, fn) => { SHOTS.push([t0, fn]); cue('cut', t0); };
 function render(t) {
   SHOTS.sort((a, b) => a[0] - b[0]); let i = 0; while (i + 1 < SHOTS.length && SHOTS[i + 1][0] <= t) i++; const lt = t - SHOTS[i][0];
   g.setTransform(1, 0, 0, 1, 0, 0); paper(false); g.globalAlpha = 1; g.fillStyle = '#000'; g.fillRect(0, 0, W, H);
@@ -101,3 +103,30 @@ function render(t) {
   const D = TL.DUR; if (t > D - .5) { g.fillStyle = `rgba(0,0,0,${cl((t - (D - .5)) / .5)})`; g.fillRect(0, 0, W, H); }
 }
 window.render = render;
+
+// ---- shared scene pieces for the later sections ----
+// close-up of a speaking character on a ray background, with one optional line of big text
+function cu(who, i, c1, c2, o = {}) { shot((o.at ?? T0(i)) - .08, t => { rays(t, c1, c2, o.ra ?? .1); bust(t, who, o.x || 620, 1180, o.h || 1080, i, { rest: o.rest, wide: o.wide, flip: o.flip, shake: o.shake ? 9 * Math.exp(-(t - T0(i)) * 3) : 0, noBlink: o.noBlink });
+  if (o.text) big(t, o.text, o.tx || 1370, o.ty || 420, o.size || 150, o.col || '#fff', o.tw ?? T0(i) + .12, { slam: o.slam, rot: o.rot ?? -.03 }); if (o.text2) big(t, o.text2, o.tx || 1370, (o.ty || 420) + (o.size || 150) * 1.25, o.size2 || o.size || 150, o.col2 || YEL, o.tw2 ?? T0(i) + .5, { slam: 1, rot: .02 }); if (o.extra) o.extra(t); }); }
+// Gary has no face sheet: a large pose with a talk bounce
+function gcu(pose, i, o = {}) { shot((o.at ?? T0(i)) - .08, t => { office(t, 1.25, 700); fig(t, 'gary-' + pose, o.x || 640, 1330, 1150, { talk: speaking(i, t), noShadow: 1, land: T0(i) - .08 });
+  if (o.text) big(t, o.text, 1380, o.ty || 420, o.size || 150, '#fff', o.tw ?? T0(i) + .12, { slam: o.slam, rot: -.03 }); if (o.extra) o.extra(t); }); }
+function office(t, z = 1, cx = 960) { cam(cx, 540, z, () => { g.fillStyle = '#bfe3d0'; g.fillRect(-800, -400, W + 1600, 1300); g.fillStyle = '#aed8c2'; for (let i = -6; i < 18; i++) g.fillRect(i * 200, -400, 100, 1300);
+  g.fillStyle = '#8a6a4a'; g.fillRect(-800, 820, W + 1600, 700); g.lineWidth = 8; g.strokeStyle = INK; g.beginPath(); g.moveTo(-800, 820); g.lineTo(W + 800, 820); g.stroke();
+  paper(); box(1330, 150, 420, 300, '#d9b98a', 10); paper(false); [[1370, 190, .1], [1500, 200, -.08], [1620, 185, .05], [1400, 320, -.05], [1560, 330, .09]].forEach(([x, y, r], k) => { g.save(); g.translate(x + 50, y + 45); g.rotate(r); box(-50, -45, 100, 90, k % 2 ? '#fff' : '#ffe9a8', 4, 5); label(k % 2 ? 'DUE' : 'BILL', 0, 4, 30, RED); g.restore(); });
+  paper(); box(120, 380, 240, 440, '#7f8fb5', 8); paper(false); [400, 540, 680].forEach(y => { box(140, y, 200, 120, '#9fb0d6', 6, 6); box(215, y + 48, 50, 18, INK, 6, 0); });
+  box(560, 120, 320, 240, '#8fd3ff', 8); g.lineWidth = 8; g.beginPath(); g.moveTo(720, 120); g.lineTo(720, 360); g.moveTo(560, 240); g.lineTo(880, 240); g.stroke(); }); }
+function upstairs(t, z = 1, cx = 960) { cam(cx, 540, z, () => { g.fillStyle = '#0f3d33'; g.fillRect(-800, -400, W + 1600, 1300); g.fillStyle = '#0c342b'; for (let i = -6; i < 18; i++) g.fillRect(i * 220, -400, 110, 1300);
+  box(-800, 760, W + 1600, 30, '#d4a93a', 0, 6); g.fillStyle = '#3a2416'; g.fillRect(-800, 790, W + 1600, 700);
+  paper(); box(180, 120, 620, 440, '#9fd7ff', 10, 12); paper(false); g.fillStyle = '#5f8fd0'; [[220, 330, 80, 230], [320, 250, 110, 310], [450, 300, 90, 260], [560, 200, 120, 360], [690, 340, 80, 220]].forEach(([x, y, w, h]) => g.fillRect(x, y, w, h)); g.lineWidth = 12; g.strokeStyle = '#d4a93a'; g.strokeRect(180, 120, 620, 440);
+  paper(); box(1180, 150, 380, 300, '#d4a93a', 8, 8); paper(false); box(1205, 175, 330, 250, '#14493d', 4, 4); label('RENT', 1370, 270, 80, YEL); label('due monthly', 1370, 350, 34, '#fff', 'Inter'); }); }
+// the napkin: Frank's running tally. rows = [text, colour, time]
+function napkin(t, x, y, rows, s = 1) { g.save(); g.translate(x, y); g.rotate(.04); g.scale(s, s); paper(); box(-340, -330, 680, 660, '#fffdf5', 10, 8); paper(false); g.strokeStyle = 'rgba(0,0,0,.06)'; g.lineWidth = 3; for (let i = 0; i < 9; i++) { g.beginPath(); g.moveTo(-340, -260 + i * 70); g.lineTo(340, -260 + i * 70); g.stroke(); }
+  rows.forEach(([s2, c, t0], k) => { if (t0 > 0) sfx(t0, 'scribble'); if (t >= t0) label(s2, -290, -250 + k * 92, 70, c, 'Bangers', 'left'); }); g.restore(); }
+const BLUE = '#2343c9';
+// Frank's $11 as a bar. parts = [amount, colour, label, time]
+function bar11(t, x, y, w, h, parts) { paper(); box(x, y, w, h, '#c9d2e6', 18, 0); paper(false); g.save(); g.beginPath(); g.roundRect(x, y, w, h, 18); g.clip(); let a = 0; parts.forEach(([amt, c, lab, t0]) => { const p = oc(pr(t, t0, .4)), ww = w * amt / 11 * p; g.fillStyle = c; g.fillRect(x + w * a / 11, y, ww, h); if (p > .6) { label(lab, x + w * (a + amt / 2) / 11, y + h * .36, h * .26, '#fff'); label('$' + amt.toFixed(2), x + w * (a + amt / 2) / 11, y + h * .7, h * .3, '#fff'); } a += amt; }); g.restore(); g.lineWidth = 9; g.strokeStyle = INK; g.beginPath(); g.roundRect(x, y, w, h, 18); g.stroke(); }
+function xmark(t, x, y, r, t0) { if (t0 != null) cue('stamp', t0); if (t < t0) return; g.save(); g.translate(x, y); g.lineCap = 'round'; const p1 = oc(pr(t, t0, .1)), p2 = oc(pr(t, t0 + .1, .1)); for (const [w, c] of [[r * .34, INK], [r * .2, RED]]) { g.lineWidth = w; g.strokeStyle = c; g.beginPath(); g.moveTo(-r, -r); g.lineTo(-r + 2 * r * p1, -r + 2 * r * p1); g.stroke(); if (p2 > 0) { g.beginPath(); g.moveTo(r, -r); g.lineTo(r - 2 * r * p2, -r + 2 * r * p2); g.stroke(); } } g.restore(); }
+function coinIcon(x, y, r, lab = '$') { g.save(); g.translate(x, y); paper(); g.beginPath(); g.arc(0, 0, r, 0, 7); g.fillStyle = '#ffcf2e'; g.fill(); paper(false); g.lineWidth = r * .16; g.strokeStyle = INK; g.stroke(); label(lab, 0, r * .06, r * 1.0, INK); g.restore(); }
+const src = s => label(s, 960, 1048, 27, 'rgba(255,255,255,.92)', 'Inter');
+const dark = (t, c = '#16204d') => { g.fillStyle = c; g.fillRect(-200, -200, W + 400, H + 400); g.strokeStyle = 'rgba(255,255,255,.05)'; g.lineWidth = 3; for (let i = 0; i < 30; i++) { g.beginPath(); g.moveTo(i * 80, 0); g.lineTo(i * 80, H); g.stroke(); g.beginPath(); g.moveTo(0, i * 80); g.lineTo(W, i * 80); g.stroke(); } };

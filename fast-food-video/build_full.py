@@ -8,7 +8,7 @@ SR = 48000; HERE = os.path.dirname(os.path.abspath(__file__)); A = HERE + '/audi
 L = json.load(open(HERE + '/lines.json'))
 TAKE = lambda l: {'N': 'n0' if l['i'] < 21 else 'n1' if l['i'] < 43 else 'n2', 'F': 'f', 'L': 'l', 'D': 'd', 'O': 'o'}[l['who']]
 # pause after a line (seconds); extra beats where the picture needs room
-GAP = {0: .15, 6: 2.9, 7: .3, 8: 2.3, 9: .35, 14: .6}
+GAP = {0: .15, 6: 2.9, 7: .3, 8: 2.3, 9: .35, 14: .5, 20: .3, 21: .5, 32: 1.7, 37: 2.2, 42: .4, 46: .25, 47: .4, 53: .35, 58: .5, 60: .6, 61: .5, 64: 1.0, 65: 1.3}
 SPEED = {'N': 1.10, 'F': 1.15, 'L': 1.0, 'D': 1.08, 'O': 1.08}   # tempo lift per voice (pitch kept)
 wav, words = {}, {}
 def load(take):

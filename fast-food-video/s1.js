@@ -12,6 +12,7 @@ shot(0, t => {
     room(t, { P: priceAt(oc(pr(t, .2, 1.9))), hot: t > .2 && t < 2.1, till: t < tOrd + .3 ? 0 : lerp(0, 11, oc(pr(t, tOrd + .3, .4))), trayX: t < tOrd - .1 ? null : lerp(2300, 1290, ob(pr(t, tOrd - .1, .4))) });
     if (wp < 1) fig(t, 'frank-walk', x, FY, 640, { bob: 1 }); else fig(t, t > ring ? 'frank-receipt' : 'frank-stand', x, FY, FH, { land: t > ring ? ring : 1.55, ax: t > ring ? .72 : .5 });
   });
+  sfx(ring, 'register'); sfx(tOrd - .1, 'whoosh');
   big(t, 'THIS IS FRANK.', 560, 150, 150, '#fff', T0(0), { rot: -.03, out: tOrd });
   bubble(t, ['ELEVEN DOLLARS.'], 1560, 210, ring, 2000, 420, { size: 84, fill: '#e6ecff' });
 });
@@ -23,7 +24,7 @@ shot(T0(1) - .1, t => {
 // C. "For a burger, fries and a drink?"
 shot(wt(1, 'For') - .08, t => {
   rays(t, '#ffd84a', '#ff9d1c'); g.save(); g.translate(960, 760); g.scale(3.2, 3.2); tray(0, 0, 1, { noFood: 1 }); g.restore();
-  [['burger', burger, 960, 690, .62, 'BURGER'], ['fries', fries, 520, 640, 1.5, 'FRIES'], ['drink', cup, 1400, 640, 1.45, 'DRINK']].forEach(([w, fn, x, y, s, lab], k) => { const t0 = wt(1, w); if (t < t0) return; const e = ob(pr(t, t0, .2));
+  [['burger', burger, 960, 690, .62, 'BURGER'], ['fries', fries, 520, 640, 1.5, 'FRIES'], ['drink', cup, 1400, 640, 1.45, 'DRINK']].forEach(([w, fn, x, y, s, lab], k) => { const t0 = wt(1, w); cue('pop', t0); if (t < t0) return; const e = ob(pr(t, t0, .2));
     g.save(); g.translate(x, y); g.scale(e, e); g.translate(-x, -y); paper(); fn(x, y, s); paper(false); g.restore(); chip(t, lab, x, 330 + (k === 0 ? -60 : 0), t0 + .08, '#fff', INK, 70, (k - 1) * .04); });
 });
 // D. Danny: "That's what they cost, Grandpa."
@@ -39,7 +40,7 @@ shot(T0(3) - .1, t => {
   paper(); g.beginPath(); [[-250, 0, 190], [-60, -110, 200], [180, -60, 210], [260, 110, 180], [40, 160, 200], [-180, 140, 180]].forEach(([x, y, r]) => { g.moveTo(x + r, y); g.arc(x, y, r, 0, 7); }); g.fillStyle = '#fff'; g.fill(); paper(false); g.lineWidth = 18; g.strokeStyle = INK; g.stroke(); g.fill();
   burger(-120, 40, .75, -.06); const td = wt(3, 'dollar'); if (t >= td) { const q = ob(pr(t, td, .25)); g.save(); g.translate(220, 20); g.rotate(.12); g.scale(q, q); box(-150, -95, 300, 190, YEL, 20, 10); label('$1', 0, 6, 150, INK); g.restore(); }
   g.restore();
-  big(t, 'NOPE.', 1340, 420, 300, RED, wt(4, 'wasn') + .1, { slam: 1, rot: -.12 });
+  sfx(wt(3, 'dollar'), 'coin'); big(t, 'NOPE.', 1340, 420, 300, RED, wt(4, 'wasn') + .1, { slam: 1, rot: -.12 });
 });
 // F. menu board: +40% between 2019 and 2024
 shot(wt(4, 'McDonald') - .1, t => {
@@ -48,7 +49,7 @@ shot(wt(4, 'McDonald') - .1, t => {
   g.fillStyle = '#16204d'; g.fillRect(-100, 640, W + 200, 600); g.fillStyle = YEL; g.fillRect(-100, 640, W + 200, 14);
   big(t, "McDONALD'S MENU PRICES", 660, 770, 104, '#fff', wt(4, 'McDonald'));
   big(t, t < wt(4, 'twenty', 1) ? '2019' : '2024', 330, 930, 130, YEL, wt(4, 'nineteen') - .25, { rot: -.04 });
-  big(t, '+40%', 1520, 860, 260, YEL, b, { slam: 1, rot: -.05 });
+  big(t, '+40%', 1520, 860, 260, YEL, b, { slam: 1, rot: -.05 }); sfx(b + .05, 'register');
   label("Average menu price, 2019 to 2024 · Source: McDonald's", 660, 1040, 28, 'rgba(255,255,255,.92)', 'Inter');
 });
 // G. "So where's it all going?"
@@ -64,6 +65,7 @@ shot(T1(6) + .25, (t, lt) => {
   cam(lerp(1000, 1150, oc(lt / 3)), 540, 1.18, () => { room(t, { trayX: 1290, behind: () => { fig(t, lt > .8 && lt < 1.5 ? 'landlord-stand' : 'landlord-walk', x, 965, 720, { flip: lt < .8, bob: lt < .8 || lt > 1.5, noShadow: 1 });
     if (lt > .75) { const ex = lt < 1.5 ? lerp(1900, 1500, oc(pr(lt, .75, .3))) : x + 60; g.save(); g.translate(ex, 500 + Math.sin(t * 9) * 4); g.rotate(-.15); paper(); box(-60, -36, 120, 72, '#f4e3b0', 6, 6); paper(false); g.beginPath(); g.moveTo(-60, -36); g.lineTo(0, 8); g.lineTo(60, -36); g.lineWidth = 6; g.stroke(); label('$', 0, 16, 34, GRN); g.restore(); } } });
     fig(t, 'danny-phone', 380, 915, 640, { ph: 1.3 }); fig(t, 'frank-crossed', FX, FY, FH, { flip: 0 }); });
+  sfx(T1(6) + 1.0, 'pop'); sfx(T1(6) + 1.15, 'boing'); sfx(T1(6) + 1.7, 'keys'); hush(T1(6) + .25, wt(8, 'Somebody') - .1); hush(T1(8) + 2.0, T0(10) - .1);
   if (give) big(t, '?', 400, 170, 220, YEL, T1(6) + 1.15, { slam: 1 });
 });
 // J. "...Who's that guy?"
@@ -72,14 +74,14 @@ shot(T0(7) - .35, t => { rays(t, '#5a2bd6', '#1c0b55', .07); fig(t, 'frank-point
 shot(wt(8, 'Somebody') - .08, t => {
   rays(t, '#ffd84a', '#ff9d1c'); g.save(); g.translate(960, 820); g.scale(2.4, 2.4); tray(0, 0, 1, {}); g.restore();
   const t0 = wt(8, 'taking'); for (let k = 0; k < 11; k++) { const q = oc(pr(t, t0 + k * .07, .9)); if (t < t0 + k * .07) continue; bill(lerp(960 + (k - 5) * 30, 2300, q * q), lerp(600, 100 + k * 30, q) - Math.sin(q * 3.1) * 220, 1.1, k * .5 + q * 4); }
-  big(t, 'YOUR $11', 960, 220, 220, '#fff', wt(8, 'eleven') - .1, { slam: 1 });
+  sfx(wt(8, 'taking'), 'whoosh'); big(t, 'YOUR $11', 960, 220, 220, '#fff', wt(8, 'eleven') - .1, { slam: 1 });
 });
 // L. four suspects
 shot(wt(8, 'We') - .08, t => {
   g.fillStyle = '#16204d'; g.fillRect(-200, -200, W + 400, H + 400); g.strokeStyle = 'rgba(255,255,255,.06)'; g.lineWidth = 3; for (let i = 0; i < 30; i++) { g.beginPath(); g.moveTo(i * 80, 0); g.lineTo(i * 80, H); g.stroke(); g.beginPath(); g.moveTo(0, i * 80); g.lineTo(W, i * 80); g.stroke(); }
   big(t, 'FOUR SUSPECTS', 960, 120, 130, YEL, wt(8, 'four'));
   const hl = wt(8, 'never'); [['THE FOOD', null], ['THE WORKERS', 'gary-stand'], ['THE OWNER', 'gary-shrug'], ['???', 'landlord-keys']].forEach(([lab, im], k) => {
-    const t0 = wt(8, 'four') + .15 + k * .22; if (t < t0) return; const e = ob(pr(t, t0, .25)), x = 300 + k * 440, hot = k === 3 && t > hl;
+    const t0 = wt(8, 'four') + .15 + k * .22; cue('pop', t0); if (t < t0) return; const e = ob(pr(t, t0, .25)), x = 300 + k * 440, hot = k === 3 && t > hl;
     g.save(); g.translate(x + (hot ? Math.sin(t * 50) * 5 * Math.exp(-(t - hl) * 4) : 0), 600); g.rotate((k - 1.5) * .03); g.scale(e * (hot ? 1.1 : 1), e * (hot ? 1.1 : 1)); paper(); box(-185, -320, 370, 640, hot ? YEL : CRM, 18, 10); paper(false);
     box(-150, -285, 300, 420, '#c9d2e6', 8, 6); g.save(); g.beginPath(); g.rect(-150, -285, 300, 420); g.clip(); if (im) silhouette(im, 0, 300, 560); else { g.save(); g.translate(0, -60); g.scale(.75, .75); burger(0, 0, 1); g.restore(); } g.restore();
     label(lab, 0, 210, 62, INK); label('SUSPECT ' + (k + 1), 0, 275, 34, RED); g.restore(); });
@@ -111,11 +113,11 @@ shot(T0(12) - .1, t => {
 shot(T0(13) - .1, t => {
   rays(t, '#ffb347', '#d9571a', .12); bust(t, 'frank', 520, 1180, 1050, 13, { rest: 'angry' });
   g.save(); g.translate(1340, 560); g.rotate(.05); paper(); box(-330, -300, 660, 600, '#fffdf5', 10, 8); paper(false); g.strokeStyle = 'rgba(0,0,0,.06)'; g.lineWidth = 3; for (let i = 0; i < 9; i++) { g.beginPath(); g.moveTo(-330, -240 + i * 66); g.lineTo(330, -240 + i * 66); g.stroke(); }
-  const ink = '#2343c9'; if (t >= wt(13, 'Three')) label('Food ....... $3.50', 0, -150, 76, ink, 'Bangers'); if (t >= wt(13, 'paid')) { label('I PAID ..... $11.00', 0, 0, 76, RED, 'Bangers'); label('???', 0, 150, 110, ink, 'Bangers'); } g.restore();
+  sfx(wt(13, 'Three'), 'scribble'); sfx(wt(13, 'paid'), 'scribble'); const ink = '#2343c9'; if (t >= wt(13, 'Three')) label('Food ....... $3.50', 0, -150, 76, ink, 'Bangers'); if (t >= wt(13, 'paid')) { label('I PAID ..... $11.00', 0, 0, 76, RED, 'Bangers'); label('???', 0, 150, 110, ink, 'Bangers'); } g.restore();
 });
 // S. guilty, but only of $3.50
 shot(T0(14) - .1, t => {
   interrogation(t, () => { paper(); burger(1060, 700, .8); paper(false); }); chip(t, 'SUSPECT 1: THE FOOD', 560, 130, 0, RED, '#fff', 84, -.03);
-  const tg = wt(14, 'guilty'); if (t >= tg) { const e = lerp(2.6, 1, oc(pr(t, tg, .14))); g.save(); g.translate(1060, 560); g.rotate(-.16); g.scale(e, e); g.lineWidth = 16; g.strokeStyle = RED; g.strokeRect(-330, -110, 660, 220); label('GUILTY', 0, 8, 190, RED); g.restore(); }
+  const tg = wt(14, 'guilty'); sfx(tg, 'stamp'); if (t >= tg) { const e = lerp(2.6, 1, oc(pr(t, tg, .14))); g.save(); g.translate(1060, 560); g.rotate(-.16); g.scale(e, e); g.lineWidth = 16; g.strokeStyle = RED; g.strokeRect(-330, -110, 660, 220); label('GUILTY', 0, 8, 190, RED); g.restore(); }
   const tb = wt(14, 'only'); if (t >= tb) { const p = oc(pr(t, tb, .5)); paper(); box(310, 900, 1300, 90, '#c9d2e6', 16, 8); paper(false); g.fillStyle = RED; g.beginPath(); g.roundRect(310, 900, 1300 * 3.5 / 11 * p, 90, 16); g.fill(); g.lineWidth = 8; g.strokeStyle = INK; g.beginPath(); g.roundRect(310, 900, 1300, 90, 16); g.stroke(); label('$3.50', 310 + 205, 948, 60, '#fff'); label('$7.50 still missing', 1170, 948, 56, INK); }
 });

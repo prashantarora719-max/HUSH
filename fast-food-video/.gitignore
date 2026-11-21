@@ -3,3 +3,5 @@ audio/*.wav
 audio/*.m4a
 *.mp4
 art2.js
+audio/**/*.wav
+cues.json
