@@ -34,9 +34,14 @@ for a, b in [(0, wt(0, 'Oil') - .2), (wt(0, 'In', 1) - .5, wt(0, 'Forty') - .3),
 k = int(.8 * SR); ag = np.convolve(ag, np.ones(k) / k, 'same'); amb *= ag * .22
 # score: ducked under the voice, cut to silence while the line goes down, back on "water"
 m = dec(HERE + '/audio/music-open.mp3', trim=False); music = np.zeros(N + len(m))
-music[:len(m)] += m   # cold open cue
+# cold open, re-cut like a trailer: a few seconds of quiet, then the driving section of the cue from second four, rising twice and landing on the title
+tt_title = CH[0]['t1'] + .7; XFm = int(.8 * SR)
+def lay(t0, a, b, g=1.0):
+    seg = m[int(a * SR):int(b * SR)].copy(); seg[:XFm] *= np.linspace(0, 1, XFm); seg[-XFm:] *= np.linspace(1, 0, XFm); i = int(t0 * SR); music[i:i + len(seg)] += seg * g
+t_end = tt_title - 14.5; t_mid = t_end - 14.3
+lay(0, 0, 4.3); lay(3.5, 8, 8 + (t_mid - 3.5) + .8, .95); lay(t_mid, 40, 55.1); lay(t_end, 40, 59)
 m1 = dec(HERE + '/audio/music-ch1.mp3', trim=False); pos = int((CH[1]['t0'] - 1.2) * SR); m1 = m1[:len(music) - pos]; music[pos:pos + len(m1)] += m1 * 1.05   # chapter 1: the driving case-file cue
-music = music[:N]; gate = np.ones(N); gate[(tt > wt(0, 'drained') + .3) & (tt < wt(0, 'Forty') - .05)] = .05; gate[(tt > CH[0]['t1'] + 3.2) & (tt < CH[1]['t0'] - 1.2)] = 0; gate[(tt > wt(1, 'exist') + .1) & (tt < wt(1, 'Two', 1) - 1.2)] = .12; k = int(.3 * SR); gate = np.convolve(gate, np.ones(k) / k, 'same')
+music = music[:N]; gate = np.ones(N); gate[(tt > wt(0, 'Forty') - .55) & (tt < wt(0, 'Forty') - .03)] = .15; gate[(tt > CH[0]['t1'] + 3.2) & (tt < CH[1]['t0'] - 1.2)] = 0; gate[(tt > wt(1, 'exist') + .1) & (tt < wt(1, 'Two', 1) - 1.2)] = .12; k = int(.3 * SR); gate = np.convolve(gate, np.ones(k) / k, 'same')
 e = np.sqrt(np.convolve(voice ** 2, np.ones(int(.3 * SR)) / int(.3 * SR), 'same')); music *= gate * (1 - .5 * np.clip(e / .12, 0, 1)) * .46 * np.clip(tt / 1.5, 0, 1) * np.clip((DUR - tt) / 2.5, 0, 1)
 mix = np.tanh((voice + sfx + amb + music) * 1.1) / 1.1; print('peak', round(float(np.abs(mix).max()), 3))
 o = wave.open(HERE + '/audio/film-mix.wav', 'wb'); o.setnchannels(1); o.setsampwidth(2); o.setframerate(SR); o.writeframes((np.clip(mix, -1, 1) * 32767).astype(np.int16).tobytes()); o.close()
