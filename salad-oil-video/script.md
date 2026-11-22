@@ -5,21 +5,29 @@ Every figure is in `fact-sheet.md` under "Verified from sources". Lines marked â
 
 ---
 
-## Cold open
+## Cold open (trailer version, recorded)
 
-For six years, men climbed these tanks in Bayonne, New Jersey, lowered a measuring line through the hatch, and wrote down what they saw.
+In November 1963, men drained a storage tank in New Jersey that was supposed to hold a fortune in salad oil.
 
-Oil. Hundreds of millions of pounds of it.
+It was full of sea water.
 
-American Express put its name on the paperwork. Fifty-one banks and companies lent a fortune against it.
+On paper, this one yard held as much vegetable oil as existed in the entire United States.
 
-In November 1963, somebody finally drained the tanks.
+Fifty-one banks and companies had lent against it. American Express had vouched for it.
 
-Forty feet of water. Two feet of oil, floating on top.
+Somebody phoned to warn them. Twice.
 
-On paper, this one yard held as much vegetable oil as existed in the entire United States. Within a week, a Wall Street firm with twenty thousand customers was dead, American Express was fighting for its name, and the man behind it all, a former butcher from the Bronx, was nowhere to be found.
+One tank on the books did not exist at all.
 
-This is how he did it. And why, for six years, nobody looked down.
+In five weeks, one man wrote himself thirty-nine million dollars, on a stolen pad of receipts.
+
+A Wall Street firm with twenty thousand customers went under, on the afternoon the President was shot.
+
+In the company's office, they found six dollars.
+
+And a thirty-three-year-old in Omaha made the bet of his life.
+
+The man behind it was a butcher from the Bronx. This is how he fooled all of them. And why, for six years, nobody looked down.
 
 ## 1. The butcher
 
