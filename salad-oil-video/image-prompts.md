@@ -4,7 +4,7 @@ Generate each as a wide 16:9 image. Paste the **style line** at the end of every
 
 **Style line**
 ```text
-Cinematic painted illustration, wide 16:9, visible brushwork, film grain, deep teal and navy shadows with warm amber light, moody documentary reconstruction style. People are seen from behind or in silhouette with no recognisable faces. No text, no readable signs, no logos.
+Cinematic realistic digital painting, wide 16:9, fine detail with only subtle brushwork (not thick impasto, not Van Gogh style), film grain, deep teal and navy shadows with warm amber light, moody 1960s documentary reconstruction. People are seen from behind or in silhouette with no recognisable faces. No text, no readable signs, no logos.
 ```
 
 ## Cold open
